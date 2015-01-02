@@ -9,9 +9,11 @@ English
 ##How To Install/Run
 ```
  install apm or nginx
- cd /var/www (based on Apache) 
- git clone https://github.com/becxer/wikilite.git
- mv wikilite.git wikilite
+ install git
+ 
+ $cd /var/www (based on Apache) 
+ $git clone https://github.com/becxer/wikilite.git
+ $mv wikilite.git wikilite
 ```
 
 ##Functions of Wikilite
@@ -22,6 +24,9 @@ English
  * It does not use any DBMS at all.
  * Uses markdown grammar.
 
+
+--------------------------------------------------------------
+
 Korean
 --
 ##wikilite 란?
@@ -30,9 +35,11 @@ Korean
 ##설치 및 실행방법
 ```
  install apm or nginx
- cd /var/www (based on Apache) 
- git clone https://github.com/becxer/wikilite.git
- mv wikilite.git wikilite
+ install git
+ 
+ $cd /var/www (based on Apache) 
+ $git clone https://github.com/becxer/wikilite.git
+ $mv wikilite.git wikilite
 ```
 
 ##wikilite 의 기능
