@@ -7,6 +7,10 @@ wikilite
 ##Development issues
 [to go github issues, click me](https://github.com/becxer/wikilite/issues)
 
+##History
+[wikilite-0.0.2] YongJunKim, HyeokOh, SeoHyeonBaek has remaked wikilte with node.js and kick out php.
+[wikilite-0.0.1] established with codeigniter 
+
 ##How To Install/Run (Example for Ubuntu/Debian)
 ```
  1)install node.js
@@ -39,6 +43,10 @@ wikilite
 
 ##개발 이슈
 [개발 이슈보기는 이곳을 클릭하세요](https://github.com/becxer/wikilite/issues)
+
+##개발 이력
+[wikilite-0.0.2] YongJunKim, HyeokOh, SeoHyeonBaek 이 PHP를 아웃 시키고, 노드로 다시 만듬
+[wikilite-0.0.1] SeoHyeonBaek 이 코드이그나이터로 만듬
 
 ##설치 및 실행방법(우분투/데비안 리눅스 기준)
 
