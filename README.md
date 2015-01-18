@@ -4,6 +4,9 @@ wikilite
 ##What is wikilite
  * The project 'wikilite' starts on the think that wants to use simple todo list editor having wiki's features. It uses 'markdown' grammar like git wiki, and specialized for individual uses.
 
+##Development issues
+[to go github issues, click me](https://github.com/becxer/wikilite/issues)
+
 ##How To Install/Run (Example for Ubuntu/Debian)
 ```
  1)install node.js
@@ -33,6 +36,9 @@ wikilite
 
 ##wikilite 란?
  * wikilite는 위키같은 할일 메모장을 사용하고 싶은 마음에서 시작되었습니다. 개인화된 위키를 지향하며 markdown문법을 사용합니다.
+
+##개발 이슈
+[개발 이슈보기는 이곳을 클릭하세요](https://github.com/becxer/wikilite/issues)
 
 ##설치 및 실행방법(우분투/데비안 리눅스 기준)
 
