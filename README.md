@@ -6,14 +6,20 @@ English
 ##What is wikilite
  * The project 'wikilite' starts on the think that wants to use simple todo list editor having wiki's features. It uses 'markdown' grammar like git wiki, and specialized for individual uses.
 
-##How To Install/Run
+##How To Install/Run (Example for Ubuntu/Debian)
 ```
- install apm or nginx
- install git
+ 1)install node.js
+ $sudo apt-get install nodejs
+ $sudo apt-get install npm
  
- $cd /var/www (based on Apache) 
+ 2)clone git
  $git clone https://github.com/becxer/wikilite.git
- $mv wikilite.git wikilite
+ $npm install
+ $npm start
+
+ 3)check in browser
+ http://localhost:3000 or http://[YOURADDRESS]:3000
+ 
 ```
 
 ##Functions of Wikilite
@@ -32,14 +38,20 @@ Korean
 ##wikilite 란?
  * wikilite는 위키같은 할일 메모장을 사용하고 싶은 마음에서 시작되었습니다. 개인화된 위키를 지향하며 markdown문법을 사용합니다.
 
-##설치 및 실행방법
+##설치 및 실행방법(우분투/데비안 리눅스 기준)
+
 ```
- install apm or nginx
- install git
+ 1)node.js 설치
+ $sudo apt-get install nodejs
+ $sudo apt-get install npm
  
- $cd /var/www (based on Apache) 
+ 2)git 클론
  $git clone https://github.com/becxer/wikilite.git
- $mv wikilite.git wikilite
+ $npm install
+ $npm start
+
+ 3)브라우저에서 확인하기
+ http://localhost:3000 or http://[YOURADDRESS]:3000
 ```
 
 ##wikilite 의 기능
