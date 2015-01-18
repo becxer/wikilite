@@ -21,6 +21,7 @@ wikilite
  
  2)clone git
  $git clone https://github.com/becxer/wikilite.git
+ $cd wikilite
  $npm install
  $npm start
 
@@ -61,6 +62,7 @@ wikilite
  
  2)git 클론
  $git clone https://github.com/becxer/wikilite.git
+ $cd wikilite
  $npm install
  $npm start
 
