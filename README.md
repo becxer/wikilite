@@ -20,7 +20,7 @@ English
  * Documentation
   * markdown rendering
 
-##Features of wikinote
+##Features of wikilite
  * It does not use any DBMS at all.
  * Uses markdown grammar.
 
