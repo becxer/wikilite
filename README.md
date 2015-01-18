@@ -46,6 +46,6 @@ Korean
  * 문서 작성
   * markdown 렌더링
 
-##wikinote의 특징
+##wikilite의 특징
  * DB를 전혀사용하지 않는다.
  * markdown문법을 사용한다.
