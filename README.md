@@ -9,7 +9,7 @@ wikilite
 
 ##History
 
-[wikilite-0.0.2] YongJunKim, HyeokOh, SeoHyeonBaek has remaked wikilte with node.js and kick out php.
+[wikilite-0.0.2] YongJunKim, HyeokOh, SeoHyeonBaek has remaked with node.js and kick out php.
 
 [wikilite-0.0.1] SeoHyeonBaek established with codeigniter 
 
