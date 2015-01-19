@@ -18,6 +18,7 @@ for (i in projects){
     }
 }
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var mds = [];
@@ -33,7 +34,7 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET tab page. */
-router.get('/:dir/', function(req, res){
+router.get('/:dir', function(req, res){
     var mdpath = abpath + "/"+ req.params.dir;
     var projects = fs.readdirSync(mdpath);
     var mds= [];
@@ -64,7 +65,6 @@ router.get('/:dir/:md', function(req,res){
     var mds = [];
     var mdsname= [];
 
-    console.log(fs.exists(mdpath));
     if(dirs.indexOf(dirname) != -1 && fs.existsSync(mdpath)){
         var content = fs.readFileSync(mdpath,'utf-8');
         var html = markdown.toHTML(content);

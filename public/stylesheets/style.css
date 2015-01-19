@@ -38,6 +38,10 @@ a, a:visited {
 	margin: 1em;
 }
 
+.mds dd{
+	margin: 0 10px 0 10px;
+}
+
 .mds dl, .mds dt{
 	margin: 0;
 }

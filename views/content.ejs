@@ -1,10 +1,11 @@
-
+<!--for문을 맨 밖으로 꺼내서 md파일을 보여주면서 뉴스피드화--> 
 <% for (i in mds) { %>	
 	<div class='mds'>
 		<dl>
 			<dt><b><%=mdname[i]%></b></dt>
 			<dd><%-mds[i]%></dd>
 		</dl>
+		<!--피드별 url을 생성해주는 스크립트 -->
 		<div class='link'>URL : 
 			<script type="text/javascript">
 				var currentPage = location.href;
