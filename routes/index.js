@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
     var html = markdown.toHTML(content);
     mds.push(html);
 
-	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname},);
+	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
 });
 
 /* GET Tab page. */
@@ -52,8 +52,5 @@ router.get('/:dir', function(req, res){
 
     res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
 });
-
-
-
 
 module.exports = router;
