@@ -1,3 +1,4 @@
+
 <% for (i in mds) { %>	
 	<div class='mds'>
 		<dl>
@@ -7,12 +8,10 @@
 		<div class='link'>URL : 
 			<script type="text/javascript">
 				var currentPage = location.href;
-				
-				if(currentPage.indexOf(encodeURIComponent("<%=mdname[i]%>")) == -1)
-					document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
-				else
-					document.write("<a href='"+currentPage+"'>"+currentPage+"</a>");
 
+				if(currentPage.indexOf(encodeURIComponent("<%=mdname[i]%>")) != -1)
+					currentPage = location.href.substring(0,location.href.lastIndexOf("/"));
+				document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
 			</script>
 		</div> 
 	</div>
