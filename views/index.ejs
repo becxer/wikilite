@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<title></title>
+	<title>WikiLite</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
 	<nav class='dirs'>
+		<a href='/' id='title'>WikiLite</a>
 		<% for (var i=0; i<dirs.length; i++) { %>
-			<p><%=dirs[i]%></p> 
+			<a href='/<%=dirs[i]%>'><%=dirs[i]%></a> 
 		<% } %>
 	</nav>
 
-	<div class='mds'>
-		<% for (i in mds) { %>	
-			<%-mds[i].replace("\"","")%>
-		<% } %>
-	</div>
+	<!-- content.ejs에서 md파일을 읽음 -->
+	<% include content %>
+	
   </body>
 </html>
