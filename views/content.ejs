@@ -6,9 +6,11 @@
 		</dl>
 		<div class='link'>URL : 
 			<script type="text/javascript">
-				var currentPage = unescape(location.href);
+				var currentPage = location.href;
 
-				if((currentPage.indexOf("<%=mdname[i]%>")) == -1)
+				alert(location.href);
+
+				if(currentPage.indexOf(encodeURIComponent("<%=mdname[i]%>")) == -1)
 					document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
 				else
 					document.write("<a href='"+currentPage+"'>"+currentPage+"</a>");
