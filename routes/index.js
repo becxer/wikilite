@@ -1,8 +1,8 @@
 var express = require('express');
 var fs = require('fs');
 var markdown = require('markdown').markdown;
-var abpath = './projects';
 var router = express.Router();
+var abpath = './projects';
 
 
 /* READ dir list */
@@ -21,17 +21,19 @@ for (i in projects){
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var mds = [];
-    var mdsname=[];
-    mdsname.push("README.md")
+    var mdsname =[];
+    var links = [];
+
+    mdsname.push("README")
     var content = fs.readFileSync('./README.md','utf-8');
     var html = markdown.toHTML(content);
     mds.push(html);
-
+    
 	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
 });
 
-/* GET Tab page. */
-router.get('/:dir', function(req, res){
+/* GET tab page. */
+router.get('/:dir/', function(req, res){
     var mdpath = abpath + "/"+ req.params.dir;
     var projects = fs.readdirSync(mdpath);
     var mds= [];
@@ -53,5 +55,28 @@ router.get('/:dir', function(req, res){
 
     res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
 });
+
+/* GET MD in url page */
+router.get('/:dir/:md', function(req,res){
+    var dirname = req.params.dir;
+    var mdname = req.params.md;
+    var mdpath = abpath + "/"+ dirname + "/" + mdname + ".md";
+    var mds = [];
+    var mdsname= [];
+
+    console.log(fs.exists(mdpath));
+    if(dirs.indexOf(dirname) != -1 && fs.existsSync(mdpath)){
+        var content = fs.readFileSync(mdpath,'utf-8');
+        var html = markdown.toHTML(content);
+        mds.push(html);
+        mdsname.push(mdname);
+        res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
+
+    }
+    else
+        res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':""});           
+    
+});
+
 
 module.exports = router;

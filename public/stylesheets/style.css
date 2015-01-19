@@ -49,3 +49,11 @@ a, a:visited {
 	padding-left: 1em;
 	font-size: 1.3em;
 }
+.link{
+	border-radius: 0 0 5px 5px;
+	padding: 0.5em;
+	border-bottom: 1px solid #D5D5D5;
+	background-color: #EAEAEA;
+	padding-left: 1em;
+	font-size: 1em;
+}
