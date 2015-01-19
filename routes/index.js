@@ -78,5 +78,9 @@ router.get('/:dir/:md', function(req,res){
     
 });
 
+/* GET README.md url page */
+router.get('//README',function(req,res){
+    res.redirect('/');
+});
 
 module.exports = router;
