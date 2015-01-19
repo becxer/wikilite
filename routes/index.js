@@ -47,7 +47,7 @@ router.get('/:dir', function(req, res){
             var content = fs.readFileSync(mdpath + '/' + filename,'utf-8');
             var html = markdown.toHTML(content);
             mds.push(html);
-            mdsname.push(filename);
+            mdsname.push(filename.split(".", 1));
         }
     }
 
