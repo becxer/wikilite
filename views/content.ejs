@@ -7,9 +7,7 @@
 		<div class='link'>URL : 
 			<script type="text/javascript">
 				var currentPage = location.href;
-
-				alert(location.href);
-
+				
 				if(currentPage.indexOf(encodeURIComponent("<%=mdname[i]%>")) == -1)
 					document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
 				else
