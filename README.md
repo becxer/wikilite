@@ -14,7 +14,7 @@ wikilite
 [wikilite-0.0.1] SeoHyeonBaek established with codeigniter 
 
 ##How To Install/Run (Example for Ubuntu/Debian)
-```
+``
  1)install node.js
  $sudo apt-get install nodejs
  $sudo apt-get install npm
@@ -28,7 +28,7 @@ wikilite
  3)check in browser
  http://localhost:3000 or http://[YOURADDRESS]:3000
  
-```
+``
 
 ##Functions of Wikilite
  * Documentation
@@ -49,7 +49,7 @@ wikilite
 
 ##개발 이력
 
-[wikilite-0.03] YongJunKim 폴더별 탭구
+[wikilite-0.0.3] YongJunKim 폴더별 탭구현
 
 [wikilite-0.0.2] YongJunKim, HyeokOh, SeoHyeonBaek 이 PHP를 아웃 시키고, 노드로 다시 만듬
 
@@ -57,20 +57,21 @@ wikilite
 
 ##설치 및 실행방법(우분투/데비안 리눅스 기준)
 
-```
+``
  1)node.js 설치
  $sudo apt-get install nodejs
  $sudo apt-get install npm
+ 
  
  2)git 클론
  $git clone https://github.com/becxer/wikilite.git
  $cd wikilite
  $npm install
- $npm start
+ $nodejs start ./bin/www
 
  3)브라우저에서 확인하기
  http://localhost:3000 or http://[YOURADDRESS]:3000
-```
+``
 
 ##wikilite 의 기능
  * 문서 작성

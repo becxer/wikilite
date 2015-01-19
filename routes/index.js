@@ -41,8 +41,9 @@ router.get('/:dir', function(req, res){
     var filename = projects[i];
     
     var stat = fs.statSync(mdpath + '/' + filename);
-     
-        if (stat.isFile()) {
+    var ext = filename.substring(filename.lastIndexOf(".") + 1);
+
+        if (stat.isFile() && ext == 'md') {
             var content = fs.readFileSync(mdpath + '/' + filename,'utf-8');
             var html = markdown.toHTML(content);
             mds.push(html);
