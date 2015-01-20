@@ -18,6 +18,26 @@ for (i in projects){
     }
 }
 
+// recursive func: find dir and make object
+function intro_search(path) {
+    var tempObj = new Object();         //현재 경로에 dir을 담을 임시 객체
+    var projects = fs.readdirSync(path);//현재 경로에 포함하는 file list GET(file,dir포함)
+
+    for (var i in projects) {
+        var tempPath = path + "/" + projects[i];
+        var stat = fs.statSync(tempPath);
+        if (stat.isFile()) continue;    //현재 확인하는 file이 isNotDir이면 continue
+
+        console.log("READ: "+projects[i]);
+                                        //현재 확인하는 Dir명을 Key로 하도록 recursive func call
+        tempObj[projects[i]] = intro_search(tempPath);
+    }
+    return tempObj;     //완료된 임시 object 리턴
+}
+
+//rootobj는 projects객체 라고 생각하면 됨
+var rootobj = intro_search(abpath);    //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
+console.log(rootobj);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
