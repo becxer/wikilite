@@ -37,7 +37,7 @@ function intro_search(path) {
 
 //rootobj는 projects객체 라고 생각하면 됨
 var rootobj = intro_search(abpath);    //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
-console.log(rootobj);
+//console.log(rootobj);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -105,5 +105,14 @@ router.get('//README',function(req,res){
     res.redirect('/');
 });
 // 메인페이지 README url 연결시 main으로 리다이렉트
+
+
+
+//Auto deploy routines
+router.get('/auto-deploy',function(req,res){
+
+	console.log("auto-deploy");
+});
+
 
 module.exports = router;
