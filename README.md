@@ -26,7 +26,7 @@ wikilite
  $npm start
 
  3)check in browser
- http://localhost:6000 or http://[YOURADDRESS]:6000
+ http://localhost:3000 or http://[YOURADDRESS]:3000
  
 ```
 
@@ -70,7 +70,7 @@ wikilite
  $nodejs start ./bin/www
 
  3)브라우저에서 확인하기
- http://localhost:6000 or http://[YOURADDRESS]:6000
+ http://localhost:3000 or http://[YOURADDRESS]:3000
 ```
 
 ##wikilite 의 기능
