@@ -84,3 +84,4 @@ wikilite
 
 ##This is test message.
 test 1
+test 2
