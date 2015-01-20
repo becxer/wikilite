@@ -37,7 +37,7 @@ function intro_search(path) {
 
 //rootobj는 projects객체 라고 생각하면 됨
 var rootobj = intro_search(abpath);    //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
-//console.log(rootobj);
+console.log(rootobj);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -81,7 +81,6 @@ router.get('/:dir', function(req, res){
 
 /* GET MD in url page */
 router.get('/:dir/*', function(req,res){
-    req.header("Content-Type", "application/json; charset=utf-8");
     var mdpath = abpath + req.path + ".md";                         //md파일 경로
     var filename = req.path.substring(req.path.lastIndexOf('/')+1); //md파일 이름 잘라내기
     var mds = [];
@@ -104,6 +103,5 @@ router.get('//README',function(req,res){
     res.redirect('/');
 });
 // 메인페이지 README url 연결시 main으로 리다이렉트
-
 
 module.exports = router;
