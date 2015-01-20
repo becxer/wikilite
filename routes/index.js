@@ -17,6 +17,40 @@ for (i in projects){
             dirs.push(filename);
     }
 }
+/*
+var dir_array = new Array();    //json 방식으로 해당 URL 안에 들어있는 폴더를 서치
+function intro_search(path){
+    var dir = new Object();
+    var stat = fs.statSync(path);
+    console.log("1");
+    if(stat.isFile) return;
+    console.log("2");
+    var projects = fs.readdirSync(path);
+    
+    if(!projects[0])
+        return ;
+    for(var i in projects){
+        console.log("qwe"+projects[i]);
+        path = path + "/"+projects[i];
+        dir.projects[i] = intro_search(path);
+    }
+    console.log("3");
+
+    dir_array.push (dir);
+    console.log("4");
+}
+
+var totalInfo = new Object();
+totalInfo.directory = dir_array;
+var jsoninfo = JSON.stringfy(totalInfo);    
+console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
+alert(jsonInfo);
+
+
+
+intro_search(abpath);
+console.log(JSON.stringfy(dir_array));
+*/
 
 
 /* GET home page. */
