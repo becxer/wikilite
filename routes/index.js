@@ -107,12 +107,4 @@ router.get('//README',function(req,res){
 // 메인페이지 README url 연결시 main으로 리다이렉트
 
 
-
-//Auto deploy routines
-router.get('/auto-deploy',function(req,res){
-
-	console.log("auto-deploy");
-});
-
-
 module.exports = router;
