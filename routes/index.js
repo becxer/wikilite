@@ -78,27 +78,26 @@ router.get('/:dir', function(req, res){
     res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
 });
 
+
 /* GET MD in url page */
-router.get('/:dir/:md', function(req,res){
-    var dirname = req.params.dir;
-    var mdname = req.params.md;
-    var mdpath = abpath + "/"+ dirname + "/" + mdname + ".md";
+router.get('/:dir/*', function(req,res){
+    req.header("Content-Type", "application/json; charset=utf-8");
+    var mdpath = abpath + req.path + ".md";                         //md파일 경로
+    var filename = req.path.substring(req.path.lastIndexOf('/')+1); //md파일 이름 잘라내기
     var mds = [];
     var mdsname= [];
 
-    //올바른 상위 디렉토리 명인지 파일이 존재하는지 확인
-    if(dirs.indexOf(dirname) != -1 && fs.existsSync(mdpath)){
+    if(fs.existsSync(mdpath)){    //해당하는 md파일이 존재하는지 확인
         var content = fs.readFileSync(mdpath,'utf-8');
         var html = markdown.toHTML(content);
-        mds.push(html);
-        mdsname.push(mdname);
-        res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
 
+        mds.push(html);
+        mdsname.push(filename);    
     }
-    else
-        res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':""});           
-    
+
+    res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});        
 });
+
 
 /* GET README.md url page */
 router.get('//README',function(req,res){
