@@ -39,6 +39,8 @@ function intro_search(path) {
 var rootobj = intro_search(abpath);    //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
 console.log(rootobj);
 
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var mds = [];
@@ -81,11 +83,16 @@ router.get('/:dir', function(req, res){
 
 /* GET MD in url page */
 router.get('/:dir/*', function(req,res){
-    var mdpath = abpath + req.path + ".md";                         //md파일 경로
-    var filename = req.path.substring(req.path.lastIndexOf('/')+1); //md파일 이름 잘라내기
+
+    //decodeURI를 이용해서 한글 디코딩
+    var mdpath = decodeURI(abpath + req.path + ".md");                         //md파일 경로 저장
+    var filename = decodeURI(req.path.substring(req.path.lastIndexOf('/')+1)); //md파일 이름 잘라내기
+
+    console.log(mdpath);
     var mds = [];
     var mdsname= [];
 
+    console.log(fs.existsSync(mdpath));
     if(fs.existsSync(mdpath)){    //해당하는 md파일이 존재하는지 확인
         var content = fs.readFileSync(mdpath,'utf-8');
         var html = markdown.toHTML(content);
@@ -100,8 +107,10 @@ router.get('/:dir/*', function(req,res){
 
 /* GET README.md url page */
 router.get('//README',function(req,res){
+
+    // 메인페이지 README url 연결시 main으로 리다이렉트
     res.redirect('/');
 });
-// 메인페이지 README url 연결시 main으로 리다이렉트
+
 
 module.exports = router;
