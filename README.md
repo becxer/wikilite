@@ -14,7 +14,7 @@ wikilite
 [wikilite-0.0.1] SeoHyeonBaek established with codeigniter 
 
 ##How To Install/Run (Example for Ubuntu/Debian)
-``
+```
  1)install node.js
  $sudo apt-get install nodejs
  $sudo apt-get install npm
@@ -28,7 +28,7 @@ wikilite
  3)check in browser
  http://localhost:3000 or http://[YOURADDRESS]:3000
  
-``
+```
 
 ##Functions of Wikilite
  * Documentation
@@ -57,7 +57,7 @@ wikilite
 
 ##설치 및 실행방법(우분투/데비안 리눅스 기준)
 
-``
+```
  1)node.js 설치
  $sudo apt-get install nodejs
  $sudo apt-get install npm
@@ -71,7 +71,7 @@ wikilite
 
  3)브라우저에서 확인하기
  http://localhost:3000 or http://[YOURADDRESS]:3000
-``
+```
 
 ##wikilite 의 기능
  * 문서 작성
