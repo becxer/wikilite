@@ -5,16 +5,23 @@
 			<dt><b><%=mdname[i]%></b></dt>
 			<dd><%-mds[i]%></dd>
 		</dl>
-		<!--피드별 url을 생성해주는 스크립트 -->
+		
 		<div class='link'>URL : 
-			<script type="text/javascript">
-				var currentPage = location.href;<!-- 현재 url을 저장 -->
+			<!--피드별 url을 생성해주는 스크립트 -->
+			<script type="text/javascript">					
+				var currentPage = decodeURI(location.href);<!-- 현재 url을 한글을 위해서 디코딩 저장 -->
 
-				<!-- 피드별 url로 접속시 url에서 mdname을 지우는 조건문 -->
-				if(currentPage.indexOf(encodeURIComponent("<%=mdname[i]%>")) != -1)
-					currentPage = location.href.substring(0,location.href.lastIndexOf("/"));
-				<!-- url 출력 -->
-				document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
+				<!-- 피드별 url로 접속시 url에서 mdname이 존재하는지 판단 -->
+				if(currentPage.indexOf("<%=mdname[i]%>") != -1)
+				{
+					<!-- 피드별 페이지 접속시 url 출력 -->
+					document.write("<a href='"+currentPage+"''>"+currentPage+"</a>");
+				}
+				else
+				{
+					<!-- 디렉토리 페이지 접속시 url 출력 -->
+					document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
+				}
 			</script>
 		</div> 
 	</div>
