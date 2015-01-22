@@ -18,6 +18,8 @@ for (i in projects){
     }
 }
 
+// 모듈로 뺼것!!------------------------------------------------------[TODO]
+
 // recursive func: find dir and make object
 function intro_search(path) {
     var tempObj = new Object();         //현재 경로에 dir을 담을 임시 객체
@@ -39,10 +41,15 @@ function intro_search(path) {
 var rootobj = intro_search(abpath);    //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
 console.log(rootobj);
 
+//------------------------------------------------------------------------------
 
+function init(res) {
+	res.cookie('tree', JSON.stringify(rootobj));
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	init(res);
     var mds = [];
     var mdsname =[];
     var links = [];
@@ -57,6 +64,7 @@ router.get('/', function(req, res, next) {
 
 /* GET tab page. */
 router.get('/:dir', function(req, res){
+	init(res);
     var mdpath = abpath + "/"+ req.params.dir;
     var projects = fs.readdirSync(mdpath);
     var mds= [];
@@ -83,7 +91,6 @@ router.get('/:dir', function(req, res){
 
 /* GET MD in url page */
 router.get('/:dir/*', function(req,res){
-
     //decodeURI를 이용해서 한글 디코딩
     var mdpath = decodeURI(abpath + req.path + ".md");                         //md파일 경로 저장
     var filename = decodeURI(req.path.substring(req.path.lastIndexOf('/')+1)); //md파일 이름 잘라내기
