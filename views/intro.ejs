@@ -1,16 +1,38 @@
-<!--카테고리 리스트를 보여주는 네비게이션바 --> 
-	<nav class='intro'>
-	</nav>
 <script>
 	function getCookie(name) {
 	  var value = "; " + document.cookie;
 	  var parts = value.split("; " + name + "=");
 	  if (parts.length == 2) return parts.pop().split(";").shift();
 	}
-	JSON.parse(decodeURIComponent(getCookie('tree'))).wikilte
-	var url = location.pathname;
-	url = url.replace('/','');
-	var obj = getCookie(url);
-	document.write();
-	console.log(obj);
+
+	function dirs(){
+		var present = Object.keys(obj);
+		for(i in present){
+			document.write('<li><a href="',"http://"+location.host+"/"+present[i],'">',present[i],'</a></li>');
+		}
+	}
+
+	var url = location.href;
+	var urlarr = location.pathname.replace('/','');
+
+	var obj = JSON.parse(decodeURIComponent(getCookie('tree')));
+	
 </script>
+
+<!--카테고리 리스트를 보여주는 네비게이션바 --> 
+	<nav class="navbar navbar-default" role="navigation">
+	  <!-- Collect the nav links, forms, and other content for toggling -->
+	  <div class="collapse navbar-collapse navbar-ex1-collapse">
+	    <ul class="nav navbar-nav">
+	      <li class="dropdown">
+	        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><script>document.write(urlarr);</script><b class="caret"></b></a>
+	        <ul class="dropdown-menu">
+	          <script>
+	          	dirs();
+	          </script>
+	        </ul>
+	      </li>
+	    </ul>
+	  </div><!-- /.navbar-collapse -->
+	</nav>
+
