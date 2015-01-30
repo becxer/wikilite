@@ -1,4 +1,7 @@
-body { padding-top: 100px; }
+body {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
 
 h1, h2, h3{
 	margin: 0.5em 0 0.5em;
@@ -34,7 +37,7 @@ a, a:visited {
  	margin: 1em 1em 2em 1em;
  }
 
- .navbar-sub {
- 	background-color: #fff;
-	border-color: #e7e7e7;
+ .navbar-foot{
+ 	  background-color: #f8f8f8;
+	  border-top: 1px solid #e7e7e7;
  }
