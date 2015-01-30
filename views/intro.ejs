@@ -1,53 +1,32 @@
-<script type="text/javascript">
-	function getCookie(name) {
-	  var value = "; " + document.cookie;
-	  var parts = value.split("; " + name + "=");
-	  if (parts.length == 2) return parts.pop().split(";").shift();
-	}
-
-	function dropList(lists){	//네비게이션바에 droplist를 만들어주는 함수
-		var link= "http://"+location.host;
-		for(var i=0; i < lists.length; i++){
-			document.write(			'<li class="dropdown">',
-										'<a href="#" class="dropdown-toggle" data-toggle="dropdown">',
-											(!pathArr[i]) ? "SubDir" : pathArr[i],
-											'<b class="caret"></b>',
-										'</a>',
-										'<ul class="dropdown-menu" role="menu">');
-			for(j in lists[i])
-				document.write(				'<li><a href="',link+"/"+lists[i][j],'">',lists[i][j],'</a></li>');
-			document.write(				'</ul>',
-									'</li>');
-			link += "/"+pathArr[i];
-		}
-	}
-
-	function insList(List,object,order){	//객체를 통해서 같은 레벨 단위로 디렉토리명 리스트를 만드는 함수
-		List.push(Object.keys(object));		//현재 레벨의 객체들의 디렉토리명을 리스트에 푸쉬
-
-			for(i in object){
-				if(i == pathArr[order] &&
-					order <= pathArr.length)	//url을 통해서 다음 디렉토리를 찾아낸 이후 그 내부 객체를 찾아 들어감
-					insList(List,object[i],order+1);
-			}
-	}
-
-	var pathArr = decodeURIComponent(location.pathname).split('/');
-	pathArr.shift();
-	//Split이후 맨 앞의 공백 배열 삭제
-
-	var obj = JSON.parse(decodeURIComponent(getCookie('tree')));
-
-	var dirList = [];
-	insList(dirList,obj,0);
-</script>
+<script> var link = ""; </script>
 
 <!--카테고리 리스트를 보여주는 네비게이션바 --> 
 	<nav class="navbar navbar-default" role="navigation">
 	  <!-- Collect the nav links, forms, and other content for toggling -->
 	  <div class="collapse navbar-collapse navbar-ex1-collapse">
 	  	<ul class="nav navbar-nav">
-	  		<script type="text/javascript"> dropList(dirList); </script>
+		  <% for(i in dirList[1]) { %>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown">
+					<% if(dirList[0][i]) {%> 
+						<%=dirList[0][i]%>
+					<% }else {%>
+						SubDirs <% } %> 
+					<b class="caret"></b>
+				</a>
+				
+				<ul class="dropdown-menu" role="menu">
+				  <% for(j in dirList[1][i]) {%>
+				  	<li>
+				  		<script> document.write('<a href="',link+'/<%= dirList[1][i][j] %>">'); </script>
+				  			<%= dirList[1][i][j] %>
+				  		</a>
+				  	</li>
+				  <% } %>
+				</ul>
+			</li>
+			<script> link += "/<%= dirList[0][i] %>"; </script>
+		  <% } %>
         </ul>
 	  </div>
 	  <!-- /.navbar-collapse -->

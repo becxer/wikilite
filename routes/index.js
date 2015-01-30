@@ -30,7 +30,6 @@ function intro_search(path) {
         var stat = fs.statSync(tempPath);
         if (stat.isFile()) continue;    //현재 확인하는 file이 isNotDir이면 continue
 
-        console.log("READ: "+projects[i]);
                                         //현재 확인하는 Dir명을 Key로 하도록 recursive func call
         tempObj[projects[i]] = intro_search(tempPath);
     }
@@ -40,22 +39,38 @@ function intro_search(path) {
 
 //------------------------------------------------------------------------------
 
-function init(res) {
+function insList(List,object,pathArr,order){    //객체를 통해서 같은 레벨 단위로 디렉토리명 리스트를 만드는 함수
+        List.push(Object.keys(object));         //현재 레벨의 객체들의 디렉토리명을 리스트에 푸쉬
+
+            for(i in object){
+                if(i == pathArr[order] &&
+                    order <= pathArr.length)    //url을 통해서 다음 디렉토리를 찾아낸 이후 그 내부 객체를 찾아 들어감
+                    insList(List,object[i],pathArr,order+1);
+            }
+    }
+
+//------------------------------------------------------------------------------
+
+function init(req,list) {
     var rootobj = intro_search(abpath);     //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
-	res.cookie('tree', JSON.stringify(rootobj));
+    console.log(rootobj);
+
+
+    var pathArr = decodeURIComponent(req.path).split('/');
+    pathArr.shift();
+
+    var dirlist = [];
+    insList(dirlist,rootobj,pathArr,0);
+
+    list.push(pathArr,dirlist);
+
+    console.log(list);
 }
 
 //------------------------------------------------------------------------------
 
-
-
-
-
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	init(res);
     var mds = [];
     var mdsname =[];
     var links = [];
@@ -65,16 +80,18 @@ router.get('/', function(req, res, next) {
     var html = markdown.toHTML(content);
     mds.push(html);
     
-	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
+	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':""});
 });
 
 /* GET tab page. */
 router.get('/:dir', function(req, res){
-	init(res);
     var mdpath = abpath + "/"+ req.params.dir;
     var projects = fs.readdirSync(mdpath);
     var mds= [];
     var mdsname= [];
+    var dirList = [];
+
+    init(req,dirList);
 
     //파일 목록을 읽어들임
     for (i in projects){
@@ -91,7 +108,7 @@ router.get('/:dir', function(req, res){
         }
     }
 
-    res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
+    res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':dirList});
 });
 
 /* GET MD in url page && SubDirectory View page */
@@ -101,7 +118,9 @@ router.get('/:dir/*', function(req,res){
 
     var mds = [];
     var mdsname= [];
+    var dirList = [];
 
+    init(req,dirList);
 
     if(fs.existsSync(path+".md"))       //해당하는 md파일이 존재하는지 확인
     {
@@ -134,7 +153,7 @@ router.get('/:dir/*', function(req,res){
         }
     }
 
-    res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});        
+    res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':dirList});        
 });
 
 
