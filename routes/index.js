@@ -53,8 +53,6 @@ function insList(List,object,pathArr,order){    //객체를 통해서 같은 레
 
 function init(req,list) {
     var rootobj = intro_search(abpath);     //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
-    console.log(rootobj);
-
 
     var pathArr = decodeURIComponent(req.path).split('/');
     pathArr.shift();
@@ -63,8 +61,6 @@ function init(req,list) {
     insList(dirlist,rootobj,pathArr,0);
 
     list.push(pathArr,dirlist);
-
-    console.log(list);
 }
 
 //------------------------------------------------------------------------------
@@ -83,36 +79,8 @@ router.get('/', function(req, res, next) {
 	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':""});
 });
 
-/* GET tab page. */
-router.get('/:dir', function(req, res){
-    var mdpath = abpath + "/"+ req.params.dir;
-    var projects = fs.readdirSync(mdpath);
-    var mds= [];
-    var mdsname= [];
-    var dirList = [];
-
-    init(req,dirList);
-
-    //파일 목록을 읽어들임
-    for (i in projects){
-    var filename = projects[i];
-    var stat = fs.statSync(mdpath + '/' + filename);
-
-    //확장자가 md인 파일만 읽도록 확장자를 자른후 확인
-    var ext = filename.substring(filename.lastIndexOf(".") + 1);
-        if (stat.isFile() && ext == 'md') {
-            var content = fs.readFileSync(mdpath + '/' + filename,'utf-8');
-            var html = markdown.toHTML(content);
-            mds.push(html);
-            mdsname.push(filename.split(".", 1));
-        }
-    }
-
-    res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':dirList});
-});
-
-/* GET MD in url page && SubDirectory View page */
-router.get('/:dir/*', function(req,res){
+/* GET MD in url page && Directory View page */
+router.get('/*', function(req,res){
     var path = decodeURI(abpath + req.path);    //한글 디코딩
     var filename = decodeURI(req.path.substring(req.path.lastIndexOf('/')+1)); //md파일 이름 잘라내기
 
@@ -155,7 +123,6 @@ router.get('/:dir/*', function(req,res){
 
     res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':dirList});        
 });
-
 
 /* GET README.md url page */
 router.get('//README',function(req,res){
