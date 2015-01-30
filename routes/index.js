@@ -88,24 +88,44 @@ router.get('/:dir', function(req, res){
     res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});
 });
 
-
-/* GET MD in url page */
+/* GET MD in url page && SubDirectory View page */
 router.get('/:dir/*', function(req,res){
-    //decodeURI를 이용해서 한글 디코딩
-    var mdpath = decodeURI(abpath + req.path + ".md");                         //md파일 경로 저장
+    var path = decodeURI(abpath + req.path);    //한글 디코딩
     var filename = decodeURI(req.path.substring(req.path.lastIndexOf('/')+1)); //md파일 이름 잘라내기
 
-    console.log(mdpath);
     var mds = [];
     var mdsname= [];
 
-    console.log(fs.existsSync(mdpath));
-    if(fs.existsSync(mdpath)){    //해당하는 md파일이 존재하는지 확인
-        var content = fs.readFileSync(mdpath,'utf-8');
+
+    if(fs.existsSync(path+".md"))       //해당하는 md파일이 존재하는지 확인
+    {
+        path += ".md";
+        var content = fs.readFileSync(path,'utf-8');
         var html = markdown.toHTML(content);
 
         mds.push(html);
         mdsname.push(filename);    
+    } 
+    else if(fs.existsSync(path))         //해당하는 디렉토리가 존재하는지 확인
+    {
+        var projects = fs.readdirSync(path);
+
+        //파일 목록을 읽어들임
+        for (i in projects){
+            var filename = projects[i];
+            var stat = fs.statSync(path + '/' + filename);
+
+        //확장자가 md인 파일만 읽도록 확장자를 자른후 확인
+            var ext = filename.substring(filename.lastIndexOf(".") + 1);
+            
+            if (stat.isFile() && ext == 'md') {
+                var content = fs.readFileSync(path + '/' + filename,'utf-8');
+                var html = markdown.toHTML(content);
+            
+                mds.push(html);
+                mdsname.push(filename.split(".", 1));
+            }
+        }
     }
 
     res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname});        
