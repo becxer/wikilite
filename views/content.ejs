@@ -1,12 +1,13 @@
 <!--for문을 맨 밖으로 꺼내서 md파일을 보여주면서 뉴스피드화--> 
 <% for (i in mds) { %>	
-	<div class='mds'>
-		<dl>
-			<dt><b><%=mdname[i]%></b></dt>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<b><%=mdname[i]%></b>
+		</div>
+		<div class="panel-body">
 			<dd><%-mds[i]%></dd>
-		</dl>
-		
-		<div class='link'>URL : 
+		</div>
+		<div class="panel-footer">URL : 
 			<!--피드별 url을 생성해주는 스크립트 -->
 			<script type="text/javascript">					
 				var currentPage = decodeURI(location.href);<!-- 현재 url을 한글을 위해서 디코딩 저장 -->
@@ -25,7 +26,8 @@
 			</script>
 		</div> 
 	</div>
-
 <% } %>
+
+
 
 

@@ -7,16 +7,21 @@ var abpath = './projects';
 
 /* READ dir list */
 var dirs =[];
-var projects = fs.readdirSync(abpath);
 
-for (i in projects){
-    var filename = projects[i];
-    var stat = fs.statSync(abpath + '/' + filename);
-     
-    if (stat.isDirectory()) {
-            dirs.push(filename);
+function insdirs(){
+    var projects = fs.readdirSync(abpath);
+
+    for (i in projects){
+        var filename = projects[i];
+        var stat = fs.statSync(abpath + '/' + filename);
+         
+        if (stat.isDirectory()) {
+                dirs.push(filename);
+        }
     }
 }
+
+insdirs();
 
 // 모듈로 뺼것!!------------------------------------------------------[TODO]
 

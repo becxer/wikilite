@@ -16,18 +16,30 @@
     
   </head>
   <body>
-	<nav class='dirs'>
-		<a href='/' id='title'>WikiLite</a>
-		<% for (var i=0; i<dirs.length; i++) { %>
-			<a href='/<%=dirs[i]%>'><%=dirs[i]%></a> 
-		<% } %>
-	</nav>
-
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Wiki Lite</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+          	<% for (var i=0; i<dirs.length; i++) { %>
+				<li><a href='/<%=dirs[i]%>'><%=dirs[i]%></a> </li>
+			<% } %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
 	<% include intro %>
-	<!-- content.ejs 상속시킴-->
+
 	<% include content %>
-	
+
   </body>
 </html>
 
