@@ -1,4 +1,4 @@
-<script>
+<script type="text/javascript">
 	function getCookie(name) {
 	  var value = "; " + document.cookie;
 	  var parts = value.split("; " + name + "=");
@@ -13,7 +13,7 @@
 											(!pathArr[i]) ? "SubDir" : pathArr[i],
 											'<b class="caret"></b>',
 										'</a>',
-										'<ul class="dropdown-menu">');
+										'<ul class="dropdown-menu" role="menu">');
 			for(j in lists[i])
 				document.write(				'<li><a href="',link+"/"+lists[i][j],'">',lists[i][j],'</a></li>');
 			document.write(				'</ul>',
