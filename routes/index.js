@@ -37,15 +37,21 @@ function intro_search(path) {
     return tempObj;     //완료된 임시 object 리턴
 }
 
-//rootobj는 projects객체 라고 생각하면 됨
-var rootobj = intro_search(abpath);    //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
-console.log(rootobj);
 
 //------------------------------------------------------------------------------
 
 function init(res) {
+    var rootobj = intro_search(abpath);     //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
 	res.cookie('tree', JSON.stringify(rootobj));
 }
+
+//------------------------------------------------------------------------------
+
+
+
+
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

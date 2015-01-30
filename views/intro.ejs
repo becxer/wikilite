@@ -5,44 +5,50 @@
 	  if (parts.length == 2) return parts.pop().split(";").shift();
 	}
 
-	// function htmlCode(lists,link){
-	// 	document.write('<ul class="nav navbar-nav">',
-	// 							'<li class="dropdown">',
-	// 								'<a href="#" class="dropdown-toggle" data-toggle="dropdown">',
-	// 									'되라<b class="caret"></b>',
-	// 								 '</a>',
-	// 								 '<ul class="dropdown-menu">');
-	// 	for(i in list)
-	// 		document.write(				'<li><a href="',link+lists[i],'">',lists[i],'</a></li>');
-	// 	}
-	// 	document.write('</ul></li></ul>');
-	// }
+	function dropList(lists){	//네비게이션바에 droplist를 만들어주는 함수
+		var link= "http://"+location.host;
+		for(var i=0; i < lists.length; i++){
+			document.write(			'<li class="dropdown">',
+										'<a href="#" class="dropdown-toggle" data-toggle="dropdown">',
+											(!pathArr[i]) ? "SubDir" : pathArr[i],
+											'<b class="caret"></b>',
+										'</a>',
+										'<ul class="dropdown-menu">');
+			for(j in lists[i])
+				document.write(				'<li><a href="',link+"/"+lists[i][j],'">',lists[i][j],'</a></li>');
+			document.write(				'</ul>',
+									'</li>');
+			link += "/"+pathArr[i];
+		}
+	}
 
-	function insList(List,object,order){
-		List.push(Object.keys(object));
+	function insList(List,object,order){	//객체를 통해서 같은 레벨 단위로 디렉토리명 리스트를 만드는 함수
+		List.push(Object.keys(object));		//현재 레벨의 객체들의 디렉토리명을 리스트에 푸쉬
 
 			for(i in object){
 				if(i == pathArr[order] &&
-					order < pathArr.length-2)
+					order <= pathArr.length)	//url을 통해서 다음 디렉토리를 찾아낸 이후 그 내부 객체를 찾아 들어감
 					insList(List,object[i],order+1);
 			}
 	}
 
 	var pathArr = decodeURIComponent(location.pathname).split('/');
+	pathArr.shift();
+	//Split이후 맨 앞의 공백 배열 삭제
+
 	var obj = JSON.parse(decodeURIComponent(getCookie('tree')));
 
 	var dirList = [];
-	insList(dirList,obj,1);
-
+	insList(dirList,obj,0);
 </script>
 
 <!--카테고리 리스트를 보여주는 네비게이션바 --> 
 	<nav class="navbar navbar-default" role="navigation">
 	  <!-- Collect the nav links, forms, and other content for toggling -->
 	  <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <script>
-	   
-          </script>
+	  	<ul class="nav navbar-nav">
+	  		<script type="text/javascript"> dropList(dirList); </script>
+        </ul>
 	  </div>
 	  <!-- /.navbar-collapse -->
 	</nav>
