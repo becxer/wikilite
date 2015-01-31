@@ -4,7 +4,6 @@ var markdown = require('markdown').markdown;
 var router = express.Router();
 var abpath = './projects';
 
-
 /* READ dir list */
 var dirs =[];
 
@@ -30,13 +29,15 @@ function intro_search(path) {
     var tempObj = new Object();         //현재 경로에 dir을 담을 임시 객체
     var projects = fs.readdirSync(path);//현재 경로에 포함하는 file list GET(file,dir포함)
 
-    for (var i in projects) {
+    for (i in projects) {
         var tempPath = path + "/" + projects[i];
         var stat = fs.statSync(tempPath);
+
         if (stat.isFile()) continue;    //현재 확인하는 file이 isNotDir이면 continue
 
                                         //현재 확인하는 Dir명을 Key로 하도록 recursive func call
         tempObj[projects[i]] = intro_search(tempPath);
+        
     }
     return tempObj;     //완료된 임시 object 리턴
 }
@@ -46,9 +47,9 @@ function intro_search(path) {
 
 function insList(List,object,pathArr,order){    //객체를 통해서 같은 레벨 단위로 디렉토리명 리스트를 만드는 함수
         List.push(Object.keys(object));         //현재 레벨의 객체들의 디렉토리명을 리스트에 푸쉬
-
+        
             for(i in object){
-                if(i == pathArr[order] &&
+                if(escape(i) == escape(pathArr[order]) &&
                     order <= pathArr.length)    //url을 통해서 다음 디렉토리를 찾아낸 이후 그 내부 객체를 찾아 들어감
                     insList(List,object[i],pathArr,order+1);
             }
@@ -82,6 +83,13 @@ router.get('/', function(req, res, next) {
     mds.push(html);
     
 	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':""});
+});
+
+/* GET README.md url page */
+router.get('//README',function(req,res){
+    
+    // 메인페이지 README url 연결시 main으로 리다이렉트
+    res.redirect('/');
 });
 
 /* GET MD in url page && Directory View page */
@@ -129,12 +137,6 @@ router.get('/*', function(req,res){
     res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':dirList});        
 });
 
-/* GET README.md url page */
-router.get('//README',function(req,res){
-
-    // 메인페이지 README url 연결시 main으로 리다이렉트
-    res.redirect('/');
-});
 
 
 module.exports = router;

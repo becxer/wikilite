@@ -2,35 +2,42 @@
 
 <!--카테고리 리스트를 보여주는 네비게이션바 --> 
 	<nav class="navbar navbar-foot navbar-fixed-bottom" role="navigation">
-	<div class="container">
-	  <!-- Collect the nav links, forms, and other content for toggling -->
-	  <div class="collapse navbar-collapse navbar-ex1-collapse">
-	  	<ul class="nav navbar-nav">
-		  <% for(i in dirList[1]) { %>
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown">
-					<% if(dirList[0][i]) {%> 
-						<%=dirList[0][i]%>
-					<% }else {%>
-						SubDirs <% } %> 
-					<b class="caret"></b>
-				</a>
-				
-				<ul class="dropdown-menu" role="menu">
-				  <% for(j in dirList[1][i]) {%>
-				  	<li>
-				  		<script> document.write('<a href="',link+'/<%= dirList[1][i][j] %>">'); </script>
-				  			<%= dirList[1][i][j] %>
-				  		</a>
-				  	</li>
-				  <% } %>
-				</ul>
-			</li>
-			<script> link += "/<%= dirList[0][i] %>"; </script>
-		  <% } %>
-        </ul>
-	  </div>
-	  <!-- /.navbar-collapse -->
+	  <div class="container">		
+		<div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		  <!-- Collect the nav links, forms, and other content for toggling -->
+		  <div class="collapse navbar-collapse navbar-ex1-collapse">
+		  	<ul class="nav navbar-nav">
+			  <% for(i in dirList[1]) { %>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<% if(dirList[0][i]) {%> 
+							<%=dirList[0][i]%>
+						<% }else {%>
+							SubDirs <% } %> 
+						<b class="caret"></b>
+					</a>
+					
+					<ul class="dropdown-menu" role="menu">
+					  <% for(j in dirList[1][i]) {%>
+					  	<li>
+					  		<script> document.write('<a href="',link+'/<%= dirList[1][i][j] %>">'); </script>
+					  			<%= dirList[1][i][j] %>
+					  		</a>
+					  	</li>
+					  <% } %>
+					</ul>
+				</li>
+				<script> link += "/<%= dirList[0][i] %>"; </script>
+			  <% } %>
+	        </ul>
+		  </div>
+		  <!-- /.navbar-collapse -->
+		  </div>
 	  </div>
 	</nav>
 
