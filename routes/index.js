@@ -92,6 +92,15 @@ router.get('//README',function(req,res){
     res.redirect('/');
 });
 
+/* Get Dirs reset */
+router.get('/set', function(req,res){
+    for(var i=0; i <= dirs.length; i++)
+        dirs.shift();
+    insdirs();
+
+    res.redirect('/');
+});
+
 /* GET MD in url page && Directory View page */
 router.get('/*', function(req,res){
     var path = decodeURI(abpath + req.path);    //한글 디코딩
