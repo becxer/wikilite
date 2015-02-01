@@ -1,10 +1,24 @@
+<script type="text/javascript">
+function kuisin(idMyDiv){
+     var objDiv = document.getElementById(idMyDiv);
+
+     if(objDiv.style.display=="block"){ objDiv.style.display = "none"; }
+     else{ objDiv.style.display = "block"; }
+}
+</script>
+
+
 <!--for문을 맨 밖으로 꺼내서 md파일을 보여주면서 뉴스피드화--> 
 <% for (i in mds) { %>	
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<b><%=mdname[i]%></b>
+			<div style="float:right; display:inline-block">
+				<a href="#" onclick="kuisin('<%= i %>');">X</a>
+			</div>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" id="<%= i %>" style="display:block">
+			
 			<dd><%-mds[i]%></dd>
 		</div>
 		<div class="panel-footer">URL : 
@@ -27,7 +41,4 @@
 		</div> 
 	</div>
 <% } %>
-
-
-
 
