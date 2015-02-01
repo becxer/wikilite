@@ -17,7 +17,9 @@ function kuisin(idMyDiv){
 				<a href="#" onclick="kuisin('<%= i %>');">X</a>
 			</div>
 		</div>
-		<div class="panel-body" id="<%= i %>" style="display:block">
+
+	  <div id="<%= i %>">
+		<div class="panel-body" style="display:block">
 			
 			<dd><%-mds[i]%></dd>
 		</div>
@@ -38,7 +40,8 @@ function kuisin(idMyDiv){
 					document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
 				}
 			</script>
-		</div> 
+		</div>
+	  </div> 
 	</div>
 <% } %>
 
