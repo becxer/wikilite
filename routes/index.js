@@ -15,7 +15,7 @@ function insdirs(){
         var stat = fs.statSync(abpath + '/' + filename);
          
         if (stat.isDirectory()) {
-                dirs.push(filename);
+                if(filename != ".git"); dirs.push(filename);
         }
     }
 }
