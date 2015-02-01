@@ -75,8 +75,8 @@ wikilite
 
 ##wikilite 의 기능
  * 문서 작성
-  * markdown 렌더링
+  * Markdown 렌더링
 
 ##wikilite의 특징
  * DB를 전혀사용하지 않는다.
- * markdown문법을 사용한다.
+ * Markdown문법을 사용한다.

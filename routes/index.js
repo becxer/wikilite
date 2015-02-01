@@ -1,6 +1,6 @@
 var express = require('express');
 var fs = require('fs');
-var markdown = require('markdown').markdown;
+var marked = require('marked');
 var router = express.Router();
 var abpath = './projects';
 
@@ -78,9 +78,10 @@ router.get('/', function(req, res, next) {
     var mdsname =[];
     var links = [];
 
+    console.log("~~Mistaken text.~~");
     mdsname.push("README")
     var content = fs.readFileSync('./README.md','utf-8');
-    var html = markdown.toHTML(content);
+    var html = marked(content);
     mds.push(html);
     
 	res.render('index',{'dirs':dirs, 'mds':mds, 'mdname':mdsname, 'dirList':""});
@@ -117,7 +118,7 @@ router.get('/*', function(req,res){
     {
         path += ".md";
         var content = fs.readFileSync(path,'utf-8');
-        var html = markdown.toHTML(content);
+        var html = marked(content);
 
         mds.push(html);
         mdsname.push(filename);    
@@ -136,7 +137,7 @@ router.get('/*', function(req,res){
             
             if (stat.isFile() && ext == 'md') {
                 var content = fs.readFileSync(path + '/' + filename,'utf-8');
-                var html = markdown.toHTML(content);
+                var html = marked(content);
             
                 mds.push(html);
                 mdsname.push(filename.split(".", 1));
