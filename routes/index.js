@@ -36,7 +36,7 @@ function intro_search(path) {
         if (stat.isFile()) continue;    //현재 확인하는 file이 isNotDir이면 continue
 
                                         //현재 확인하는 Dir명을 Key로 하도록 recursive func call
-        if(projects[i] != ".git")    
+        if(i != ".git")    
             tempObj[projects[i]] = intro_search(tempPath);
         
     }
