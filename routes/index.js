@@ -15,7 +15,7 @@ function insdirs(){
         var stat = fs.statSync(abpath + '/' + filename);
          
         if (stat.isDirectory()) {
-                if(filename != ".git"); dirs.push(filename);
+                if(filename != ".git") dirs.push(filename);
         }
     }
 }
@@ -35,8 +35,9 @@ function intro_search(path) {
 
         if (stat.isFile()) continue;    //현재 확인하는 file이 isNotDir이면 continue
 
-                                        //현재 확인하는 Dir명을 Key로 하도록 recursive func call
-        tempObj[projects[i]] = intro_search(tempPath);
+                                        //현재 확인하는 Dir명을 Key로 하도록 recursive func cal
+        if(projects[i] != ".git")    
+			tempObj[projects[i]] = intro_search(tempPath);
         
     }
     return tempObj;     //완료된 임시 object 리턴
