@@ -49,6 +49,12 @@ wikilite
 
 ##개발 이력
 
+[wikilite-0.0.6] YongJunKim 디렉토리 페이지시 네비게이션바 add 버튼을 통해서 파일 추가 가능 하도록 함
+                                
+[wikilite-0.0.5] YongJunKim CodeMirror를 탑재해 제목 클릭시 md파일 수정 가능 하도록 함
+                                
+[wikilite-0.0.4] YongJunKim 폴더별 md파일이 최근 추가 및 수정 순으로 정렬되도록 함
+                                
 [wikilite-0.0.3] YongJunKim 폴더별 탭구현
 
 [wikilite-0.0.2] YongJunKim, HyeokOh, SeoHyeonBaek 이 PHP를 아웃 시키고, 노드로 다시 만듬
@@ -75,8 +81,8 @@ wikilite
 
 ##wikilite 의 기능
  * 문서 작성
-  * markdown 렌더링
+  * Markdown 렌더링
 
 ##wikilite의 특징
  * DB를 전혀사용하지 않는다.
- * markdown문법을 사용한다.
+ * Markdown문법을 사용한다.

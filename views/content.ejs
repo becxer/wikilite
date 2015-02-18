@@ -1,3 +1,4 @@
+<!-- Div hide/show -->
 <script type="text/javascript">
 function kuisin(idMyDiv){
      var objDiv = document.getElementById(idMyDiv);
@@ -5,43 +6,47 @@ function kuisin(idMyDiv){
      if(objDiv.style.display=="block"){ objDiv.style.display = "none"; }
      else{ objDiv.style.display = "block"; }
 }
+
+function feedlink(path,name){
+	if(path.indexOf(name) != -1)
+		return path;
+	else
+		return (name != "FrontPage") ? path+"/"+name : path+name;
+}
+
+var link;
 </script>
 
+<% for (i in mds) { %>
 
-<!--for문을 맨 밖으로 꺼내서 md파일을 보여주면서 뉴스피드화--> 
-<% for (i in mds) { %>	
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<b><%=mdname[i]%></b>
-			<div style="float:right; display:inline-block">
-				<a href="#" onclick="kuisin('<%= i %>');">X</a>
-			</div>
-		</div>
+  <div class="panel panel-default">
 
-	  <div id="<%= i %>" style="display:block">
-		<div class="panel-body" style="display:block">
-			
-			<dd><%-mds[i]%></dd>
-		</div>
-		<div class="panel-footer">URL : 
-			<!--피드별 url을 생성해주는 스크립트 -->
-			<script type="text/javascript">					
-				var currentPage = decodeURI(location.href);<!-- 현재 url을 한글을 위해서 디코딩 저장 -->
+	<div class="panel-heading">
+	  <script>
+	    link = feedlink(decodeURI(location.pathname),"<%=mds[i].name%>");
+	  	document.write("<a href='/edit?path="+link+"'><b><%=mds[i].name%></b></a>"); 
+	  </script>
+	  
+      <div style="float:right; display:inline-block">
+		 <a href="#" onclick="kuisin('<%= i %>');">X</a>
+	  </div>
+    </div>
 
-				<!-- 피드별 url로 접속시 url에서 mdname이 존재하는지 판단 -->
-				if(currentPage.indexOf("<%=mdname[i]%>") != -1)
-				{
-					<!-- 피드별 페이지 접속시 url 출력 -->
-					document.write("<a href='"+currentPage+"''>"+currentPage+"</a>");
-				}
-				else
-				{
-					<!-- 디렉토리 페이지 접속시 url 출력 -->
-					document.write("<a href='"+currentPage+"/<%=mdname[i]%>'>"+currentPage+"/<%=mdname[i]%></a>");
-				}
-			</script>
-		</div>
-	  </div> 
+
+    <div id="<%= i %>" style="display:block">  
+ 	  <div class="panel-body">
+	    <dd><%-mds[i].content%></dd>
+ 	  </div>
+		
+	  <div class="panel-footer">URL : 
+	    <script>
+	      link = feedlink(decodeURI(location.href),"<%=mds[i].name%>");
+	      document.write("<a href='"+link+"'>"+link+"</a>");
+	    </script>
+	  </div>
 	</div>
+
+  </div> 
+
 <% } %>
 
