@@ -13,7 +13,7 @@ function insdirs(){
     for (i in projects){
         var filename = projects[i];
         var stat = fs.statSync(abpath + '/' + filename);
-         
+            
         if (stat.isDirectory()) {
                 if(filename != ".git") dirs.push(filename);
         }
@@ -40,6 +40,8 @@ function intro_search(path) {
             tempObj[projects[i]] = intro_search(tempPath);
         
     }
+
+
     return tempObj;     //완료된 임시 object 리턴
 }
 
@@ -75,19 +77,17 @@ function init(req,list) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var mds = [];
-    var links = [];
-
     var content = marked(fs.readFileSync('./projects/FrontPage.md','utf-8'));
     var html = {name:"FrontPage", content:content};
+
     mds.push(html);
     
-	res.render('index',{'dirs':dirs, 'dirList':"", 'add':"", 'mds':mds});
+	res.render('frontPage',{'dirs':dirs, 'mds':mds});
 });
 
 /* Get Dirs reset */
 router.get('/set', function(req,res){
-    for(var i=0; i <= dirs.length; i++)
-        dirs.shift();
+    for(var i=0; i <= dirs.length; i++) dirs.shift();
     insdirs();
 
     res.redirect('/');
@@ -95,25 +95,23 @@ router.get('/set', function(req,res){
 
 
 
-
 /* Get add Page */
 router.get('/add', function(req,res){
     var path = req.query.path;
-   res.render('add',{'dirs':dirs, 'dirList':"", 'add':"", 'path':path}); 
+    res.render('add',{'dirs':dirs,'path':path}); 
 });
-
 
 /* Get Edit Page */
 router.all('/edit', function(req,res){
     var path = abpath+req.query.path+".md";
     var content = fs.readFileSync(path,'utf-8');
 
-    res.render('edit',{'dirs':dirs, 'dirList':"", 'add':"", 'content':content, 'path':path});        
+    res.render('edit',{'dirs':dirs,'content':content,'path':path});        
 });
 
 /* Post Save Page */
 router.post('/save', function(req,res){
-    //add, edit을 구별해서 path를 저장
+    //파일 이름 여부를 통해 add, edit을 구별해서 path를 저장
     var path = (req.body.name == undefined) ? req.body.path : req.body.path+"/"+req.body.name+".md";
     var content = req.body.content;
 
@@ -125,11 +123,13 @@ router.post('/save', function(req,res){
     path = path.replace(filename,'');                   //파일이름 제거
     path = path.substring(10);                          //./projects 제거
 
-    
     res.redirect((path == '') ? '/': path);
 });
 
 
+
+// router.get('/:category', function(res,req){
+// });
 
 
 /* GET MD in url page && Directory View page */
@@ -138,7 +138,6 @@ router.get('/*', function(req,res){
     var filename = decodeURI(req.path.substring(req.path.lastIndexOf('/')+1)); //md파일 이름 잘라내기
 
     var mds = [];
-    var mdsname= [];
     var dirList = [];
     var add = "";
 
@@ -164,7 +163,7 @@ router.get('/*', function(req,res){
             }
         }
 
-        add = "<li><a href=/add?path="+path+">add</a><li>"
+        add = "<a href=/add?path="+path+">add</a>"
     }
     else if(fs.existsSync(path+".md"))       //해당하는 md파일이 존재하는지 확인
     {

@@ -1,0 +1,13 @@
+<nav class='nav top'>
+  <div class='top-brand'>
+  	<a href='/'>WikiLite</a>
+  </div>
+
+  <div class='top-menu'>
+  	<ul>
+  	  <% for (var i=0; i<dirs.length; i++) { %>
+			<li><a href='/<%=dirs[i]%>'><%=dirs[i]%></a> </li>
+		<% } %>
+  	</ul>
+  </div>
+</nav>

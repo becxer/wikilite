@@ -17,25 +17,27 @@ function feedlink(path,name){
 var link;
 </script>
 
+
+<div class="contents">
+
 <% for (i in mds) { %>
+  <div class="panel">
 
-  <div class="panel panel-default">
-
-	<div class="panel-heading">
+	<div class="panel-header">
 	  <script>
 	    link = feedlink(decodeURI(location.pathname),"<%=mds[i].name%>");
 	  	document.write("<a href='/edit?path="+link+"'><b><%=mds[i].name%></b></a>"); 
 	  </script>
 	  
       <div style="float:right; display:inline-block">
-		 <a href="#" onclick="kuisin('<%= i %>');">X</a>
+		 <a href="#" onclick="kuisin('<%= i %>');">O</a>
 	  </div>
     </div>
 
 
     <div id="<%= i %>" style="display:block">  
  	  <div class="panel-body">
-	    <dd><%-mds[i].content%></dd>
+	    <%-mds[i].content%>
  	  </div>
 		
 	  <div class="panel-footer">URL : 
@@ -46,7 +48,10 @@ var link;
 	  </div>
 	</div>
 
-  </div> 
+  </div>
+<% } %>  
 
-<% } %>
+</div>
+
+
 
