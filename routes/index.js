@@ -38,7 +38,7 @@ function findFile(path, mds, filter) {
         } 
         else if(file.isDirectory()) 
         {
-          filter.push({'name':filename,'path':'?filter='+path.substring(10)+'/'+filename});
+          filter.push({'name':filename,'path':path.substring(10)+'/'+filename});
           findFile(path+'/'+filename, mds, filter);
         }
     }
@@ -74,7 +74,7 @@ router.get('/add', function(req,res){
 });
 
 /* Get Edit Page */
-router.all('/edit', function(req,res){
+router.get('/edit', function(req,res){
     var path = req.query.path;
     var content = fs.readFileSync(path,'utf-8');
 
@@ -100,7 +100,7 @@ router.post('/save', function(req,res){
 
 
 
-/* Get View Page */
+/* Get Category Page */
 router.get('/:category', function(req,res){
     var path = decodeURI(abpath+'/'+req.params.category);
     var mds = [];
@@ -113,9 +113,25 @@ router.get('/:category', function(req,res){
     {
         path = decodeURI(abpath+req.query.filter);
         filter = [{'name':'back', 'path':'/'+req.params.category}];
-        console.log(filter);
+
         findFile(path,mds,filter);
     }
+
+    mds.sort(function(a,b){
+        return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
+    });
+
+    res.render('index',{'dirs':dirs, 'filters':filter, 'add':add, 'mds':mds});
+});
+
+/* Get Filter Page */
+router.get('/:category/:filter', function(req,res){
+    var path = decodeURI(abpath+'/'+req.params.category+'/'+req.params.filter);
+    var mds = [];
+    var filter = [{'name':'back', 'path':'/'+req.params.category}];
+    var add = "<a href=/add?path="+path+">add</a>";
+    
+    findFile(path,mds,filter);
 
     mds.sort(function(a,b){
         return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
