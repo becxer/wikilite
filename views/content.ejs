@@ -24,11 +24,8 @@ var link;
   <div class="panel">
 
 	<div class="panel-header">
-	  <script>
-	    link = feedlink(decodeURI(location.pathname),"<%=mds[i].name%>");
-	  	document.write("<a href='/edit?path="+link+"'><b><%=mds[i].name%></b></a>"); 
-	  </script>
-	  
+	  <a href='/edit?path=<%=mds[i].path%>'><b><%=mds[i].name%></b></a> 
+
       <div style="float:right; display:inline-block">
 		 <a href="#" onclick="kuisin('<%= i %>');">O</a>
 	  </div>

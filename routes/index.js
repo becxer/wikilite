@@ -58,7 +58,7 @@ function insList(List,object,pathArr,order){    //객체를 통해서 같은 레
 
 //------------------------------------------------------------------------------
 
-function init(req,list) {
+function init(req,list) {   //
     var rootobj = intro_search(abpath);     //json 방식으로 해당 URL 안에 들어있는 폴더를 서치intro_search(abpath);
 
     var pathArr = decodeURIComponent(req.path).split('/');
@@ -69,6 +69,32 @@ function init(req,list) {
 
     list.push(pathArr,dirlist);
 }
+
+//------------------------------------------------------------------------------
+function findFile(path, mds, filter) {
+    var files = fs.readdirSync(path);
+
+    for(i in files){
+        var filename = files[i];
+        var file = fs.statSync(path+'/'+filename);
+        var ext = filename.substring(filename.lastIndexOf(".")+1);
+
+        if (file.isFile() && ext == 'md')
+        {
+          var content = marked(fs.readFileSync(path + '/' + filename,'utf-8'));
+          var html = {'name':filename.split(".")[0], 'content':content, 'path':path+'/'+filename, 'mtime':file.mtime};
+                
+          mds.push(html);
+        } 
+        else if(file.isDirectory()) 
+        {
+          filter.push({'name':filename,'path':path.substring(10)+'/'+filename});
+          findFile(path+'/'+filename, mds, filter);
+        }
+    }
+}
+
+
 
 //------------------------------------------------------------------------------
 
@@ -101,7 +127,7 @@ router.get('/add', function(req,res){
 
 /* Get Edit Page */
 router.all('/edit', function(req,res){
-    var path = abpath+req.query.path+".md";
+    var path = req.query.path;
     var content = fs.readFileSync(path,'utf-8');
 
     res.render('edit',{'dirs':dirs,'content':content,'path':path});        
@@ -126,8 +152,24 @@ router.post('/save', function(req,res){
 
 
 
-// router.get('/:category', function(res,req){
-// });
+router.get('/:category', function(req,res){
+    var path = decodeURI(abpath+'/'+req.params.category);
+    var filter = [];
+    var mds = [];
+    var add = "<a href=/add?path="+path+">add</a>";
+    
+    findFile(path,mds,filter);
+
+    mds.sort(function(a,b){
+        return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
+    });
+    
+    console.log(mds,filter);
+
+    res.render('index',{'dirs':dirs, 'filters':filter, 'add':add, 'mds':mds});
+});
+
+
 
 
 /* GET MD in url page && Directory View page */
@@ -135,12 +177,14 @@ router.get('/*', function(req,res){
     var path = decodeURI(abpath + req.path);    //한글 디코딩
     var filename = decodeURI(req.path.substring(req.path.lastIndexOf('/')+1)); //md파일 이름 잘라내기
 
+    var filter = [];
     var mds = [];
     var dirList = [];
     var add = "";
 
     init(req,dirList);
 
+    console.log(dirList);
     if(fs.existsSync(path))         //해당하는 디렉토리가 존재하는지 확인
     {
         var projects = fs.readdirSync(path);
@@ -180,7 +224,7 @@ router.get('/*', function(req,res){
     mds.sort(function(a,b){
         return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
     });
-    res.render('index',{'dirs':dirs, 'dirList':dirList, 'add':add, 'mds':mds });        
+    res.render('index',{'dirs':dirs, 'filters':filter, 'add':add, 'mds':mds });        
 });
 
 

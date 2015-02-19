@@ -7,10 +7,9 @@
 
   <p class='sub'>SubDirs</p>
   <ul>
-  	<li><a href='#'>SubDir</a></li>
-  	<li><a href='#'>SubDir</a></li>
-  	<li><a href='#'>SubDir</a></li>
-  	<li><a href='#'>SubDir</a></li>
+    <% for(i in filters) { %>
+      <li><a href='<%=filters[i].path%>'><%=filters[i].name%></a> </li>
+    <% } %>
   </ul>
 </nav>
 
