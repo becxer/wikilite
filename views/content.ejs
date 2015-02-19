@@ -32,19 +32,19 @@ var link;
     </div>
 
 
-    <div id="<%= i %>" style="display:block">  
- 	  <div class="panel-body">
+  <div id="<%= i %>" style="display:block">  
+ 	<div class="panel-body">
 	    <%-mds[i].content%>
- 	  </div>
+ 	</div>
 		
-	  <div class="panel-footer">URL : 
-	    <script>
-	      link = feedlink(decodeURI(location.href),"<%=mds[i].name%>");
-	      document.write("<a href='"+link+"'>"+link+"</a>");
-	    </script>
-	  </div>
-	</div>
-
+ 	<div class="panel-footer">URL : 
+    	<script>
+      		link = feedlink(decodeURI(location.href),"<%=mds[i].name%>");
+      		document.write("<a href='"+link+"'>"+link+"</a>");
+    	</script>
+  	</div>
+  </div>
+  
   </div>
 <% } %>  
 
