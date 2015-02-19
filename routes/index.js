@@ -36,7 +36,7 @@ function findFile(path, mds, filter) {
           var content = marked(fs.readFileSync(path + '/' + filename,'utf-8'));
           mds.push({'name':filename.split(".")[0], 'content':content, 'path':path+'/'+filename, 'mtime':file.mtime});
         } 
-        else if(file.isDirectory()) 
+        else if(file.isDirectory() && filename != ".git") 
         {
           filter.push({'name':filename,'path':path.substring(10)+'/'+filename});
           findFile(path+'/'+filename, mds, filter);
