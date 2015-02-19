@@ -7,13 +7,6 @@ function kuisin(idMyDiv){
      else{ objDiv.style.display = "block"; }
 }
 
-function feedlink(path,name){
-	if(path.indexOf(name) != -1)
-		return path;
-	else
-		return (name != "FrontPage") ? path+"/"+name : path+name;
-}
-
 var link;
 </script>
 
@@ -27,9 +20,9 @@ var link;
 	  <a href='/edit?path=<%=mds[i].path%>'><b><%=mds[i].name%></b></a> 
 
       <div style="float:right; display:inline-block">
-		 <a href="#" onclick="kuisin('<%= i %>');">O</a>
+		 <a class="hide" href="#" onclick="kuisin('<%= i %>');">O</a>
 	  </div>
-    </div>
+  </div>
 
 
   <div id="<%= i %>" style="display:block">  
@@ -39,7 +32,9 @@ var link;
 		
  	<div class="panel-footer">URL : 
     	<script>
-      		link = feedlink(decodeURI(location.href),"<%=mds[i].name%>");
+      		link = decodeURI("<%=mds[i].path%>");
+          link = "http://" + location.host + link.substring(10,link.lastIndexOf("."));
+
       		document.write("<a href='"+link+"'>"+link+"</a>");
     	</script>
   	</div>

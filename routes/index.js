@@ -50,9 +50,8 @@ function findFile(path, mds, filter) {
 router.get('/', function(req, res, next) {
     var mds = [];
     var content = marked(fs.readFileSync('./projects/FrontPage.md','utf-8'));
-    var html = {name:"FrontPage", content:content};
 
-    mds.push(html);
+    mds.push({'name':"FrontPage",'content':content,'path':"./projects/FrontPage.md"});
     
 	res.render('frontpage',{'dirs':dirs, 'mds':mds});
 });
@@ -106,16 +105,8 @@ router.get('/:category', function(req,res){
     var mds = [];
     var filter = [];
     var add = "<a href=/add?path="+path+">add</a>";
-    
-    if(req.query.filter == undefined) 
-        findFile(path,mds,filter);
-    else
-    {
-        path = decodeURI(abpath+req.query.filter);
-        filter = [{'name':'back', 'path':'/'+req.params.category}];
-
-        findFile(path,mds,filter);
-    }
+     
+    findFile(path,mds,filter);
 
     mds.sort(function(a,b){
         return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
@@ -131,7 +122,18 @@ router.get('/:category/:filter', function(req,res){
     var filter = [{'name':'back', 'path':'/'+req.params.category}];
     var add = "<a href=/add?path="+path+">add</a>";
     
-    findFile(path,mds,filter);
+
+    if(fs.existsSync(path+".md")){      //댑스가 1인 md파일인 경우
+        var file = fs.statSync(path+".md");
+        var content = marked(fs.readFileSync(path+".md",'utf-8'));
+        var filename = path.substring(path.lastIndexOf('/')+1);
+
+        mds.push({'name':filename, 'content':content, 'path':path+".md", 'mtime':file.mtime}); 
+    }
+    else {
+        findFile(path,mds,filter); 
+    }
+    
 
     mds.sort(function(a,b){
         return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;

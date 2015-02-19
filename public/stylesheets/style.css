@@ -54,6 +54,9 @@ line-height: 26px;
 .top-menu ul li a:hover {
 color: #abc;
 }
+.top-group{
+font-size: 0;
+}
 
 
 /* Side-Navigation */
@@ -65,7 +68,7 @@ position: fixed;
 margin-left: 20px;
 font-size: 25px;
 }
-.sub{
+.side-group{
 margin: 10px 10px 5px 20px;
 font-size: 18px;
 }

@@ -3,23 +3,47 @@
   <head>
 	  <meta meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	  <link rel='stylesheet' href='/stylesheets/style.css' />
+	  <link rel='stylesheet' href='/stylesheets/style.css' media="only screen and (min-width : 1224px)" >
+    <link rel="stylesheet" href="/stylesheets/smartphone-style.css" media="only screen and (max-width : 768px)">
  
     <title>위키라이트</title>
     
   </head>
+
   <body>
-    
-	<% include nav-top %>
-  <style> .contents{
-   margin-left: 10px;
-  }
-  </style>
-	<% include content %>
+    <div class="openNav">
+       <div class="icon"></div>
+    </div>
+  
+    <nav class="moblieMenu">
+      <div class="layout">
+        <% include nav-top %>
+      </div>
+    </nav>
+
+  <div class="wrapper">
+    <% include content %>
+  </div>
 
   </body>
 </html>
 
+<script>
+$(".openNav").click(function() {
+  $("body").toggleClass("navOpen");
+  $("nav").toggleClass("open");
+  $(".wrapper").toggleClass("open");
+  $(this).toggleClass("open");
+});
+</script>
+
+<style>
+@media screen and (min-width:768px){ 
+  .contents{
+    margin-left: 10px;
+  }
+}
+</style>
 
 
 
