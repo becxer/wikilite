@@ -1,60 +1,55 @@
+//CONSTANTS
+var proj_path = './projects';
+var dmod_path = '../dev_modules';
+
+
+//REQUIRES
 var express = require('express');
 var fs = require('fs');
 var marked = require('marked');
 var router = express.Router();
-var abpath = './projects';
+
+
+//MD FILE CONTROLL MODULE
+var mdctrl = require(dmod_path+'/mdctrl.js');
+mdctrl.init(proj_path);
+
+//GLOBAL VARIABLES
+var dirs = mdctrl.find_dirs(proj_path);
+
+
+//Classes
+var md = {
+	'name':'title name',
+	'content':'html content',
+	'path':'real file path', 
+	'mtime':'filesystem-time',
+	'urlpath' : 'url path'
+};
+
+var dir = {
+	'name' : 'title name',
+	'path' : 'real file path',
+	'mtime' : 'filesystem-time',
+	'urlpath' : 'url path'
+};
 
 //------------------------------------------------------------------------------
-/* READ dir list */
-var dirs =[];
 
-function insdirs(){
-    var projects = fs.readdirSync(abpath);
+function render(res, ejs_name, data_obj){
+	var default_obj = {'dirs':dirs };
+	for(i in data_obj){
+		default_obj[i] = data_obj[i];
+	}
+	res.render(ejs_name,default_obj);
+};
 
-    for (i in projects){
-        var filename = projects[i];
-        var stat = fs.statSync(abpath + '/' + filename);
-            
-        if (stat.isDirectory()) {
-                if(filename != ".git") dirs.push(filename);
-        }
-    }
-}
-
-insdirs();
-//------------------------------------------------------------------------------
-function findFile(path, mds, filter) {
-    var files = fs.readdirSync(path);
-
-    for(i in files){
-        var filename = files[i];
-        var file = fs.statSync(path+'/'+filename);
-        var ext = filename.substring(filename.lastIndexOf(".")+1);
-
-        if (file.isFile() && ext == 'md')
-        {
-          var content = marked(fs.readFileSync(path + '/' + filename,'utf-8'));
-          mds.push({'name':filename.split(".")[0], 'content':content, 'path':path+'/'+filename, 'mtime':file.mtime});
-        } 
-        else if(file.isDirectory()) 
-        {
-          filter.push({'name':filename,'path':path.substring(10)+'/'+filename});
-          findFile(path+'/'+filename, mds, filter);
-        }
-    }
-}
-//------------------------------------------------------------------------------
-
-
+// ROUTERS
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var mds = [];
-    var content = marked(fs.readFileSync('./projects/FrontPage.md','utf-8'));
-    var html = {name:"FrontPage", content:content};
-
-    mds.push(html);
+    var mds = mdctrl.read_md(proj_path+'/FrontPage.md');
     
-	res.render('frontpage',{'dirs':dirs, 'mds':mds});
+    render(res,'frontpage',{'mds':mds});
 });
 
 /* Get Dirs reset */
@@ -70,15 +65,16 @@ router.get('/set', function(req,res){
 /* Get add Page */
 router.get('/add', function(req,res){
     var path = req.query.path;
-    res.render('add',{'dirs':dirs,'path':path}); 
+    
+    render(res,'add',{'path':path});
 });
 
 /* Get Edit Page */
 router.get('/edit', function(req,res){
     var path = req.query.path;
-    var content = fs.readFileSync(path,'utf-8');
-
-    res.render('edit',{'dirs':dirs,'content':content,'path':path});        
+    var mds = mdctrl.read_md_pure(path);
+    
+	render(res,'edit',{'mds':mds[0]});       
 });
 
 /* Post Save Page */
@@ -87,76 +83,53 @@ router.post('/save', function(req,res){
     var path = (req.body.name == undefined) ? req.body.path : req.body.path+"/"+req.body.name+".md";
     var content = req.body.content;
 
-    fs.writeFile(path,content,function(err){
-        if(err) throw err;
-    });
+   	md = mdctrl.update_md(path,content)[0];
 
-    var filename = path.substring(path.lastIndexOf('/'));
-    path = path.replace(filename,'');                   //파일이름 제거
-    path = path.substring(10);                          //./projects 제거
-
-    res.redirect((path == '') ? '/': path);
+    res.redirect((md.name == 'FrontPage') ? '/': md.urlpath);
 });
 
 
 
 /* Get Category Page */
 router.get('/:category', function(req,res){
-    var path = decodeURI(abpath+'/'+req.params.category);
-    var mds = [];
-    var filter = [];
-    var add = "<a href=/add?path="+path+">add</a>";
-    
-    if(req.query.filter == undefined) 
-        findFile(path,mds,filter);
-    else
+	var path = decodeURI(proj_path+'/'+req.params.category);
+    var data_obj = 
     {
-        path = decodeURI(abpath+req.query.filter);
-        filter = [{'name':'back', 'path':'/'+req.params.category}];
-
-        findFile(path,mds,filter);
-    }
-
-    mds.sort(function(a,b){
-        return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
-    });
-
-    res.render('index',{'dirs':dirs, 'filters':filter, 'add':add, 'mds':mds});
+	 	'path': path,
+	 	'filters': mdctrl.find_dirs(path),
+	 	'mds': mdctrl.find_mds(path),
+	 	'add' : "<a href=/add?path="+path+">add</a>"
+    };
+   
+    render(res,'index',data_obj);
 });
 
-/* Get Filter Page */
+/* Get Filter Page Or Category MD */
 router.get('/:category/:filter', function(req,res){
-    var path = decodeURI(abpath+'/'+req.params.category+'/'+req.params.filter);
-    var mds = [];
-    var filter = [{'name':'back', 'path':'/'+req.params.category}];
-    var add = "<a href=/add?path="+path+">add</a>";
+    var path = decodeURI(proj_path+'/'+req.params.category+'/'+req.params.filter);
+	var data_obj = 
+    {
+	 	'path': path,
+	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category}],
+	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
+	 	'add' : "<a href=/add?path="+path+">add</a>"
+    };
     
-    findFile(path,mds,filter);
-
-    mds.sort(function(a,b){
-        return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
-    });
-
-    res.render('index',{'dirs':dirs, 'filters':filter, 'add':add, 'mds':mds});
+    render(res,'index',data_obj);
 });
 
 /* GET MD in url page */
-router.get('/*', function(req,res){
-    var path = decodeURI(abpath+req.path+'.md');    //한글 디코딩
-    var filename = decodeURI(req.path.substring(req.path.lastIndexOf('/')+1)); //md파일 이름 잘라내기
-    var mds = [];
-    var filter = [];
-    var add = "";
-
-    if(fs.existsSync(path))       //해당하는 md파일이 존재하는지 확인
-    {
-        var file = fs.statSync(path);
-        var content = marked(fs.readFileSync(path,'utf-8'));
-
-        mds.push({'name':filename, 'content':content, 'path':path, 'mtime':file.mtime});  
-    }
-
-    res.render('index',{'dirs':dirs, 'filters':filter, 'add':add, 'mds':mds });        
+router.get('/:category/:filter/:md', function(req,res){
+    var path = decodeURI(proj_path+req.path+'.md');
+    var data_obj = 
+	{
+	 	'path': path,
+	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category + '/' + req.params.filter}],
+	 	'mds': mdctrl.read_md(path),
+	 	'add' : ""
+    };
+    
+    render(res,'index',data_obj);   
 });
 
 

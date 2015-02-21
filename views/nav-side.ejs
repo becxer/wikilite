@@ -3,12 +3,10 @@
   	<%- add %>
   </div>
 
-  <div style="margin:10px;border: 2px solid #ccc;"></div>
-
-  <p class='sub'>SubDirs</p>
+  <p class='side-group'>SubDirs</p>
   <ul>
     <% for(i in filters) { %>
-      <li><a href='<%=filters[i].path%>'><%=filters[i].name%></a> </li>
+      <li><a href='<%=filters[i].urlpath%>'><%=filters[i].name%></a> </li>
     <% } %>
   </ul>
 </nav>

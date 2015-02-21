@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-	<meta meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	<link rel='stylesheet' href='/stylesheets/style.css' />
+<% include header%>  
 
-	<!-- CodeMirror 모듈 불러오기 -->
-	<script src="/lib/codemirror.js"></script>
-	<link rel="stylesheet" href="/lib/codemirror.css">
-	<script src="/mode/javascript/javascript.js"></script>
- 
-    <title>WikiLite</title>
-    
-  </head>
-
-	<style>
+  <style>
 	.contents{
 		margin-left: 13%;
 	}
 	.CodeMirror{
-		z-index: 0;
 		width:100%;
 		height:725px;
 	}
@@ -30,8 +15,6 @@
 		font-size: 30px;
 	}
 	</style>
-	
-  <body>
 	<% include nav-top %>
 	
 	<form method="post" action="/save">
@@ -51,12 +34,12 @@
 	
 	</form>
 
+<%include footer%>
 
-	<script type="text/javascript">
+<script src="/lib/codemirror.js"></script>
+<script src="/mode/javascript/javascript.js"></script>
+<script type="text/javascript">
 		var editor = CodeMirror.fromTextArea(document.getElementById("content"), {
 		  lineNumbers: true
 		});
-	</script>
-  </body>
-</html>
-
+</script>

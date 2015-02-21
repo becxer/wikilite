@@ -1,12 +1,14 @@
+
 <nav class='nav top'>
   <div class='top-brand'>
   	<a href='/'>위키대문</a>
   </div>
 
+<p class='top-group'>Category</p>
   <div class='top-menu'>
   	<ul>
   	  <% for (i in dirs) { %>
-			<li><a href='/<%=dirs[i]%>'><%=dirs[i]%></a> </li>
+			<li><a href='/<%=dirs[i].name%>'><%=dirs[i].name%></a> </li>
 		<% } %>
   	</ul>
   </div>

@@ -20,7 +20,12 @@ examples (상단 네비게이션바 주제)
 
 wikilite ( 상단 네비게이션바 주제)
 	   - 개발 이력 남긴는곳
-
+        
 ----------------------------------------------------------
+</code></pre> 
+</p><script>alert(\'123\');</script><p>
+<pre><code>
 
-[위키라이트의 설치는 이곳을 참조해주세요](https://github.com/becxer/wikilite)
+[위키라이트의 설치는 이곳을 참조해주세요](https://github.com/becxer/wikilite)   
+
+![두더지](http://cfile215.uf.daum.net/image/18792C36507517772F5B38)

@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-	  <meta meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	 <link rel='stylesheet' href='/stylesheets/style.css' />
- 
-    <title>위키라이트</title>
-    
-  </head>
-  <body>
-    
-	<% include nav-top %>
+<%include header %>
+  
+    <nav class="moblieMenu">
+      <div class="layout">
+        <% include nav-top %>
+      </div>
+    </nav>
 
-	<% include content %>
-
-  </body>
-</html>
+  <div class="wrapper">
+    <% include content %>
+  </div>
 
 
+<style>
+@media screen and (min-width:768px){ 
+  .contents{
+    margin-left: 10px;
+  }
+}
+</style>
 
+
+<%include footer %>
 

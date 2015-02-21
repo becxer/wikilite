@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-	  <meta meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	 <link rel='stylesheet' href='/stylesheets/style.css' />
- 
-    <title>위키라이트</title>
-    
-  </head>
-  <body>
-    
-	<% include nav-top %>
-  <% include nav-side %>
+<%include header %>
+<nav class="moblieMenu">
+    <div class="layout">
+		<% include nav-top %>
+		<% include nav-side %> 
+	</div>
+</nav>
 
-  <style>.contents{margin-left: 13%;}</style>
-	<% include content %>
+  <div class="wrapper">
+    <% include content %>
+  </div>
 
   </body>
 </html>
 
-
+<script>
+$(".openNav").click(function() {
+  $("body").toggleClass("navOpen");
+  $("nav").toggleClass("open");
+  $(".wrapper").toggleClass("open");
+  $(this).toggleClass("open");
+});
+</script>

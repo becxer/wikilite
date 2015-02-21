@@ -1,0 +1,208 @@
+h1, h2, h3{
+  marign: 0.5em 0 0.5em;
+}
+a, a:visited {
+  text-decoration: none;
+  color: #6799FF;
+ 
+}
+pre, a{
+white-space: pre-wrap; /* CSS3*/
+white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: -o-pre-wrap; /* Opera 7 */
+word-wrap: break-all; /* Internet Explorer 5.5+ */ 
+}
+
+body{
+margin: 0;
+background-color: #ddd;
+}
+
+/* Moblie Navigation */
+.moblieMenu {
+  background-color: #14B9FF;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.wrapper {
+  transition-duration: 0.5s;
+  transition-timing-function: swing;
+  background-color: white;
+  width: 90%;
+  height: 90%;
+  position: relative;
+  padding: 5% 5%;
+}
+.layout{
+  float:left;
+  width: 200px;
+  height: 100%;
+  margin-top: 20px;
+}
+
+nav ul {
+width: 130px;
+margin: 0 20px 10px 20px;
+border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+nav ul li{
+transition-duration: 0.25s;
+display: block;
+padding: 3px 2px;
+color: white;
+letter-spacing: 0.02em;
+text-align: right;
+font-size: 18px;
+}
+nav ul:hover li {
+color: rgba(255, 255, 255, 0.5);
+}
+
+nav a, nav a:visited{
+color: #fff;
+}
+
+/* Top-Navigation */
+.top-brand{
+font-size: 25px;
+padding: 10px 50px;
+}
+.top-group{
+float: right;
+margin: 10px 10px;
+font-size: 20px;
+color: #fff;
+border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+
+/* Side-Navigation */
+.add{
+margin-left: 20px;
+font-size: 25px;
+position: absolute;
+bottom: 10px;
+}
+.side-group{
+float: right;
+margin: 10px 10px;
+font-size: 18px;
+color: #fff;
+border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+.side li{
+padding: 2px;
+font-size: 15px;
+} 
+
+/* Content */
+.contents{
+  width: 100%;
+  margin-top: 40px;
+}
+
+.panel {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #14B9FF;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.panel-header{
+  padding: 10px 15px;
+  background-color: #14B9FF;
+  border-bottom: 1px solid #14B9FF;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.panel-header a{
+  color: #000;
+}
+
+.panel-body {
+  margin: 0 10px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.panel-footer {
+  font-size: 0;
+}
+
+.hide {
+  font-size: 0;
+}
+
+/* Menu Button */
+.openNav {
+  transition-duration: 0.5s;
+  transition-timing-function: swing;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 1);
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  z-index: 9;
+}
+.openNav:hover {
+  cursor: pointer;
+}
+.openNav .icon {
+  transition-duration: 0.2s;
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background-color: #14B9FF;
+  top: 24px;
+  left: 10px;
+}
+.openNav .icon:before,
+.openNav .icon:after {
+  transition-duration: 0.5s;
+  background-color: #14B9FF;
+  position: absolute;
+  content: "";
+  width: 30px;
+  height: 2px;
+  left: 0px;
+}
+.openNav .icon:before {
+  top: -7px;
+}
+.openNav .icon:after {
+  top: 7px;
+}
+.openNav.open {
+  transform: translateX(200px) translateY(0px);
+  -webkit-transform: translateX(200px) translateY(0px);
+}
+.openNav.open .icon {
+  background-color: transparent;
+}
+.openNav.open .icon:before,
+.openNav.open .icon:after {
+  top: 0;
+}
+.openNav.open .icon:before {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+.openNav.open .icon:after {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.navOpen {
+  overflow: hidden;
+}
+.wrapper.open {
+  transform: translateX(200px) translateY(0px);
+  -webkit-transform: translateX(200px) translateY(0px);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+}
