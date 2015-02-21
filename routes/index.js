@@ -34,7 +34,6 @@ var dir = {
 	'urlpath' : 'url path'
 };
 
-//------------------------------------------------------------------------------
 
 function render(res, ejs_name, data_obj){
 	var default_obj = {'dirs':dirs };
@@ -48,6 +47,7 @@ function render(res, ejs_name, data_obj){
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var mds = mdctrl.read_md(proj_path+'/FrontPage.md');
+
     
     render(res,'frontpage',{'mds':mds});
 });
