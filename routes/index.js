@@ -48,6 +48,11 @@ function render(res, ejs_name, data_obj){
 	res.render(ejs_name,default_obj);
 };
 
+
+function redirect(res){
+	res.redirect('/');
+};
+
 // ROUTERS
 /* GET home page. */
 router.get('/', function(req, res, next) {
