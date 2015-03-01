@@ -14,6 +14,10 @@ var router = express.Router();
 var mdctrl = require(dmod_path+'/mdctrl.js');
 mdctrl.init(proj_path);
 
+
+//SESSION CONTROLL MODULE
+var snctrl = require(dmod_path+'/signctrl.js');
+
 //GLOBAL VARIABLES
 var dirs = mdctrl.find_dirs(proj_path);
 
@@ -41,6 +45,11 @@ function render(res, ejs_name, data_obj){
 		default_obj[i] = data_obj[i];
 	}
 	res.render(ejs_name,default_obj);
+};
+
+
+function redirect(res){
+	res.redirect('/');
 };
 
 // ROUTERS
@@ -92,16 +101,19 @@ router.post('/save', function(req,res){
 
 /* Get Category Page */
 router.get('/:category', function(req,res){
-	var path = decodeURI(proj_path+'/'+req.params.category);
-    var data_obj = 
-    {
-	 	'path': path,
-	 	'filters': mdctrl.find_dirs(path),
-	 	'mds': mdctrl.find_mds(path),
-	 	'add' : "<a href=/add?path="+path+">add</a>"
-    };
-   
-    render(res,'index',data_obj);
+	snctrl.chk("1112", function(){
+		var path = decodeURI(proj_path+'/'+req.params.category);
+		var data_obj = 
+		{
+		 	'path': path,
+		 	'filters': mdctrl.find_dirs(path),
+		 	'mds': mdctrl.find_mds(path),
+		 	'add' : "<a href=/add?path="+path+">add</a>"
+		};
+
+		render(res,'index',data_obj);
+	});
+	
 });
 
 /* Get Filter Page Or Category MD */
