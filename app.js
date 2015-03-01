@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,6 +8,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var autodeploy = require('./routes/autodeploy');
+var editor = require('./routes/editor');
 
 var app = express();
 
@@ -20,9 +22,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'wikilite', cookie: { maxAge: null } }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/autodeploy', autodeploy);
+app.use('/editor', editor);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

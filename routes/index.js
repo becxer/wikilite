@@ -14,6 +14,11 @@ var router = express.Router();
 var mdctrl = require(dmod_path+'/mdctrl.js');
 mdctrl.init(proj_path);
 
+
+//SESSTION CONTROLL MODULE
+var snctrl = require(dmod_path+'/snctrl.js');
+
+
 //GLOBAL VARIABLES
 var dirs = mdctrl.find_dirs(proj_path);
 
@@ -55,53 +60,33 @@ router.get('/', function(req, res, next) {
 /* Get Dirs reset */
 router.get('/set', function(req,res){
     for(var i=0; i <= dirs.length; i++) dirs.shift();
-    insdirs();
+	dirs = mdctrl.find_dirs(proj_path);
 
     res.redirect('/');
 });
 
-
-
-/* Get add Page */
-router.get('/add', function(req,res){
-    var path = req.query.path;
-    
-    render(res,'add',{'path':path});
+/* Post FB Login */
+router.post('/fb', function(req,res){
+	snctrl.add(req.body.user_id);
+	req.session.user_id = req.body.user_id;
+    res.redirect('/');
 });
-
-/* Get Edit Page */
-router.get('/edit', function(req,res){
-    var path = req.query.path;
-    var mds = mdctrl.read_md_pure(path);
-    
-	render(res,'edit',{'mds':mds[0]});       
-});
-
-/* Post Save Page */
-router.post('/save', function(req,res){
-    //파일 이름 여부를 통해 add, edit을 구별해서 path를 저장
-    var path = (req.body.name == undefined) ? req.body.path : req.body.path+"/"+req.body.name+".md";
-    var content = req.body.content;
-
-   	md = mdctrl.update_md(path,content)[0];
-
-    res.redirect((md.name == 'FrontPage') ? '/': md.urlpath);
-});
-
 
 
 /* Get Category Page */
 router.get('/:category', function(req,res){
+
 	var path = decodeURI(proj_path+'/'+req.params.category);
     var data_obj = 
-    {
-	 	'path': path,
-	 	'filters': mdctrl.find_dirs(path),
-	 	'mds': mdctrl.find_mds(path),
-	 	'add' : "<a href=/add?path="+path+">add</a>"
-    };
+	{
+ 		'path': path,
+ 		'filters': mdctrl.find_dirs(path),
+ 		'mds': mdctrl.find_mds(path),
+ 		'add' : "<a href=/editor/add?path="+path+">add</a>"
+   	};
    
     render(res,'index',data_obj);
+    
 });
 
 /* Get Filter Page Or Category MD */
@@ -112,7 +97,7 @@ router.get('/:category/:filter', function(req,res){
 	 	'path': path,
 	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category}],
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
-	 	'add' : "<a href=/add?path="+path+">add</a>"
+	 	'add' : "<a href=/editor/add?path="+path+">add</a>"
     };
     
     render(res,'index',data_obj);

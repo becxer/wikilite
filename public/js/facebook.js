@@ -1,4 +1,3 @@
-<script>
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -24,6 +23,7 @@
   // onlogin 핸들러를 아래와 같이 첨부하면 된다.
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
+	  console.log("onlogin button");
       statusChangeCallback(response);
     }); 
   }
@@ -42,11 +42,6 @@
   // 3. 페이스북에 로그인이 되어있지 않아서 앱에 로그인이 되었는지 불확실하다.
   //  
   // 위에서 구현한 콜백 함수는 이 3가지를 다루도록 되어있다.
- 
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    }); 
- 
   };  
   
     // SDK를 비동기적으로 호출
@@ -63,9 +58,15 @@
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-
+        $.ajax({
+        url:'/fb',
+        type:'post',
+        data:{'user_id':response.id},
+		success:function(data){
+				//alert(data);
+			}
+		});
     });
   }
-</script>
 
   

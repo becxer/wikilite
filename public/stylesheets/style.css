@@ -46,6 +46,13 @@ padding: 18px 18px;
 font-size: 21px;
 line-height: 20px;
 }
+.top-face{
+display: inline;
+float: right;
+padding: 18px 18px;
+font-size: 21px;
+line-height: 20px;
+}
 .top-menu ul li{
 display: inline;
 padding: 18px 15px;
