@@ -83,11 +83,11 @@ router.post('/save', function(req,res){
 	sessChk(req,res,function(){	
 	    //파일 이름 여부를 통해 add, edit을 구별해서 path를 저장
 		var path = (req.body.name == undefined) ? req.body.path : req.body.path+"/"+req.body.name+".md";
-    	var content = req.body.content;
+	    	var content = req.body.content;
+	
+		md = mdctrl.update_md(path,content)[0];
 
-	   	md = mdctrl.update_md(path,content)[0];
-
-    	res.redirect((md.name == 'FrontPage') ? '/': md.urlpath);
+		res.redirect((md.name == 'FrontPage') ? '/': encodeURI(md.urlpath));
     });
 
 });

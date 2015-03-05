@@ -17,7 +17,7 @@
 	</style>
 	<% include nav-top %>
 	
-	<form method="post" action="/save">
+	<form method="post" action="/editor/save">
 
 	  <nav class='nav side'>
 	  	<ul>
@@ -38,7 +38,9 @@
 <script src="/mode/javascript/javascript.js"></script>
 <script type="text/javascript">
 		var editor = CodeMirror.fromTextArea(document.getElementById("content"), {
-		  lineNumbers: true
+		  lineNumbers: true,
+		  keymap: "vim"
+	          
 		});
 </script>
 

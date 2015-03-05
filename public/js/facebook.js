@@ -30,7 +30,7 @@
  
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '860143334031818',
+    appId      : '395621373950365',
     cookie     : true,  // 쿠키가 세션을 참조할 수 있도록 허용
     xfbml      : true,  // 소셜 플러그인이 있으면 처리
     version    : 'v2.1' // 버전 2.1 사용
