@@ -1,24 +1,6 @@
 
-<%include header %>
-<nav class="moblieMenu">
-    <div class="layout">
-		<% include nav-top %>
-		<% include nav-side %> 
-	</div>
-</nav>
-
-  <div class="wrapper">
-    <% include content %>
-  </div>
-
-  </body>
-</html>
-
-<script>
-$(".openNav").click(function() {
-  $("body").toggleClass("navOpen");
-  $("nav").toggleClass("open");
-  $(".wrapper").toggleClass("open");
-  $(this).toggleClass("open");
-});
-</script>
+<% include header %>
+<% include nav-top %>
+<% include nav-side %> 
+<% include content %>
+<% include footer %>
