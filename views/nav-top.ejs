@@ -1,20 +1,21 @@
 
-<nav class='nav top'>
-  <div class='top-brand'>
-  	<a href='/'>위키대문</a>
-  </div>
-  
-  <div class='top-face'>
+
+<nav class='light-blue lighten-1' role="navigation">
+<div class="nav-wrapper container">
+  	<a id="logo-container" href="/" class="brand-logo center">위키라이트</a>
+  <div class='right'>
   	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
     </fb:login-button>
+	</li>
   </div>
-
-<p class='top-group'>Category</p>
-  <div class='top-menu'>
-  	<ul>
+  <ul id="nav-mobile" class="side-nav fixed" style="left: -250px;">
   	  <% for (i in dirs) { %>
 			<li><a href='/<%=dirs[i].name%>'><%=dirs[i].name%></a> </li>
 		<% } %>
-  	</ul>
+  </ul>
+  <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+  
+ 
   </div>
 </nav>
+
