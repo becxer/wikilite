@@ -1,0 +1,13 @@
+<header>
+    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a></div>
+    
+    <ul id="nav-mobile" class="side-nav fixed" >
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
+        위키라이트 임시
+        </a></li>
+  	  <% for (i in dirs) { %>
+        <li class="bold"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
+      <% } %>
+    </ul>
+
+</header>

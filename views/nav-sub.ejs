@@ -1,0 +1,14 @@
+<header>
+  <nav class="light-blue lighten-1">
+    <div class="nav-wrapper" style="margin: 0 3rem">
+      
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <% for (i in filters) { %>  
+            <li class="bold"><a href="<%=filters[i].urlpath%>"><%=filters[i].name%></a></li>
+        <% } %>  
+      </ul>
+      
+      <%- subBtn %>
+    </div>
+  </nav>    
+</header>

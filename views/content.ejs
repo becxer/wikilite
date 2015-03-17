@@ -10,39 +10,38 @@ function kuisin(idMyDiv){
 var link;
 </script>
 
+<main>
+  <div class="section no-pad-bot">
 
-<div class="section no-pad-bot">
+  <% for (i in mds) { %>
+  <div class="card" style="margin: 0 1rem 1rem ">
 
-<% for (i in mds) { %>
-  <div class="panel">
-
-	<div class="panel-header">
-	  <a href='/editor/edit?path=<%=mds[i].path%>'><b><%=mds[i].name%></b></a> 
+	<span class="card-title">
+      <a href='/editor/edit?path=<%=mds[i].path%>'><b><%=mds[i].name%></b></a> 
 
       <div style="float:right; display:inline-block">
 		 <a class="hide" href="#" onclick="kuisin('<%= i %>');">O</a>
 	  </div>
-  </div>
+    </span>
 
-
-  <div id="<%= i %>" style="display:block">  
- 	<div class="panel-body">
+    <div id="<%= i %>" style="display:block">  
+ 	  <div class="card-content">
 	    <%-mds[i].content%>
- 	</div>
+ 	  </div>
 		
- 	<div class="panel-footer">URL : 
+ 	  <div class="card-action">URL : 
     	<script>
       		link = decodeURI("http://" + location.host + 
       		(("<%=mds[i].name%>" == "FrontPage") ? "" : "<%=mds[i].urlpath%>"));
       		document.write("<a href='"+link+"'>"+link+"</a>");
     	</script>
-  	</div>
-  </div>
+  	  </div>
+    </div>
   
   </div>
-<% } %>  
+  <% } %>  
 
-</div>
-
+  </div>
+</main>
 
 
