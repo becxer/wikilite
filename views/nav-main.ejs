@@ -8,6 +8,10 @@
   	  <% for (i in dirs) { %>
         <li class="bold"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
       <% } %>
+        <li>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+        </li>
     </ul>
-
+    
+    
 </header>
