@@ -19,7 +19,11 @@
 
 	<!--슬라이드네비 디렉토리 리스트 -->
     <ul id="nav-mobile" class="side-nav fixed" >
-        <li class="logo" ><a id="logo-container" href="/" class="brand-logo light-blue"> Wikilite logo</a></li>
+        <li class="logo no-padding" >
+			<a id="logo-container" href="/" class="brand-logo"> 
+				<img src="img/logo.png" style="width:230px"/>
+			</a>
+		</li>
 	  	  <% for (i in dirs) { %>
 		     <li class="bold no-padding"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
 	      <% } %>
