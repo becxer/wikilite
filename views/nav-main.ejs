@@ -1,17 +1,30 @@
 <header>
-    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a></div>
-    
+	<!--디렉토리 이름  -->
+	<nav class="top-nav light-blue">
+		<div class="container">
+			<div class = "nav-wrapper">
+			<a class="page-titile" style="font-size:48px"> 
+				디렉토리 이름  
+			</a> 
+			</div>
+		</div>
+	</nav>
+
+	<!--슬라이드네비 on/off 버튼 -->
+	<div class="container">
+		<a href="#" data-activates="nav-mobile" class="button-collapse top-nav full">
+			<i class="mdi-navigation-menu"></i>
+		</a>
+	</div>
+
+	<!--슬라이드네비 디렉토리 리스트 -->
     <ul id="nav-mobile" class="side-nav fixed" >
-        <li class="logo"><a id="logo-container" href="/" class="brand-logo">
-        위키라이트 임시
-        </a></li>
-  	  <% for (i in dirs) { %>
-        <li class="bold"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
-      <% } %>
+        <li class="logo" ><a id="logo-container" href="/" class="brand-logo light-blue"> Wikilite logo</a></li>
+	  	  <% for (i in dirs) { %>
+		     <li class="bold no-padding"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
+	      <% } %>
         <li>
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         </li>
     </ul>
-    
-    
 </header>
