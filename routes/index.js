@@ -57,13 +57,6 @@ function subBtn(path){
 
 
 // ROUTERS
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    var mds = mdctrl.read_md(proj_path+'/FrontPage.md');
-
-    
-    render(res,'frontpage',{'mds':mds});
-});
 
 /* Get Dirs reset */
 router.get('/set', function(req,res){
@@ -80,6 +73,20 @@ router.post('/fb', function(req,res){
     res.redirect('/');
 });
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+
+    var data_obj = 
+	{
+		'title': '위키라이트',
+ 		'path': "/",
+ 		'filters': [],
+ 		'mds': mdctrl.read_md(proj_path+'/FrontPage.md'),
+ 		'subBtn' : subBtn("")
+   	};
+    
+    render(res,'index',data_obj);
+});
 
 /* Get Category Page */
 router.get('/:category', function(req,res){
@@ -87,12 +94,13 @@ router.get('/:category', function(req,res){
 	var path = decodeURI(proj_path+'/'+req.params.category);
     var data_obj = 
 	{
+		'title': req.params.category,
  		'path': path,
  		'filters': mdctrl.find_dirs(path),
  		'mds': mdctrl.find_mds(path),
  		'subBtn' : subBtn(path)
    	};
-   
+    
     render(res,'index',data_obj);
     
 });
@@ -102,6 +110,7 @@ router.get('/:category/:filter', function(req,res){
     var path = decodeURI(proj_path+'/'+req.params.category+'/'+req.params.filter);
 	var data_obj = 
     {
+    	'title': req.params.category,
 	 	'path': path,
 	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category}],
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
@@ -116,6 +125,7 @@ router.get('/:category/:filter/:md', function(req,res){
     var path = decodeURI(proj_path+req.path+'.md');
     var data_obj = 
 	{
+		'title': req.params.filter,
 	 	'path': path,
 	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category + '/' + req.params.filter}],
 	 	'mds': mdctrl.read_md(path),
