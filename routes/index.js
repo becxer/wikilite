@@ -112,7 +112,7 @@ router.get('/:category/:filter', function(req,res){
     {
     	'title': req.params.category,
 	 	'path': path,
-	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category}],
+	 	'filters': mdctrl.find_dirs(decodeURI(proj_path+'/'+req.params.category)),
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
 	 	'subBtn' : subBtn(path)
     };

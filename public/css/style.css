@@ -9,3 +9,24 @@
 .filter{
 	margin: 0 1rem 0 1rem;
 }
+
+.card-title{
+	padding: 0.5rem 1em;
+	border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+	margin-bottom: 20px;
+}
+
+.content-btn{
+	display: inline-block;
+	padding: 0.5rem 1em;
+	font-size: 24px;
+	width: 49.783%;
+}
+
+.dropdown-content li{
+	font-size: 1rem;
+}
+
+.dropdown-content li a{
+	padding: 0.8rem 1rem;
+}
