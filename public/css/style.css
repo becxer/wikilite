@@ -30,3 +30,12 @@
 .dropdown-content li a{
 	padding: 0.8rem 1rem;
 }
+
+a.button-collapse.top-nav.full {
+  line-height: 58px;
+  left:-2%;
+}
+
+.add {
+  margin-right: 13px
+}

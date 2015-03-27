@@ -48,8 +48,10 @@ function render(res, ejs_name, data_obj){
 	res.render(ejs_name,default_obj);
 };
 
-function subBtn(path){
-	var add =  "<a href=/editor/add?path="+path+" class=\"brand-logo right\"><i class=\"mdi-action-note-add\"></i></a>"
+function addBtn(path){
+	var add ="";
+	if(path)
+		add =  "<a href=/editor/add?path="+path+" class=\"right add\"><i class=\"mdi-action-note-add\"></i></a>"
 
 	return add;
 }
@@ -82,7 +84,7 @@ router.get('/', function(req, res, next) {
  		'path': "/",
  		'filters': [],
  		'mds': mdctrl.read_md(proj_path+'/FrontPage.md'),
- 		'subBtn' : subBtn("")
+ 		'addBtn' : addBtn("")
    	};
     
     render(res,'index',data_obj);
@@ -98,7 +100,7 @@ router.get('/:category', function(req,res){
  		'path': path,
  		'filters': mdctrl.find_dirs(path),
  		'mds': mdctrl.find_mds(path),
- 		'subBtn' : subBtn(path)
+ 		'addBtn' : addBtn(path)
    	};
     
     render(res,'index',data_obj);
@@ -114,7 +116,7 @@ router.get('/:category/:filter', function(req,res){
 	 	'path': path,
 	 	'filters': mdctrl.find_dirs(decodeURI(proj_path+'/'+req.params.category)),
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
-	 	'subBtn' : subBtn(path)
+	 	'addBtn' : addBtn(path)
     };
     
     render(res,'index',data_obj);
@@ -129,7 +131,7 @@ router.get('/:category/:filter/:md', function(req,res){
 	 	'path': path,
 	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category + '/' + req.params.filter}],
 	 	'mds': mdctrl.read_md(path),
-	 	'subBtn' : subBtn("")
+	 	'addBtn' : addBtn("")
     };
     
     render(res,'index',data_obj);   

@@ -3,7 +3,7 @@ var keypth = './keys'
 
 module.exports = {
 	add : function(key){
-		var ins = key + " 0\n";
+		var ins = key + " 1\n";
 
 		fs.appendFileSync(keypth,key);
 	},
