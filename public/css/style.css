@@ -13,7 +13,7 @@
 .card-title{
 	padding: 0.5rem 1em;
 	border-bottom: 1px solid rgba(160, 160, 160, 0.2);
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .content-btn{
@@ -37,5 +37,49 @@ a.button-collapse.top-nav.full {
 }
 
 .add {
-  margin-right: 15px
+  margin-right: 15px;
 }
+
+.header {
+	height: 100%;
+}
+
+.set {
+  position: fixed;
+  bottom: 0;
+  width: 240px;
+  line-height: 32px;  
+  box-shadow: 0 0 4px rgba( 0,0,0,0.3 );
+  z-index: 999;
+}
+
+.for-set:hover{
+	background-color: #fff !important;
+}
+
+/* Contetnt Css */
+.card-content h1 {
+  font-size: 2.62rem;
+  line-height: 3.916rem;
+  margin: 0.5rem 0 0.5rem 0; }
+
+.card-content h2 {
+  font-size: 2.38rem;
+  line-height: 3.212rem;
+  margin: 0.5rem 0 0.5rem 0; }
+
+.card-content h3 {
+  font-size: 2.08rem;
+  line-height: 2.508rem;
+  margin: 0.5rem 0 0.5rem 0; }
+
+.card-content h4 {
+  font-size: 1.8rem;
+  line-height: 1.804rem;
+  margin: 0.5rem 0 0.5rem 0; }
+
+.card-content h5 {
+  font-size: 1.6rem;
+  line-height: 1.804rem;
+  margin: 0.5rem 0 0.5rem 0; }
+

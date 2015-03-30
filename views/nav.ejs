@@ -1,5 +1,5 @@
 <header>
-  <!--상단 네비 게이션 -->
+  <!--상단 네비게이션 -->
   <nav class="nav teal">
     <div class="nav-wrapper teal">
       <a class="brand-logo center"><%= title %></a>
@@ -17,11 +17,11 @@
 
   <!--슬라이드네비 디렉토리 리스트 -->
     <ul id="nav-mobile" class="side-nav fixed">
-        <li class="logo no-padding" >
-      <a id="logo-container" href="/" class="brand-logo"> 
-        <img src="/img/logo.png" />
-      </a>
-    </li>
+      <li class="logo no-padding" >
+        <a id="logo-container" href="/" class="brand-logo"> 
+         <img src="/img/logo.png" />
+        </a>
+      </li>
 
       <% for (i in dirs) { %>
         <li class="list bold"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
@@ -29,7 +29,7 @@
         <% if (dirs[i].name == title) { %>
           <ul>
             <% for (i in filters) { %>  
-              <li class="list"><a href="<%=filters[i].urlpath%>" class="filter"><%=filters[i].name%></a></li>
+              <li class="list"><a href="<%=filters[i].urlpath%>" class="waves-effect waves-teal filter"><%=filters[i].name%></a></li>
             <% } %>
           </ul>
         <% } %>
@@ -39,5 +39,11 @@
         <li>
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         </li>
+
+        <!--  set이 네비게이션을 가리지 않도록 마진 -->
+        <li class="for-set">&nbsp;</li>
+        <div class="set">
+          <li class="list bold center"><a href="#" style="font-size:1.25rem;"><i class="mdi-action-settings"></i> 설정</li></a>
+        </div>
     </ul>
 </header>
