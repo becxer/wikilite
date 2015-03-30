@@ -22,6 +22,13 @@ var snctrl = require(dmod_path+'/snctrl.js');
 //GLOBAL VARIABLES
 var dirs = mdctrl.find_dirs(proj_path);
 
+function addBtn(path){
+    var add ="";
+    if(path)
+        add =  "<a href=/editor/add?path="+path+" class=\"right add\"><i class=\"mdi-action-note-add\"></i></a>"
+
+    return add;
+} 
 
 //Classes
 var md = {
@@ -59,8 +66,16 @@ router.get('/add', function(req,res){
 
 	sessChk(req,res,function(){	
 		var path = req.query.path;
-
-    	render(res,'add',{'path':path});
+		var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
+		var title = path.split('/')[2];
+		var data_obj = 
+		{	
+			'title':title,
+			'filters':mdctrl.find_dirs(category_path),
+			'path':path,
+			'addBtn':addBtn()
+		}
+    	render(res,'add',data_obj);
     });
     
 });
@@ -71,8 +86,8 @@ router.get('/edit', function(req,res){
 	sessChk(req,res,function(){	
 		var path = req.query.path;
    		var mds = mdctrl.read_md_pure(path);
-    
-		render(res,'edit',{'mds':mds[0]});
+		var title = path.split('/')[2];
+		render(res,'edit',{'addBtn':addBtn(),'title':title,'mds':mds[0]});
     });
 	      
 });
