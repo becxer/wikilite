@@ -51,6 +51,7 @@ a.button-collapse.top-nav.full {
   line-height: 32px;  
   box-shadow: 0 0 4px rgba( 0,0,0,0.3 );
   z-index: 999;
+  background-color: #fff;
 }
 
 .for-set:hover{
