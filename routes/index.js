@@ -61,7 +61,21 @@ function addBtn(path){
 // ROUTERS
 
 /* Get Dirs reset */
-router.get('/set', function(req,res){
+router.get('/setting', function(req,res){
+
+	var data_obj = 
+	{
+		'title': '설정하기',
+ 		'filters': [],
+ 		'addBtn' : addBtn()
+   	};
+
+	render(res, 'setting',data_obj);
+});
+
+
+/* Get Dirs reset */
+router.get('/reset', function(req,res){
     for(var i=0; i <= dirs.length; i++) dirs.shift();
 	dirs = mdctrl.find_dirs(proj_path);
 
@@ -81,10 +95,9 @@ router.get('/', function(req, res, next) {
     var data_obj = 
 	{
 		'title': '위키라이트',
- 		'path': "/",
  		'filters': [],
  		'mds': mdctrl.read_md(proj_path+'/FrontPage.md'),
- 		'addBtn' : addBtn("")
+ 		'addBtn' : addBtn()
    	};
     
     render(res,'index',data_obj);
@@ -97,7 +110,6 @@ router.get('/:category', function(req,res){
     var data_obj = 
 	{
 		'title': req.params.category,
- 		'path': path,
  		'filters': mdctrl.find_dirs(path),
  		'mds': mdctrl.find_mds(path),
  		'addBtn' : addBtn(path)
@@ -113,7 +125,6 @@ router.get('/:category/:filter', function(req,res){
 	var data_obj = 
     {
     	'title': req.params.category,
-	 	'path': path,
 	 	'filters': mdctrl.find_dirs(decodeURI(proj_path+'/'+req.params.category)),
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
 	 	'addBtn' : addBtn(path)
@@ -128,10 +139,9 @@ router.get('/:category/:filter/:md', function(req,res){
     var data_obj = 
 	{
 		'title': req.params.filter,
-	 	'path': path,
 	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category + '/' + req.params.filter}],
 	 	'mds': mdctrl.read_md(path),
-	 	'addBtn' : addBtn("")
+	 	'addBtn' : addBtn()
     };
     
     render(res,'index',data_obj);   
