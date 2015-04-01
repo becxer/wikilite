@@ -133,7 +133,18 @@ a.button-collapse.top-nav.full {
   border: 1px solid #CCC;
 }
 
+.card a {
+  margin-right: 0 !important;
+  text-transform: none !important;
+}
 
+.card p {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.hljs {
+  background-color: #F8F8F8 !important;
+}
 /* CodeMirror */
 .editor {
   width: 100%;
@@ -161,8 +172,4 @@ a.button-collapse.top-nav.full {
   padding: 0rem !important;
 }
 
-.emoji {
-  width: 20px;
-  height: 20px;
-}
 

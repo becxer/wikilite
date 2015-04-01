@@ -1,4 +1,5 @@
-
+  <script src="/codemirror/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
 <main>
   <div class="section no-pad-bot">
@@ -16,7 +17,7 @@
           </div>
         </div>
 
-        <div class="card-content" style="padding: 0 20px 20px 20px">
+        <div class="card-content" style="padding: 0 20px 5px 20px">
          <%-mds[i].content%>
         </div>
 
@@ -36,6 +37,12 @@
 
 
 <script>
+  
+  $(document).ready(function() {
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
 
   $('.dropdown-button').dropdown({
       inDuration: 250,
@@ -47,5 +54,5 @@
       belowOrigin: false // Displays dropdown below the button
     }
   );
- 
+
 </script>

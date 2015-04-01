@@ -9,7 +9,6 @@ var fs = require('fs');
 var marked = require('marked');
 var router = express.Router();
 
-
 //MD FILE CONTROLL MODULE
 var mdctrl = require(dmod_path+'/mdctrl.js');
 mdctrl.init(proj_path);
