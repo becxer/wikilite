@@ -33,6 +33,10 @@
 	background-color: #fff !important;
 }
 
+.button-collapse {
+  left: 15px !important;
+  margin-top: 0.3rem !important;
+}
 
 /* content */
 .card-title{
