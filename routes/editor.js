@@ -64,7 +64,7 @@ function sessChk(req,res,func){
 /* Get add Page */
 router.get('/add', function(req,res){
 
-	sessChk(req,res,function(){	
+
 		var path = req.query.path;
 		var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
 		var title = path.split('/')[2];
@@ -75,27 +75,27 @@ router.get('/add', function(req,res){
 			'path':path,
 			'addBtn':addBtn()
 		}
-    	render(res,'add',data_obj);
-    });
+    	render(res,'editor',data_obj);
+
     
 });
 
 /* Get Edit Page */
 router.get('/edit', function(req,res){
 
-	sessChk(req,res,function(){	
+
 		var path = req.query.path;
    		var mds = mdctrl.read_md_pure(path);
 		var title = path.split('/')[2];
 		render(res,'edit',{'addBtn':addBtn(),'title':title,'mds':mds[0]});
-    });
+
 	      
 });
 
 /* Post Save Page */
 router.post('/save', function(req,res){
 
-	sessChk(req,res,function(){	
+
 	    //파일 이름 여부를 통해 add, edit을 구별해서 path를 저장
 		var path = (req.body.name == undefined) ? req.body.path : req.body.path+"/"+req.body.name+".md";
 	    	var content = req.body.content;
@@ -103,7 +103,7 @@ router.post('/save', function(req,res){
 		md = mdctrl.update_md(path,content)[0];
 
 		res.redirect((md.name == 'FrontPage') ? '/': encodeURI(md.urlpath));
-    });
+
 
 });
 

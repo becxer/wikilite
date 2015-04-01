@@ -6,10 +6,35 @@
  * Made By MaterializeCSS.com
  */
 
+/* navigation */
 .filter{
 	margin: 0 1rem 0 1rem;
 }
 
+.add {
+  margin-right: 15px;
+}
+
+.header {
+	height: 100%;
+}
+
+.set {
+  position: fixed;
+  bottom: 0;
+  width: 240px;
+  line-height: 32px;  
+  box-shadow: 0 0 4px rgba( 0,0,0,0.3 );
+  z-index: 999;
+  background-color: #fff;
+}
+
+.for-set:hover{
+	background-color: #fff !important;
+}
+
+
+/* content */
 .card-title{
 	padding: 0.5rem 1em;
 	border-bottom: 1px solid rgba(160, 160, 160, 0.2);
@@ -36,27 +61,6 @@ a.button-collapse.top-nav.full {
   left:-1%;
 }
 
-.add {
-  margin-right: 15px;
-}
-
-.header {
-	height: 100%;
-}
-
-.set {
-  position: fixed;
-  bottom: 0;
-  width: 240px;
-  line-height: 32px;  
-  box-shadow: 0 0 4px rgba( 0,0,0,0.3 );
-  z-index: 999;
-  background-color: #fff;
-}
-
-.for-set:hover{
-	background-color: #fff !important;
-}
 
 /* Setting */
 .tabs {
@@ -79,28 +83,86 @@ a.button-collapse.top-nav.full {
 
 
 /* Contetnt Css */
+.section {
+  margin: 0 1rem;
+}
+
+.card {
+  margin-bottom: 1rem;
+}
+
+.card-content p {
+  margin: 1rem 0 !important;
+}
 .card-content h1 {
   font-size: 2.62rem;
   line-height: 3.916rem;
-  margin: 0.5rem 0 0.5rem 0; }
+  margin: 0.8rem 0 0.8rem 0; }
 
 .card-content h2 {
   font-size: 2.38rem;
   line-height: 3.212rem;
-  margin: 0.5rem 0 0.5rem 0; }
+  margin: 0.8rem 0 0.8rem 0; }
 
 .card-content h3 {
   font-size: 2.08rem;
   line-height: 2.508rem;
-  margin: 0.5rem 0 0.5rem 0; }
+  margin: 0.8rem 0 0.8rem 0; }
 
 .card-content h4 {
   font-size: 1.8rem;
   line-height: 1.804rem;
-  margin: 0.5rem 0 0.5rem 0; }
+  margin: 0.8rem 0 0.8rem 0; }
 
 .card-content h5 {
   font-size: 1.6rem;
   line-height: 1.804rem;
-  margin: 0.5rem 0 0.5rem 0; }
+  margin: 0.8rem 0 0.8rem 0; }
+
+.card-content li {
+  margin-left: 2rem;
+  list-style-type: decimal;
+}
+
+.card-content pre {
+  padding: 0.5rem;
+  color: #000;
+  font-size: 14px;
+  border-radius: 3px;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC;
+}
+
+
+/* CodeMirror */
+.editor {
+  width: 100%;
+  margin: 1rem;
+}
+
+#in-body {
+  height: 500px;
+}
+
+.CodeMirror {
+  height: 500px !important;
+}
+.CodeMirror-scroll {
+  height: 475px !important;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+#out{
+  padding: 1rem;
+  word-break:break-all;
+}
+.collapsible-body p {
+  padding: 0rem !important;
+}
+
+.emoji {
+  width: 20px;
+  height: 20px;
+}
 

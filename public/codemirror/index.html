@@ -1,196 +1,367 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Markdown Editor</title>
+  <script src="marked.js"></script>
+  <script src="highlight.pack.js"></script>
+  <script src="emojify.js"></script>
+  <script src="codemirror/lib/codemirror.js"></script>
+  <script src="codemirror/overlay.js"></script>
+  <script src="codemirror/xml/xml.js"></script>
+  <script src="codemirror/markdown/markdown.js"></script>
+  <script src="codemirror/gfm/gfm.js"></script>
+  <script src="codemirror/javascript/javascript.js"></script>
+  <script src="codemirror/css/css.js"></script>
+  <script src="codemirror/htmlmixed/htmlmixed.js"></script>
+  <script src="rawinflate.js"></script>
+  <script src="rawdeflate.js"></script>
+  <link rel="stylesheet" href="base16-light.css">
+  <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="default.css">
+  <style>
+    body {margin: 0;}
 
-<title>CodeMirror</title>
-<meta charset="utf-8"/>
+    .CodeMirror pre{
+      line-height: 16px;
+    }
 
-<link rel=stylesheet href="lib/codemirror.css">
-<link rel=stylesheet href="doc/docs.css">
-<script src="lib/codemirror.js"></script>
-<script src="mode/xml/xml.js"></script>
-<script src="mode/javascript/javascript.js"></script>
-<script src="mode/css/css.js"></script>
-<script src="mode/htmlmixed/htmlmixed.js"></script>
-<script src="addon/edit/matchbrackets.js"></script>
+    #in{
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      height: auto;
+      overflow: auto;
+      font-size: 12px;
+      box-shadow: -10px 2px 6px 10px rgba(0,0,0,0.4);
+    }
 
-<script src="doc/activebookmark.js"></script>
+    .CodeMirror {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: auto;
+    }
 
-<style>
-  .CodeMirror { height: auto; border: 1px solid #ddd; }
-  .CodeMirror-scroll { max-height: 200px; }
-  .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
-</style>
+    .CodeMirror-scroll {
+      padding: 30px;
+      box-sizing: border-box;
+    }
 
-<div id=nav>
-  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="doc/logo.png"></a>
+    #out{
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 50%;
+      bottom: 0;
+      overflow: auto;
+      padding: 10px;
+      padding-left: 20px;
+      color: #444;
+      font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.5em
+    }
 
-  <ul>
-    <li><a class=active data-default="true" href="#description">Home</a>
-    <li><a href="doc/manual.html">Manual</a>
-    <li><a href="https://github.com/codemirror/codemirror">Code</a>
+    #menu {
+      position: absolute;
+      background-color: #fff;
+      border-bottom: 1px solid #999;
+      margin: 0;
+      padding: 15px;
+      z-index: 99;
+      list-style: none;
+      width: 100%;
+    }
+    #menu li a {
+      display: inline-block;
+      padding: 15px;
+    }
+
+    .emoji {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media screen and (max-width: 1024px) {
+      #in {
+        display: none;
+      }
+      #out {
+        left: 0;
+        padding-left: 10px;
+      }
+    }
+
+    .cm-header-1 { font-size: 2em; }
+    .cm-header-2 { font-size: 1.75em; }
+    .cm-header-3 { font-size: 1.5em; }
+    .cm-header-4 { font-size: 1.3em; }
+    .cm-header-5 { font-size: 1.2em; }
+    .cm-header-6 { font-size: 1.15em; }
+
+    .cm-quote { color: #90a959; font-style: italic; }
+
+    .view #in {
+      display: none;
+    }
+    .view #out {
+      left: 0;
+      padding-left: 10px;
+    }
+
+    a{ color: #0645ad; text-decoration:none;}
+    a:visited{ color: #0b0080; }
+    a:hover{ color: #06e; }
+    a:active{ color:#faa700; }
+    a:focus{ outline: thin dotted; }
+    a:hover, a:active{ outline: 0; }
+
+    p{margin:1em 0;}
+
+    img{max-width:100%;}
+
+    h1,h2,h3,h4,h5,h6{font-weight:normal;color:#111;line-height:1em;}
+    h4,h5,h6{ font-weight: bold; }
+    h1{ font-size:2.5em; }
+    h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
+    h3{ font-size:1.5em; }
+    h4{ font-size:1.2em; }
+    h5{ font-size:1em; }
+    h6{ font-size:0.9em; }
+
+    blockquote{color:#666666;margin:0;padding-left: 3em;border-left: 0.5em #EEE solid;}
+    hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
+
+    pre, code{
+      color: #000;
+      font-family:Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 0.94em; /* 0.94 = 0.88 + (1.00 - 0.88) / 2 */
+      border-radius:3px;
+      background-color: #F8F8F8;
+      border: 1px solid #CCC;
+    }
+    pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px;}
+    pre code { border: 0px !important; background: transparent !important; line-height: 1.3em; }
+    code { padding: 0 3px 0 3px; }
+    sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+    sup { top: -0.5em; }
+    sub { bottom: -0.25em; }
+    ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+    li p:last-child { margin:0 }
+    dd { margin: 0 0 0 2em; }
+    img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+    table { border-collapse: collapse; border-spacing: 0; }
+    td, th { vertical-align: top; padding: 4px 10px; border: 1px solid #bbb; }
+    tr:nth-child(even) td, tr:nth-child(even) th { background: #eee; }
+  </style>
+</head>
+<body>
+  <div id="in"><form><textarea id="code"># (GitHub-Flavored) Markdown Editor
+
+Basic useful feature list:
+
+ * Ctrl/Cmd + S to save the file
+ * Drag and drop a file into here to load it
+ * File contents are saved in the URL so you can share files
+
+
+I'm no good at writing sample / filler text, so go write something yourself.
+
+Look, a list!
+
+ * foo
+ * bar
+ * baz
+
+And here's some code! :+1:
+
+```javascript
+$(function(){
+  $('div').html('I am a div.');
+});
+```
+
+This is [on GitHub](https://github.com/jbt/markdown-editor) so let me know if I've b0rked it somewhere.
+
+
+Props to Mr. Doob and his [code editor](http://mrdoob.com/projects/code-editor/), from which
+the inspiration to this, and some handy implementation hints, came.
+
+### Stuff used to make this:
+
+ * [marked](https://github.com/chjj) for Markdown parsing
+ * [CodeMirror](http://codemirror.net/) for the awesome syntax-highlighted editor
+ * [highlight.js](http://softwaremaniacs.org/soft/highlight/en/) for syntax highlighting in output code blocks
+ * [js-deflate](https://github.com/dankogai/js-deflate) for gzipping of data to make it fit in URLs
+</textarea></form></div>
+  <div id="out"></div>
+  <ul id="menu">
+    <h3>Save as</h3>
+    <li><a id="saveas-markdown">Save as Markdown</a></li>
+    <li><a id="saveas-html">Save as HTML</a></li>
   </ul>
-  <ul>
-    <li><a href="#features">Features</a>
-    <li><a href="#community">Community</a>
-    <li><a href="#browsersupport">Browser support</a>
-  </ul>
-</div>
+  <script type="text/javascript">
+    var URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+    navigator.saveBlob = navigator.saveBlob || navigator.msSaveBlob || navigator.mozSaveBlob || navigator.webkitSaveBlob;
+    window.saveAs = window.saveAs || window.webkitSaveAs || window.mozSaveAs || window.msSaveAs;
 
-<article>
+    // Because highlight.js is a bit awkward at times
+    var languageOverrides = {
+      js: 'javascript',
+      html: 'xml'
+    }
 
-<section id=description class=first>
-  <p><strong>CodeMirror</strong> is a versatile text editor
-  implemented in JavaScript for the browser. It is specialized for
-  editing code, and comes with a number of <a href="mode/index.html">language modes</a> and <a href="doc/manual.html#addons">addons</a>
-  that implement more advanced editing functionality.</p>
-
-  <p>A rich <a href="doc/manual.html#api">programming API</a> and a
-  CSS <a href="doc/manual.html#styling">theming</a> system are
-  available for customizing CodeMirror to fit your application, and
-  extending it with new functionality.</p>
-</section>
-
-<section id=demo>
-  <h2>This is CodeMirror</h2>
-  <form style="position: relative; margin-top: .5em;"><textarea id=demotext>
-<!-- Create a simple CodeMirror instance -->
-<link rel="stylesheet" href="lib/codemirror.css">
-<script src="lib/codemirror.js"></script>
-<script>
-  var editor = CodeMirror.fromTextArea(myTextarea, {
-    lineNumbers: true
-  });
-</script></textarea>
-  <select id="demolist" onchange="document.location = this.options[this.selectedIndex].value;">
-    <option value="#">Other demos...</option>
-    <option value="demo/complete.html">Autocompletion</option>
-    <option value="demo/folding.html">Code folding</option>
-    <option value="demo/theme.html">Themes</option>
-    <option value="mode/htmlmixed/index.html">Mixed language modes</option>
-    <option value="demo/bidi.html">Bi-directional text</option>
-    <option value="demo/variableheight.html">Variable font sizes</option>
-    <option value="demo/search.html">Search interface</option>
-    <option value="demo/vim.html">Vim bindings</option>
-    <option value="demo/emacs.html">Emacs bindings</option>
-    <option value="demo/sublime.html">Sublime Text bindings</option>
-    <option value="demo/tern.html">Tern integration</option>
-    <option value="demo/merge.html">Merge/diff interface</option>
-    <option value="demo/fullscreen.html">Full-screen editor</option>
-    <option value="demo/simplescrollbars.html">Custom scrollbars</option>
-  </select></form>
-  <script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
-      lineNumbers: true,
-      mode: "text/html",
-      matchBrackets: true
+    emojify.setConfig({
+      img_dir: 'emoji'
     });
+
+    marked.setOptions({
+      highlight: function(code, lang){
+        if(languageOverrides[lang]) lang = languageOverrides[lang];
+        return hljs.listLanguages().indexOf(lang) !== -1 ? hljs.highlight(lang, code).value : code;
+      }
+    });
+
+    function update(e){
+      var val = e.getValue();
+
+      setOutput(val);
+
+      clearTimeout(hashto);
+      hashto = setTimeout(updateHash, 1000);
+    }
+
+    function setOutput(val){
+      val = val.replace(/<equation>((.*?\n)*?.*?)<\/equation>/ig, function(a, b){
+        return '<img src="http://latex.codecogs.com/png.latex?' + encodeURIComponent(b) + '" />';
+      });
+
+      var out = document.getElementById('out');
+      var old = out.cloneNode(true);
+      out.innerHTML = marked(val);
+      emojify.run(out);
+
+      var allold = old.getElementsByTagName("*");
+      if (allold === undefined) {
+        return;
+      }
+      var allnew = out.getElementsByTagName("*");
+      if (allnew === undefined) {
+        return;
+      }
+      for (var i = 0, max = Math.min(allold.length, allnew.length); i < max; i++) {
+        if (!allold[i].isEqualNode(allnew[i])) {
+          out.scrollTop = allnew[i].offsetTop;
+          return;
+        }
+      }
+    }
+
+    var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+      mode: 'gfm',
+      lineNumbers: false,
+      matchBrackets: true,
+      lineWrapping: true,
+      theme: 'base16-light'
+    });
+
+    editor.on('change', update);
+
+    document.addEventListener('drop', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      var theFile = e.dataTransfer.files[0];
+      var theReader = new FileReader();
+      theReader.onload = function(e){
+        editor.setValue(e.target.result);
+      };
+
+      theReader.readAsText(theFile);
+    }, false);
+
+    function saveAsMarkdown(){
+      var code = editor.getValue();
+      var blob = new Blob([code], { type: 'text/plain' });
+      saveBlob(blob, "untitled.md");
+    }
+
+    document.getElementById('saveas-markdown').addEventListener('click', function() {
+      saveAsMarkdown();
+      hideMenu();
+      return false;
+    });
+
+    function saveAsHtml() {
+      var code = document.getElementById('out').innerHTML;
+      var blob = new Blob([code], { type: 'text/plain' });
+      saveBlob(blob, "untitled.html");
+    }
+
+    document.getElementById('saveas-html').addEventListener('click', function() {
+      saveAsHtml();
+      hideMenu();
+      return false;
+    });
+
+    function saveBlob(blob, name){
+      if(window.saveAs){
+        window.saveAs(blob, name);
+      }else if(navigator.saveBlob){
+        navigator.saveBlob(blob, name);
+      }else{
+        url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.setAttribute("href",url);
+        link.setAttribute("download",name);
+        var event = document.createEvent('MouseEvents');
+        event.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+        link.dispatchEvent(event);
+      }
+    }
+
+    function showMenu() {
+      document.getElementById('menu').style.display = 'block';
+    }
+
+    function hideMenu() {
+      document.getElementById('menu').style.display = 'none';
+    }
+    hideMenu();
+
+    document.addEventListener('keydown', function(e){
+      if(e.keyCode == 83 && (e.ctrlKey || e.metaKey)){
+        e.preventDefault();
+        showMenu();
+        return false;
+      }
+    })
+
+    var hashto;
+
+    function updateHash(){
+      window.location.hash = btoa(RawDeflate.deflate(unescape(encodeURIComponent(editor.getValue()))))
+    }
+
+    if(window.location.hash){
+      var h = window.location.hash.replace(/^#/, '');
+      if(h.slice(0,5) == 'view:'){
+        setOutput(decodeURIComponent(escape(RawDeflate.inflate(atob(h.slice(5))))));
+        document.body.className = 'view';
+      }else{
+        editor.setValue(decodeURIComponent(escape(RawDeflate.inflate(atob(h)))))
+        update(editor);
+        editor.focus();
+      }
+    }else{
+      update(editor);
+      editor.focus();
+    }
   </script>
-
-  <div class=actions>
-    <div class=actionspicture>
-      <img src="doc/yinyang.png" class=yinyang>
-      <div class="actionlink download">
-        <a href="http://codemirror.net/codemirror.zip">DOWNLOAD</a>
-      </div>
-      <div class="actionlink fund">
-        <a href="https://marijnhaverbeke.nl/fund/">FUND</a>
-      </div>
-    </div>
-    <div class=actionsleft>
-      Get the current version: <a href="http://codemirror.net/codemirror.zip">5.0</a>.<br>
-      You can see the <a href="https://github.com/codemirror/codemirror" title="Github repository">code</a> or<br>
-      read the <a href="doc/releases.html">release notes</a>.<br>
-      There is a <a href="doc/compress.html">minification helper</a>.
-    </div>
-    <div class=actionsright>
-      Software needs maintenance,<br>
-      maintainers need to subsist.<br>
-      Current funding status = <img src="https://marijnhaverbeke.nl/fund/status_s.png" title="Current maintainer happiness" style="vertical-align: middle; height: 16px; width: 16px"><br>
-      You can help <a href="https://marijnhaverbeke.nl/fund/" title="Set up a monthly contribution">per month</a> or
-      <a title="Donate with Paypal" href="javascript:document.getElementById('paypal').submit();">once</a>.
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" id="paypal">
-        <input type="hidden" name="cmd" value="_s-xclick"/>
-        <input type="hidden" name="hosted_button_id" value="3FVHS5FGUY7CC"/>
-      </form>
-    </div>
-  </div>
-  
-</section>
-
-<section id=features>
-  <h2>Features</h2>
-  <ul>
-    <li>Support for <a href="mode/index.html">over 90 languages</a> out of the box
-    <li>A powerful, <a href="mode/htmlmixed/index.html">composable</a> language mode <a href="doc/manual.html#modeapi">system</a>
-    <li><a href="doc/manual.html#addon_show-hint">Autocompletion</a> (<a href="demo/xmlcomplete.html">XML</a>)
-    <li><a href="doc/manual.html#addon_foldcode">Code folding</a>
-    <li><a href="doc/manual.html#option_extraKeys">Configurable</a> keybindings
-    <li><a href="demo/vim.html">Vim</a>, <a href="demo/emacs.html">Emacs</a>, and <a href="demo/sublime.html">Sublime Text</a> bindings
-    <li><a href="doc/manual.html#addon_search">Search and replace</a> interface
-    <li><a href="doc/manual.html#addon_matchbrackets">Bracket</a> and <a href="doc/manual.html#addon_matchtags">tag</a> matching
-    <li>Support for <a href="demo/buffers.html">split views</a>
-    <li><a href="doc/manual.html#addon_lint">Linter integration</a>
-    <li><a href="demo/variableheight.html">Mixing font sizes and styles</a>
-    <li><a href="demo/theme.html">Various themes</a>
-    <li>Able to <a href="demo/resize.html">resize to fit content</a>
-    <li><a href="doc/manual.html#mark_replacedWith">Inline</a> and <a href="doc/manual.html#addLineWidget">block</a> widgets
-    <li>Programmable <a href="demo/marker.html">gutters</a>
-    <li>Making ranges of text <a href="doc/manual.html#markText">styled, read-only, or atomic</a>
-    <li><a href="demo/bidi.html">Bi-directional text</a> support
-    <li>Many other <a href="doc/manual.html#api">methods</a> and <a href="doc/manual.html#addons">addons</a>...
-  </ul>
-</section>
-
-<section id=community>
-  <h2>Community</h2>
-
-  <p>CodeMirror is an open-source project shared under
-  an <a href="LICENSE">MIT license</a>. It is the editor used in the
-  dev tools for
-  both <a href="https://hacks.mozilla.org/2013/11/firefox-developer-tools-episode-27-edit-as-html-codemirror-more/">Firefox</a>
-  and <a href="https://developers.google.com/chrome-developer-tools/">Chrome</a>, <a href="http://www.lighttable.com/">Light
-  Table</a>, <a href="http://brackets.io/">Adobe
-  Brackets</a>, <a href="http://blog.bitbucket.org/2013/05/14/edit-your-code-in-the-cloud-with-bitbucket/">Bitbucket</a>,
-  and <a href="doc/realworld.html">many other projects</a>.</p>
-
-  <p>Development and bug tracking happens
-  on <a href="https://github.com/codemirror/CodeMirror/">github</a>
-  (<a href="http://marijnhaverbeke.nl/git/codemirror">alternate git
-  repository</a>).
-  Please <a href="http://codemirror.net/doc/reporting.html">read these
-  pointers</a> before submitting a bug. Use pull requests to submit
-  patches. All contributions must be released under the same MIT
-  license that CodeMirror uses.</p>
-
-  <p>Discussion around the project is done on
-  a <a href="http://discuss.codemirror.net">discussion forum</a>.
-  There is also
-  the <a href="http://groups.google.com/group/codemirror-announce">codemirror-announce</a>
-  list, which is only used for major announcements (such as new
-  versions). If needed, you can
-  contact <a href="mailto:marijnh@gmail.com">the maintainer</a>
-  directly.</p>
-
-  <p>A list of CodeMirror-related software that is not part of the
-  main distribution is maintained
-  on <a href="https://github.com/codemirror/CodeMirror/wiki/CodeMirror-addons">our
-  wiki</a>. Feel free to add your project.</p>
-</section>
-
-<section id=browsersupport>
-  <h2>Browser support</h2>
-  <p>The <em>desktop</em> versions of the following browsers,
-  in <em>standards mode</em> (HTML5 <code>&lt;!doctype html></code>
-  recommended) are supported:</p>
-  <table style="margin-bottom: 1em">
-    <tr><th>Firefox</th><td>version 4 and up</td></tr>
-    <tr><th>Chrome</th><td>any version</td></tr>
-    <tr><th>Safari</th><td>version 5.2 and up</td></tr>
-    <tr><th style="padding-right: 1em;">Internet Explorer</th><td>version 8 and up</td></tr>
-    <tr><th>Opera</th><td>version 9 and up</td></tr>
-  </table>
-  <p>Support for modern mobile browsers is experimental. Recent
-  versions of the iOS browser and Chrome on Android should work
-  pretty well.</p>
-</section>
-
-</article>
+</body>
+</html>
