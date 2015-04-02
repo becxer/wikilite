@@ -92,7 +92,11 @@ a.button-collapse.top-nav.full {
 }
 
 .card {
-  margin-bottom: 1rem;
+  margin: 0 0.2rem 1.3rem 0.2rem !important;
+}
+
+.card-content {
+  padding: 0 1rem 0.5rem 1rem !important;
 }
 
 .card-content p {
@@ -125,7 +129,7 @@ a.button-collapse.top-nav.full {
 
 .card-content li {
   margin-left: 2rem;
-  list-style-type: decimal;
+  list-style-type: disc;
 }
 
 .card-content pre {
