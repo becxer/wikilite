@@ -1,3 +1,7 @@
+// Released under LGPL license
+// Copyright (c) 2014- Becxer 
+// Copyright (c) 2015- ParrotJ
+
 //CONSTANTS
 var proj_path = './projects';
 var dmod_path = '../dev_modules';

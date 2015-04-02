@@ -1,3 +1,6 @@
+// Released under LGPL license
+// Copyright (c) 2014- Becxer 
+
 var express = require('express');
 var router = express.Router();
 

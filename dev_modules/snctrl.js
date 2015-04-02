@@ -1,3 +1,6 @@
+// Released under LGPL license
+// Copyright (c) 2015- ParrotJ
+
 var fs = require('fs');
 var keypth = './keys'
 var redfunc = "";

@@ -1,3 +1,7 @@
+// Released under LGPL license
+// Copyright (c) 2014- Becxer
+// Copyright (c) 2015- ParrotJ
+
 var fs = require('fs');
 var marked = require('marked');
 
