@@ -86,6 +86,10 @@ module.exports ={
 		
 	},
 	
+	md_exist : function(path){
+		return fs.existsSync(path);
+	},
+	
 	read_md : function(path){
 		var mds = [];
 		var filename = cvt_pth2fname(path);
