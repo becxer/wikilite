@@ -87,7 +87,7 @@ module.exports ={
 	},
 	
 	md_exist : function(path){
-		return fs.existsSync(path);
+		return fs.existsSync(path) && (path.split('.')[2] == 'md');
 	},
 	
 	read_md : function(path){

@@ -93,8 +93,10 @@ router.get('/edit', function(req,res){
 
 /* Post Save Page */
 router.post('/save', function(req,res){
+   
    var path = req.query.path;
    var content = req.body.content;
+   console.log(path);
    if(!mdctrl.md_exist(path)){
    		// add
    		path = path+"/"+req.body.name+".md";
