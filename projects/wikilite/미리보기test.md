@@ -1,4 +1,4 @@
-## (GitHub-Flavored) Markdown Editor
+# (GitHub-Flavored) Markdown Editor
 
 Basic useful feature list:
 

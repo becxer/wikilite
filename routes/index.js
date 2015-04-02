@@ -47,15 +47,6 @@ function render(res, ejs_name, data_obj){
 	res.render(ejs_name,default_obj);
 };
 
-function addBtn(path){
-	var add ="";
-	if(path)
-		add =  "<a href=/editor/add?path="+path+" class=\"right add\"><i class=\"mdi-action-note-add\"></i></a>"
-
-	return add;
-}
-
-
 
 // ROUTERS
 
@@ -65,8 +56,7 @@ router.get('/setting', function(req,res){
 	var data_obj = 
 	{
 		'title': '설정하기',
- 		'filters': [],
- 		'addBtn' : addBtn()
+ 		'filters': []
    	};
 
 	render(res, 'setting',data_obj);
@@ -95,11 +85,10 @@ router.get('/', function(req, res, next) {
 	{
 		'title': '위키라이트',
  		'filters': [],
- 		'mds': mdctrl.read_md(proj_path+'/FrontPage.md'),
- 		'addBtn' : addBtn()
+ 		'mds': mdctrl.read_md(proj_path+'/FrontPage.md')
    	};
     
-    render(res,'index',data_obj);
+    render(res,'front',data_obj);
 });
 
 /* Get Category Page */
@@ -111,7 +100,7 @@ router.get('/:category', function(req,res){
 		'title': req.params.category,
  		'filters': mdctrl.find_dirs(path),
  		'mds': mdctrl.find_mds(path),
- 		'addBtn' : addBtn(path)
+ 		'path': path
    	};
     
     render(res,'index',data_obj);
@@ -126,7 +115,7 @@ router.get('/:category/:filter', function(req,res){
     	'title': req.params.category,
 	 	'filters': mdctrl.find_dirs(decodeURI(proj_path+'/'+req.params.category)),
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
-	 	'addBtn' : addBtn(path)
+	 	'path': path
     };
     
     render(res,'index',data_obj);
@@ -140,7 +129,7 @@ router.get('/:category/:filter/:md', function(req,res){
 		'title': req.params.filter,
 	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category + '/' + req.params.filter}],
 	 	'mds': mdctrl.read_md(path),
-	 	'addBtn' : addBtn()
+	 	'path': path
     };
     
     render(res,'index',data_obj);   
