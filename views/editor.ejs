@@ -15,16 +15,16 @@
 
 <main>
   <div class="section no-pad-bot">
-    <form id="content" method="post" action="/editor/save">
+    <form id="content" method="post" action="/editor/save?path=<%=path%>">
 
       <div class="row">
         <div class="input-field col s4">
-          <input id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
+          <input id="name" name="name" type="text" class="validate" value="<%=name%>">
+          <label for="name">제 목</label>
         </div>
 
         <div>
-          <button class="btn waves-effect waves-light" type="submit" name="content">Submit
+          <button class="btn waves-effect waves-light" type="submit" >Submit
             <i class="mdi-content-send right"></i>
           </button>
         </div>
@@ -35,7 +35,7 @@
           <li class="active">
             <div class="collapsible-header active"><i class="mdi-editor-mode-edit"></i>작성하기</div>
             <div id="in-body" class="collapsible-body">
-              <textarea id="code" name="content" ></textarea>
+              <textarea id="code" name="content" ><%-mds.content%></textarea>
             <div id="in"></div>
           </li>
 

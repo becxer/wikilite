@@ -62,6 +62,8 @@ router.get('/add', function(req,res){
 	var data_obj = 
 	{	
 		'title':title,
+		'name':'',
+		'mds':'',
 		'filters':mdctrl.find_dirs(category_path),
 		'path':path
 	}
@@ -77,9 +79,11 @@ router.get('/edit', function(req,res){
 	var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
 	var mds = mdctrl.read_md_pure(path);
 	var title = path.split('/')[2];
+	var path_list = path.split('/');
 	var data_obj = 
 	{	
 		'title':title,
+		'name': path_list[path_list.length-1].split('.')[0],
 		'mds':mds[0],
 		'filters':mdctrl.find_dirs(category_path),
 		'path':path
@@ -89,14 +93,14 @@ router.get('/edit', function(req,res){
 
 /* Post Save Page */
 router.post('/save', function(req,res){
-
-    //파일 이름 여부를 통해 add, edit을 구별해서 path를 저장
-	var path = (req.body.name == undefined) ? req.body.path : req.body.path+"/"+req.body.name+".md";
+   var path = req.query.path;
    var content = req.body.content;
-
-	md = mdctrl.update_md(path,content)[0];
-
-	res.redirect((md.name == 'FrontPage') ? '/': encodeURI(md.urlpath));
+   if(!mdctrl.md_exist(path)){
+   		// add
+   		path = path+"/"+req.body.name+".md";
+   }
+   md = mdctrl.update_md(path,content)[0];
+   res.redirect((md.name == 'FrontPage') ? '/': encodeURI(md.urlpath));
 });
 
 
