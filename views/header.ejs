@@ -20,4 +20,13 @@
     <script src='/js/facebook.js'></script>
 	  <script src='/js/init.js'></script>
 
+    <!-- 네비게이션바 액티브 스크립트 -->
+    <script>
+      var active = "#"+decodeURI(document.location.pathname.substring(document.location.pathname.lastIndexOf("/")+1));
+
+      $(document).ready(function() {
+        $(active).addClass("active");
+      });
+    </script>
+
     

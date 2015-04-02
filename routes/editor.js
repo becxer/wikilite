@@ -22,14 +22,6 @@ var snctrl = require(dmod_path+'/snctrl.js');
 //GLOBAL VARIABLES
 var dirs = mdctrl.find_dirs(proj_path);
 
-function addBtn(path){
-    var add ="";
-    if(path)
-        add =  "<a href=/editor/add?path="+path+" class=\"right add\"><i class=\"mdi-action-note-add\"></i></a>"
-
-    return add;
-} 
-
 //Classes
 var md = {
 	'name':'title name',
@@ -71,8 +63,7 @@ router.get('/add', function(req,res){
 	{	
 		'title':title,
 		'filters':mdctrl.find_dirs(category_path),
-		'path':path,
-		'addBtn':addBtn()
+		'path':path
 	}
 	render(res,'editor',data_obj);
 

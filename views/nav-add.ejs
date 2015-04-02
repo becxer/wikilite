@@ -24,12 +24,12 @@
       </li>
 
       <% for (i in dirs) { %>
-        <li class="list bold"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
+        <li id="<%=dirs[i].name%>" class="list bold"><a href='/<%=dirs[i].name%>' class="waves-effect waves-teal"><%=dirs[i].name%></a></li>
 
         <% if (dirs[i].name == title) { %>
           <ul>
             <% for (i in filters) { %>  
-              <li class="list"><a href="<%=filters[i].urlpath%>" class="waves-effect waves-teal filter"><%=filters[i].name%></a></li>
+              <li id="<%=filters[i].name%>" class="list"><a href="<%=filters[i].urlpath%>" class="waves-effect waves-teal filter"><%=filters[i].name%></a></li>
             <% } %>
           </ul>
         <% } %>
