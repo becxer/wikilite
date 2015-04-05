@@ -60,6 +60,7 @@ router.get('/setting', function(req,res){
 	var data_obj = 
 	{
 		'title': '설정하기',
+		'category': '',
  		'filters': []
    	};
 
@@ -88,6 +89,7 @@ router.get('/', function(req, res, next) {
     var data_obj = 
 	{
 		'title': '위키라이트',
+		'category':'',
  		'filters': [],
  		'mds': mdctrl.read_md(proj_path+'/FrontPage.md')
    	};
@@ -102,6 +104,7 @@ router.get('/:category', function(req,res){
     var data_obj = 
 	{
 		'title': req.params.category,
+		'category' : req.params.category,
  		'filters': mdctrl.find_dirs(path),
  		'mds': mdctrl.find_mds(path),
  		'path': path
@@ -116,7 +119,8 @@ router.get('/:category/:filter', function(req,res){
     var path = decodeURI(proj_path+'/'+req.params.category+'/'+req.params.filter);
 	var data_obj = 
     {
-    	'title': req.params.category,
+    	'title': req.params.filter,
+		'category' : req.params.category,
 	 	'filters': mdctrl.find_dirs(decodeURI(proj_path+'/'+req.params.category)),
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
 	 	'path': path
@@ -131,6 +135,7 @@ router.get('/:category/:filter/:md', function(req,res){
     var data_obj = 
 	{
 		'title': req.params.filter,
+		'category' : req.params.category,
 	 	'filters': [{'name':'back', 'urlpath':'/'+req.params.category + '/' + req.params.filter}],
 	 	'mds': mdctrl.read_md(path),
 	 	'path': path

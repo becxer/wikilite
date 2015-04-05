@@ -113,9 +113,7 @@ module.exports ={
 	},
 
 	update_md : function(path, md_content){
-		fs.writeFile(path,md_content,function(err){
-        	if(err) throw err;
-        }); 
+		fs.writeFileSync(path,md_content);
         return this.read_md(path);
 	},
 

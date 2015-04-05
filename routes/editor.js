@@ -62,12 +62,13 @@ router.get('/add', function(req,res){
 
 	var path = req.query.path;
 	var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
-	var title = path.split('/')[2];
+	var category = path.split('/')[2];
 	var data_obj = 
 	{	
-		'title':title,
+		'title':'글작성하기',
+		'category':category,
 		'name':'',
-		'mds':'',
+		'mds':{content:''},
 		'filters':mdctrl.find_dirs(category_path),
 		'path':path
 	}
@@ -82,11 +83,12 @@ router.get('/edit', function(req,res){
 	var path = req.query.path;
 	var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
 	var mds = mdctrl.read_md_pure(path);
-	var title = path.split('/')[2];
+	var category= path.split('/')[2];
 	var path_list = path.split('/');
 	var data_obj = 
 	{	
-		'title':title,
+		'title':'글수정하기',
+		'category':category,
 		'name': path_list[path_list.length-1].split('.')[0],
 		'mds':mds[0],
 		'filters':mdctrl.find_dirs(category_path),
@@ -106,6 +108,7 @@ router.post('/save', function(req,res){
    		path = path+"/"+req.body.name+".md";
    }
    md = mdctrl.update_md(path,content)[0];
+   console.log(md);
    res.redirect((md.name == 'FrontPage') ? '/': encodeURI(md.urlpath));
 });
 
