@@ -26,7 +26,7 @@
       <ul id='dropdown' class='dropdown-content'>
         <li><a href='/editor/edit?path=<%=mds[i].path%>'><i class="mdi-editor-mode-edit"></i> Edit</a></li>
         <li class="divider"></li>
-        <li><a href="#"><i class="mdi-content-content-copy"></i> Cp Url</a></li>
+        <li><a href='<%= mds[i].urlpath %>' onclick="cp_Url(this.href); return false;"><i class="mdi-content-content-copy"></i> Cp Url</a></li>
         <li class="divider"></li>
         <li><a href="#!"><i class="mdi-action-delete"></i> Del</a></li>
       </ul>
@@ -54,5 +54,15 @@
       belowOrigin: false // Displays dropdown below the button
     }
   );
+
+  function cp_Url(url) {
+    var IE = (document.all) ? true:false;
+    if (IE) {
+      if(confirm("이 피드의 주소를 복사하시겠습니까?"))
+        window.clipboardData.setData("Text", url);
+    } else {
+      temp = prompt("이 피드의 주소입니다. Ctrl+C를 눌러 복사하세요", url);
+    }
+  }
 
 </script>
