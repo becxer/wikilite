@@ -62,11 +62,10 @@ router.get('/add', function(req,res){
 
 	var path = req.query.path;
 	var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
-	var category = path.split('/')[2];
 	var data_obj = 
 	{	
 		'title':'글작성하기',
-		'category':category,
+		'category': path.split('/')[2],
 		'name':'',
 		'mds':{content:''},
 		'filters':mdctrl.find_dirs(category_path),
@@ -81,19 +80,19 @@ router.get('/add', function(req,res){
 router.get('/edit', function(req,res){
 
 	var path = req.query.path;
-	var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
-	var mds = mdctrl.read_md_pure(path);
-	var category= path.split('/')[2];
+	var category_path = decodeURI(proj_path+'/'+
+									(path.indexOf('/') == 1) ? path.split('/')[1]:path.split('/')[2]);
 	var path_list = path.split('/');
 	var data_obj = 
 	{	
 		'title':'글수정하기',
-		'category':category,
+		'category':path.split('/')[2],
 		'name': path_list[path_list.length-1].split('.')[0],
-		'mds':mds[0],
+		'mds':mdctrl.read_md_pure(path)[0],
 		'filters':mdctrl.find_dirs(category_path),
 		'path':path
 	}
+
 	render(res,'editor', data_obj);	      
 });
 
