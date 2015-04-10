@@ -8,15 +8,16 @@ wikilite
 
 ```
  1)node.js 설치
- $sudo apt-get install nodejs
- $sudo apt-get install npm
+ $apt-get install nodejs
+ $apt-get install npm
+ $npm install nodemon
  
  
  2)git 클론
  $git clone https://github.com/becxer/wikilite.git
  $cd wikilite
  $npm install
- $nodejs start ./bin/www
+ $nodemon ./bin/www
 
  3)브라우저에서 확인하기
  http://localhost:3000 or http://[YOURADDRESS]:3000
