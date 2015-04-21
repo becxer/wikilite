@@ -3,8 +3,8 @@
 // Copyright (c) 2015- ParrotJ
 
 //CONSTANTS
-var proj_path = './projects';
-var dmod_path = '../dev_modules';
+var mdroot = './mdroot';
+var ctrls_path = '../ctrls';
 
 
 //REQUIRES
@@ -15,16 +15,16 @@ var router = express.Router();
 
 
 //MD FILE CONTROLL MODULE
-var mdctrl = require(dmod_path+'/mdctrl.js');
-mdctrl.init(proj_path);
+var mdctrl = require(ctrls_path+'/mdctrl.js');
+mdctrl.init(mdroot);
 
 
 //SESSTION CONTROLL MODULE
-var snctrl = require(dmod_path+'/snctrl.js');
+var snctrl = require(ctrls_path+'/snctrl.js');
 
 
 //GLOBAL VARIABLES
-var dirs = mdctrl.find_dirs(proj_path);
+var dirs = mdctrl.find_dirs(mdroot);
 
 //Classes
 var md = {
@@ -61,7 +61,7 @@ function sessChk(req,res,func){
 router.get('/add', function(req,res){
 
 	var path = req.query.path;
-	var category_path = decodeURI(proj_path+'/'+path.split('/')[2]);
+	var category_path = decodeURI(mdroot+'/'+path.split('/')[2]);
 	var data_obj = 
 	{	
 		'title':'글작성하기',
@@ -78,7 +78,7 @@ router.get('/add', function(req,res){
 router.get('/edit', function(req,res){
 
 	var path = req.query.path;
-	var category_path = decodeURI(proj_path+'/'+
+	var category_path = decodeURI(mdroot+'/'+
 									(path.indexOf('/') == 1) ? path.split('/')[1]:path.split('/')[2]);
 	var path_list = path.split('/');
 	var data_obj = 

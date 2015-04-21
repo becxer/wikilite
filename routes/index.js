@@ -3,8 +3,8 @@
 // Copyright (c) 2015- ParrotJ
 
 //CONSTANTS
-var proj_path = './projects';
-var dmod_path = '../dev_modules';
+var mdroot = './mdroot';
+var ctrls_path = '../ctrls';
 
 //REQUIRES
 var express = require('express');
@@ -13,14 +13,14 @@ var marked = require('marked');
 var router = express.Router();
 
 //MD FILE CONTROLL MODULE
-var mdctrl = require(dmod_path+'/mdctrl.js');
-mdctrl.init(proj_path);
+var mdctrl = require(ctrls_path+'/mdctrl.js');
+mdctrl.init(mdroot);
 
 //SESSTION CONTROLL MODULE
-var snctrl = require(dmod_path+'/snctrl.js');
+var snctrl = require(ctrls_path+'/snctrl.js');
 
 //GLOBAL VARIABLES
-var dirs = mdctrl.find_dirs(proj_path);
+var dirs = mdctrl.find_dirs(mdroot);
 
 //Classes
 var md = {
@@ -67,7 +67,7 @@ router.get('/setting', function(req,res){
 /* Get Dirs reset */
 router.get('/reset', function(req,res){
     for(var i=0; i <= dirs.length; i++) dirs.shift();
-	dirs = mdctrl.find_dirs(proj_path);
+	dirs = mdctrl.find_dirs(mdroot);
 
     res.redirect('/');
 });
@@ -87,7 +87,7 @@ router.get('/', function(req, res, next) {
 		'title': '위키라이트',
 		'category':'',
  		'filters': [],
- 		'mds': mdctrl.read_md(proj_path+'/FrontPage.md')
+ 		'mds': mdctrl.read_md(mdroot+'/FrontPage.md')
    	};
     
     render(res,'front',data_obj);
@@ -96,7 +96,7 @@ router.get('/', function(req, res, next) {
 /* Get Category Page */
 router.get('/:category', function(req,res){
 
-	var path = decodeURI(proj_path+'/'+req.params.category);
+	var path = decodeURI(mdroot+'/'+req.params.category);
     var data_obj = 
 	{
 		'title': req.params.category,
@@ -112,12 +112,12 @@ router.get('/:category', function(req,res){
 
 /* Get Filter Page Or Category MD */
 router.get('/:category/:filter', function(req,res){
-    var path = decodeURI(proj_path+'/'+req.params.category+'/'+req.params.filter);
+    var path = decodeURI(mdroot+'/'+req.params.category+'/'+req.params.filter);
 	var data_obj = 
     {
     	'title': req.params.filter,
 		'category' : req.params.category,
-	 	'filters': mdctrl.find_dirs(decodeURI(proj_path+'/'+req.params.category)),
+	 	'filters': mdctrl.find_dirs(decodeURI(mdroot+'/'+req.params.category)),
 	 	'mds': (mdctrl.check_type(path) == 'DIR') ? mdctrl.find_mds(path):mdctrl.read_md(path+'.md'),
 	 	'path': path
     };
@@ -127,7 +127,7 @@ router.get('/:category/:filter', function(req,res){
 
 /* GET MD in url page */
 router.get('/:category/:filter/:md', function(req,res){
-    var path = decodeURI(proj_path+req.path+'.md');
+    var path = decodeURI(mdroot+req.path+'.md');
     var data_obj = 
 	{
 		'title': req.params.filter,
