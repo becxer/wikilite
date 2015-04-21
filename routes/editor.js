@@ -72,8 +72,6 @@ router.get('/add', function(req,res){
 		'path':path
 	}
 	render(res,'editor',data_obj);
-
-    
 });
 
 /* Get Edit Page */

@@ -6,7 +6,6 @@
 var proj_path = './projects';
 var dmod_path = '../dev_modules';
 
-
 //REQUIRES
 var express = require('express');
 var fs = require('fs');
@@ -17,14 +16,11 @@ var router = express.Router();
 var mdctrl = require(dmod_path+'/mdctrl.js');
 mdctrl.init(proj_path);
 
-
 //SESSTION CONTROLL MODULE
 var snctrl = require(dmod_path+'/snctrl.js');
 
-
 //GLOBAL VARIABLES
 var dirs = mdctrl.find_dirs(proj_path);
-
 
 //Classes
 var md = {
