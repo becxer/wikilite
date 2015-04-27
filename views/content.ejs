@@ -28,7 +28,7 @@
         <li class="divider"></li>
         <li><a href='<%= mds[i].urlpath %>' onclick="cp_Url(this.href); return false;"><i class="mdi-content-content-copy"></i> Cp Url</a></li>
         <li class="divider"></li>
-        <li><a href="#!"><i class="mdi-action-delete"></i> Del</a></li>
+        <li><a href="/editor/delMd?path=<%=mds[i].path%>"><i class="mdi-action-delete"></i> Del</a></li>
       </ul>
 
     <% } %>  

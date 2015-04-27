@@ -109,5 +109,13 @@ router.post('/save', function(req,res){
    res.redirect((md.name == 'FrontPage') ? '/': encodeURI(md.urlpath));
 });
 
+router.get('/delMd',function(req,res){
+	var path = req.query.path;
+	var repath = path.substring(9,path.lastIndexOf('/'));
+
+	mdctrl.remove_md(path);
+
+	res.redirect('/'+repath);
+});
 
 module.exports = router;

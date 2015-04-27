@@ -117,8 +117,8 @@ module.exports ={
         return this.read_md(path);
 	},
 
-	remove_md : function(path, md_filename){ 
-		
+	remove_md : function(path){
+		fs.unlink(path);
 	},
 	
 	check_type : function(path){
