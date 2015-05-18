@@ -109,7 +109,7 @@ router.post('/save', function(req,res){
    res.redirect((md.name == 'FrontPage') ? '/': encodeURI(md.urlpath));
 });
 
-router.get('/delMd',function(req,res){
+router.get('/del',function(req,res){
 	var path = req.query.path;
 	var repath = path.substring(9,path.lastIndexOf('/'));
 
