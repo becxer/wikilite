@@ -6,8 +6,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// routers
 var routes = require('./routes/index');
 var autodeploy = require('./routes/autodeploy');
+var api = require('./routes/api');
 var editor = require('./routes/editor');
 
 var app = express();
@@ -27,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/autodeploy', autodeploy);
+app.use('/api', api);
 app.use('/editor', editor);
 app.use('/', routes);
 
