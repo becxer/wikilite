@@ -2,7 +2,8 @@ wikilite
 ======
 
 ##wikilite 란?
- * wikilite는 위키같은 할일 메모장을 사용하고 싶은 마음에서 시작되었습니다. 개인화된 위키를 지향하며 markdown문법을 사용합니다.
+ * wikilite 는 페이스북 같이 피드를 남기는 위키형 블로그입니다.
+ * 마크다운 언어를 사용하며, DB 설치가 필요 없습니다. 
 
 ##설치 및 실행방법(우분투/데비안 리눅스 기준)
 
@@ -23,10 +24,9 @@ wikilite
  http://localhost:3000 or http://[YOURADDRESS]:3000
 ```
 
-##wikilite 의 기능
- * 문서 작성
-  * Markdown 렌더링
+##개발이력
 
-##wikilite의 특징
- * DB를 전혀사용하지 않는다.
- * Markdown문법을 사용한다.
+-wikilite ver.0.0 php로 개발
+-wikilite ver.1.0 nodejs로 리뉴얼
+-wikilite ver 2.0 refactoring
+
