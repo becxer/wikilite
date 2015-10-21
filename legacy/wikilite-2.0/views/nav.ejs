@@ -1,0 +1,49 @@
+<header>
+  <!--상단 네비게이션 -->
+  <nav class="nav teal">
+    <div class="nav-wrapper teal">
+      <a class="brand-logo center "><b><%= pgtitle %></b></a>
+    </div>
+  </nav>
+
+  <!--슬라이드네비 on/off 버튼 -->
+  <div class="container">
+    <a href="#" data-activates="nav-mobile" class="button-collapse top-nav">
+      <i class="mdi-navigation-menu"></i>
+    </a>
+  </div>
+
+  <!--슬라이드네비 디렉토리 리스트 -->
+    <ul id="nav-mobile" class="side-nav fixed">
+      <li class="logo no-padding" >
+        <a id="logo-container" href="/" class="brand-logo"> 
+         <img src="/img/logo.png" />
+        </a>
+      </li>
+
+      <% for (i in categories) { %>
+        <li id="<%=categories[i].title%>" class="list bold"><a href='/<%=categories[i].title%>' class="waves-effect waves-teal"><%=categories[i].title%></a></li>
+
+        <% if (categories[i].title == pgcategory) { %>
+          <ul>
+            <% for (i in pgfilters) { %>  
+              <li id="<%=pgfilters[i].title%>" class="list"><a href="/<%=pgfilters[i].path%>" class="waves-effect waves-teal filter"><%=pgfilters[i].title%></a></li>
+            <% } %>
+          </ul>
+        <% } %>
+
+      <% } %>
+
+        <li>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+        </li>
+
+        <!--  set이 네비게이션을 가리지 않도록 마진 -->
+        <li class="for-set" style="padding-top: 1rem">&nbsp;</li>
+
+        <div class="set">
+          <li class="list bold center"><a href="#" style="font-size:1.25rem;"><i class="mdi-action-settings"></i> 설정</li></a>
+        </div>
+    </ul>
+</header>
+
