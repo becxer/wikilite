@@ -19,21 +19,12 @@ for(i in cf_str){
 	}
 }
 
-var setConfs_ = function (){
-	for (key in conf_obj){
-		console.log(key);
-		//TODO :: set config value on project
-	}
-}
-
 module.exports = {
 	getAll : function(){
 		return conf_obj;
 	},	
 	getValue : function(key){
 		return conf_obj[key];
-	},
-	setConfs : setConfs_
+	}
 };
 
-setConfs_()

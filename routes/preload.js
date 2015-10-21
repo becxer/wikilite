@@ -3,14 +3,13 @@
 // @ author becxer parrotJ
 // @ e-mail becxer87@gmail.com
 
-module.exports = {
-//TODO replace constant mdroot,mdtrash with libconf
-	front_title : '위키라이트',
+pre_obj = {
+	front_title : '',
 	add_title : '글작성하기',
 	edit_title : '글수정하기',
 	front_page : 'FrontPage',
-	mdroot : './mdroot',
-	mdtrash : './mdtrash',
+	mdroot : './',
+	mdtrash : './',
 	libpath : './libs',
 	mdctrl : function(){ 
 				var ctrl = require(this.libpath+'/libmd');
@@ -32,3 +31,9 @@ module.exports = {
 			}
 }
 
+var conf = require(pre_obj.libpath+'/libconf');
+pre_obj['front_title'] = conf.getValue('TITLE');
+pre_obj['mdroot'] += conf.getValue('MD_ROOT');
+pre_obj['mdtrash'] += conf.getValue('MD_TRASH');
+
+module.exports = pre_obj;
