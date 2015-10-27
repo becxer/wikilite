@@ -22,8 +22,8 @@ pre_obj = {
             },
     render : function (res, ejs_name, data_obj){
                 this.mdctrl().init(this.mdroot,this.mdtrash);
-                var categories = this.mdctrl().find_dirs("/");
-                var default_obj = {'categories':categories};
+                var books = this.mdctrl().find_dirs("/");
+                var default_obj = {'books':books};
                 for(i in data_obj){
                     default_obj[i] = data_obj[i];
                 }

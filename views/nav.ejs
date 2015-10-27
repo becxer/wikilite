@@ -21,13 +21,13 @@
         </a>
       </li>
 
-      <% for (i in categories) { %>
-        <li id="<%=categories[i].title%>" class="list bold"><a href='/<%=categories[i].title%>' class="waves-effect waves-teal"><%=categories[i].title%></a></li>
+      <% for (i in books) { %>
+        <li id="<%=books[i].title%>" class="list bold"><a href='/<%=books[i].title%>' class="waves-effect waves-teal"><%=books[i].title%></a></li>
 
-        <% if (categories[i].title == pgcategory) { %>
+        <% if (books[i].title == pgbook) { %>
           <ul>
-            <% for (i in pgfilters) { %>  
-              <li id="<%=pgfilters[i].title%>" class="list"><a href="/<%=pgfilters[i].path%>" class="waves-effect waves-teal filter"><%=pgfilters[i].title%></a></li>
+            <% for (i in pgchapters) { %>  
+              <li id="<%=pgchapters[i].title%>" class="list"><a href="/<%=pgchapters[i].path%>" class="waves-effect waves-teal chapter"><%=pgchapters[i].title%></a></li>
             <% } %>
           </ul>
         <% } %>

@@ -10,58 +10,58 @@ var mdctrl = pre.mdctrl();
 
 /* GET front page. */
 router.get('/', function(req, res, next) {
-	var mds = [mdctrl.read_md(pre.front_page)];
+    var pages = [mdctrl.read_md(pre.front_page)];
     var data_obj = 
-	{
-		'pgtitle': pre.front_title,
-		'pgcategory':'',
- 		'pgfilters': [],
- 		'mds': mds
-   	};
+    {
+        'pgtitle': pre.front_title,
+        'pgbook':'',
+        'pgchapters': [],
+        'pages': pages
+       };
     pre.render(res,'front',data_obj);
 });
 
-/* Get Category Page */
-router.get('/:category', function(req,res){
-	var path = decodeURI(req.params.category);
+/* Get Book */
+router.get('/:book', function(req,res){
+    var path = decodeURI(req.params.book);
     var data_obj = 
-	{
-		'pgtitle': path,
-		'pgcategory' : path,
- 		'pgfilters': mdctrl.find_dirs(path),
- 		'mds': mdctrl.find_mds(path),
- 		'path': path
-   	};
+    {
+        'pgtitle': path,
+        'pgbook' : path,
+        'pgchapters': mdctrl.find_dirs(path),
+        'pages': mdctrl.find_mds(path),
+        'path': path
+       };
     pre.render(res,'index',data_obj);
 });
 
-/* Get Filter Page or MD */
-router.get('/:category/:filter', function(req,res){
-    var path_filter = decodeURI(req.params.category+'/'+req.params.filter);
-	var path_category = decodeURI(req.params.category);
-	var data_obj = 
+/* Get Chapter */
+router.get('/:book/:chapter', function(req,res){
+    var path_chapter = decodeURI(req.params.book+'/'+req.params.chapter);
+    var path_book = decodeURI(req.params.book);
+    var data_obj = 
     {
-    	'pgtitle': req.params.filter,
-		'pgcategory' : req.params.category,
-	 	'pgfilters': mdctrl.find_dirs(path_category),
-	 	'mds' : mdctrl.find_mds(path_filter),
-	 	'path': path_filter
+        'pgtitle': req.params.chapter,
+        'pgbook' : req.params.book,
+        'pgchapters': mdctrl.find_dirs(path_book),
+        'pages' : mdctrl.find_mds(path_chapter),
+        'path': path_chapter
     };
     pre.render(res,'index',data_obj);
 });
 
-/* GET MD Page */
-router.get('/:category/:filter/:md', function(req,res){
-    var path_md = decodeURI(req.params.category + '/' + req.params.filter + '/' + req.params.md);
-    var path_filter = decodeURI(req.params.category+'/'+req.params.filter);
-	var path_category = decodeURI(req.params.category);
+/* GET Page */
+router.get('/:book/:chapter/:page', function(req,res){
+    var path_page = decodeURI(req.params.book + '/' + req.params.chapter + '/' + req.params.page);
+    var path_chapter = decodeURI(req.params.book+'/'+req.params.chapter);
+    var path_book = decodeURI(req.params.book);
     var data_obj = 
-	{
-		'pgtitle': req.params.md,
-		'pgcategory' : req.params.category,
-	 	'pgfilters': mdctrl.find_dirs(path_category),
-	 	'mds': [mdctrl.read_md(path_md)],
-	 	'path': path_filter
+    {
+        'pgtitle': req.params.md,
+        'pgbook' : req.params.book,
+        'pgchapters': mdctrl.find_dirs(path_book),
+        'pages': [mdctrl.read_md(path_page)],
+        'path': path_chapter
     }; 
     pre.render(res,'index',data_obj);   
 });
