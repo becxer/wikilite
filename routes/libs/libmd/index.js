@@ -34,7 +34,7 @@ module.exports ={
         this.root = root_path;
         this.trash = trash_path;
     },
-    
+
     find_dirs : function(path){
         var abpath = this.cvt2abpath(path);
         var dirs = [];
@@ -52,6 +52,9 @@ module.exports ={
                 });
             }
         }
+        dirs.sort(function(a,b){
+            return a.title > b.title ? 1 : a.title < b.title ? -1 : 0;
+        });
         return dirs;    
     },
 
@@ -85,7 +88,7 @@ module.exports ={
             }
         }
         mds.sort(function(a,b){
-            return a.mtime > b.mtime ? -1 : a.mtime < b.mtime ? 1 : 0;
+            return a.title > b.title ? 1 : a.title < b.title ? -1 : 0;
         });
         return mds;
     },
