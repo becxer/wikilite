@@ -8,6 +8,8 @@ var router = require('express').Router();
 var pre = require('./preload.js');
 var mdctrl = pre.mdctrl();
 
+console.log("now loading view router");
+
 /* GET front page. */
 router.get('/', function(req, res, next) {
     var pages = [mdctrl.read_md(pre.front_page)];

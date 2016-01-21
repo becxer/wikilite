@@ -3,6 +3,8 @@
 // @ author becxer parrotJ
 // @ e-mail becxer87@gmail.com
 
+console.log("now loading preload router");
+
 pre_obj = {
     front_title : '',
     add_title : '글작성하기',
