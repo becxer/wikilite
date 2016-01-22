@@ -3,6 +3,9 @@
   <nav class="nav teal">
     <div class="nav-wrapper teal">
       <a class="brand-logo center "><b><%= pgtitle %></b></a>
+      <% if(locals.path){ %>
+      <a href="/edit/add?path=<%= path %>" class="right add"><i class="mdi-action-note-add"></i></a>
+      <% } %>
     </div>
   </nav>
 
@@ -23,15 +26,13 @@
 
       <% for (i in books) { %>
         <li id="<%=books[i].title%>" class="list bold"><a href='/<%=books[i].title%>' class="waves-effect waves-teal"><%=books[i].title%></a></li>
-
-        <% if (books[i].title == pgbook) { %>
+	  <% if(books[i].title == pgbook){ %>
           <ul>
             <% for (i in pgchapters) { %>  
               <li id="<%=pgchapters[i].title%>" class="list"><a href="/<%=pgchapters[i].path%>" class="waves-effect waves-teal chapter"><%=pgchapters[i].title%></a></li>
             <% } %>
           </ul>
-        <% } %>
-
+		<% } %>
       <% } %>
 
         <li>
@@ -46,4 +47,3 @@
         </div>
     </ul>
 </header>
-

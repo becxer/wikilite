@@ -34,7 +34,7 @@ router.get('/:book', function(req,res){
         'pages': mdctrl.find_mds(path),
         'path': path
        };
-    pre.render(res,'index',data_obj);
+    pre.render(res,'viewer',data_obj);
 });
 
 /* Get Chapter */
@@ -49,7 +49,7 @@ router.get('/:book/:chapter', function(req,res){
         'pages' : mdctrl.find_mds(path_chapter),
         'path': path_chapter
     };
-    pre.render(res,'index',data_obj);
+    pre.render(res,'viewer',data_obj);
 });
 
 /* GET Page */
@@ -65,7 +65,7 @@ router.get('/:book/:chapter/:page', function(req,res){
         'pages': [mdctrl.read_md(path_page)],
         'path': path_chapter
     }; 
-    pre.render(res,'index',data_obj);   
+    pre.render(res,'viewer',data_obj);   
 });
 
 module.exports = router;
