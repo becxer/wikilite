@@ -6,25 +6,16 @@ var fs = require('fs');
 
 //load wikilite.conf
 console.log("loading wikilite.conf");
-conf_obj = {};
 
-cf_str = fs.readFileSync('wikilite.conf','utf-8').split('\n');
-console.log(cf_str);
-for(i in cf_str){
-	var oneline = cf_str[i].trim();	
-	if(oneline.length > 0 && oneline[0] != '#'){
-		var key = oneline.split(' ')[0];
-		var value = oneline.split(' ')[1];
-		conf_obj[key] = value;
-	}
-}
+cf_str = fs.readFileSync('wikilite.conf','utf-8');
+conf_obj = JSON.parse(cf_str);
 
 module.exports = {
-	getAll : function(){
-		return conf_obj;
-	},	
-	getValue : function(key){
-		return conf_obj[key];
-	}
+    getAll : function(){
+        return conf_obj;
+    },    
+    getValue : function(key){
+        return conf_obj[key];
+    }
 };
 

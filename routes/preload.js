@@ -6,10 +6,10 @@
 console.log("now loading preload router");
 
 pre_obj = {
-    front_title : '',
+    title : '',
+    front_page : '',
     add_title : '글작성하기',
     edit_title : '글수정하기',
-    front_page : 'FrontPage',
     mdroot : './',
     mdtrash : './',
     libpath : './libs',
@@ -19,7 +19,7 @@ pre_obj = {
                 return ctrl;
             },
     snctrl : function(){
-                var ctrl = require(this.libpath+'/libfbsession');
+                var ctrl = require(this.libpath+'/liblogin');
                 return ctrl;
             },
     render : function (res, ejs_name, data_obj){
@@ -34,7 +34,8 @@ pre_obj = {
 }
 
 var conf = require(pre_obj.libpath+'/libconf');
-pre_obj['front_title'] = conf.getValue('TITLE');
+pre_obj['title'] = conf.getValue('TITLE');
+pre_obj['front_page'] = conf.getValue('FRONTPAGE');
 pre_obj['mdroot'] += conf.getValue('MD_ROOT');
 pre_obj['mdtrash'] += conf.getValue('MD_TRASH');
 

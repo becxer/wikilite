@@ -10,8 +10,8 @@ var snctrl = pre.snctrl();
 
 console.log("now loading edit router");
 
-function sessChk(req,res,func){
-    snctrl.chk(req.session.user_id, func, function(){ res.redirect('/');});
+function sessCheck(req,res,func){
+    snctrl.check(req.session.user_id, func, function(){ res.redirect('/');});
 }
 
 router.get('/add', function(req,res){

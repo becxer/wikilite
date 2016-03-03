@@ -15,12 +15,12 @@ router.get('/', function(req, res, next) {
     var pages = [mdctrl.read_md(pre.front_page)];
     var data_obj = 
     {
-        'pgtitle': pre.front_title,
+        'pgtitle': pre.title,
         'pgbook':'',
         'pgchapters': [],
         'pages': pages
        };
-    pre.render(res,'front',data_obj);
+    pre.render(res,'viewer',data_obj);
 });
 
 /* Get Book */
