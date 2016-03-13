@@ -1,3 +1,4 @@
-function test_log(){
-    alert("test");
-}
+
+$("#login").click(function(){
+    $("#login-modal").openModal();
+});

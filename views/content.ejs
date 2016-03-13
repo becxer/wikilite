@@ -25,27 +25,3 @@
   </div>
 </main>
 
-
-<script>
-  $('.dropdown-button').dropdown({
-      inDuration: 250,
-      outDuration: 250,
-      constrain_width: false, // Does not change width of dropdown to that of the activator
-      hover: false, // Activate on click
-      alignment: 'right', // Aligns dropdown to left or right edge (works with constrain_width)
-      gutter: 0, // Spacing from edge
-      belowOrigin: false // Displays dropdown below the button
-    }
-  );
-
-  function cp_Url(url) {
-    var IE = (document.all) ? true:false;
-    if (IE) {
-      if(confirm("이 피드의 주소를 복사하시겠습니까?"))
-        window.clipboardData.setData("Text", url);
-    } else {
-      temp = prompt("이 피드의 주소입니다. Ctrl+C를 눌러 복사하세요", url);
-    }
-  }
-
-</script>
