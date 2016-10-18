@@ -38,7 +38,12 @@ module.exports ={
     find_dirs : function(path){
         var abpath = this.cvt2abpath(path);
         var dirs = [];
-        var files = fs.readdirSync(abpath);
+        var files = [];
+        try{
+            files = fs.readdirSync(abpath);
+        }catch(e){
+            files = [];
+        }
         for (i in files){
             var filename = files[i];
             var stat = fs.statSync(abpath + '/' + filename);
@@ -58,9 +63,10 @@ module.exports ={
         return dirs;    
     },
 
-    find_mds : function(path){
+    find_mds : function(path, sort_by, size, start, end){
         var abpath = this.cvt2abpath(path);
         var mds = [];
+        var inner_mds = [];
 
         if(fs.existsSync(abpath+'.md') && fs.statSync(abpath+'.md').isFile()){
             mds.push(this.read_md(path));
@@ -73,9 +79,13 @@ module.exports ={
             var stat = fs.statSync(abpath + '/' + filename);
             var ext = filename.substring(filename.lastIndexOf(".")+1);
             if ( stat.isDirectory() && filename != ".git" ) {
-                mds = mds.concat(this.find_mds(path + '/' +filename));
+                inner_mds.push(this.find_mds(path + '/' +filename, sort_by, size));
             }else if(stat.isFile() && ext == 'md'){
-                var content = marked(fs.readFileSync(abpath + '/' + filename,'utf-8'));
+                var origin_content = fs.readFileSync(abpath + '/' + filename,'utf-8');
+                if (size != undefined){
+                    origin_content = origin_content.split("\n").slice(0,size).join("\n");
+                }
+                var content = marked(origin_content);
                 var title = filename.split(".")[0];
                 var mdpath = ''+path+'/'+title;
                    mds.push({
@@ -87,9 +97,30 @@ module.exports ={
                 });
             }
         }
-        mds.sort(function(a,b){
-            return a.title > b.title ? 1 : a.title < b.title ? -1 : 0;
-        });
+
+        sort_func = function(a,b){return 1;};
+        switch(sort_by){
+        case 'ascend' : sort_func = function(a,b){
+            return a.title > b.title ? 1 : a.title < b.title ? -1 : 0; };
+            break;
+        case 'descend' : sort_func = function(a,b){
+            return a.title < b.title ? 1 : a.title > b.title ? -1 : 0; };
+            break;
+        case 'last_update' : sort_func = function(a,b){
+            return a.mtime < b.mtime ? 1 : a.mtime > b.mtime ? -1 : 0; };
+            break;
+        default :sort_func = function(a,b){return 1;};
+            break;
+        }
+        if(sort_by != 'last_update')mds.sort(sort_func);
+        for (i in inner_mds){
+            mds = mds.concat(inner_mds[i])
+        }
+        if(sort_by == 'last_update') mds.sort(sort_func);
+
+        if(start == undefined) start = 0;
+        if(end == undefined) end = mds.length;
+        mds = mds.slice(start,end);
         return mds;
     },
 

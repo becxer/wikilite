@@ -3,7 +3,7 @@
     <% for (i in pages) { %>
       <div class="card">
         <div class="card-title teal-text" >
-          <b><%=pages[i].title%></b>
+          <a href="/<%=pages[i].path%>"><b><%=pages[i].title%></b></a>
           <div class="right" style="">
             <a class="teal-text dropdown-button" href="#" data-activates="dropdown">
               <i class="mdi-navigation-expand-more"></i>
@@ -14,12 +14,10 @@
          <%-pages[i].content%>
         </div>
       </div>
-      <ul id='dropdown' class='dropdown-content'>
-        <li><a href='/edit/edit?path=<%=pages[i].path%>'><i class="mdi-editor-mode-edit"></i> Edit</a></li>
-        <li class="divider"></li>
-        <li><a href='/<%= pages[i].path %>' onclick="cp_Url(this.href); return false;"><i class="mdi-content-content-copy"></i> Url</a></li>
-        <li class="divider"></li>
-        <li><a href="/edit/del?path=<%=pages[i].path%>"><i class="mdi-action-delete"></i> Del</a></li>
+      <ul id='dropdown'class='dropdown-content'>
+        <li><a href='/edit/edit?path=<%=pages[i].path%>'><i class="mdi-editor-mode-edit"></i> <small>Edit</small></a></li>
+        <li><a href='/<%= pages[i].path %>' onclick="cp_Url(this.href); return false;"><i class="mdi-content-content-copy"></i> <small>Url</small></a></li>
+        <li><a href="/edit/del?path=<%=pages[i].path%>"><i class="mdi-action-delete"></i> <small>Del</small></a></li>
       </ul>
     <% } %>  
   </div>

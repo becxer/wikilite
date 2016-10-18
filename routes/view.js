@@ -26,14 +26,19 @@ router.get('/', function(req, res, next) {
 /* Get Book */
 router.get('/:book', function(req,res){
     var path = decodeURI(req.params.book);
+    var sort_by = req.query.sort_by;
+    var size = req.query.size;
+    var start = req.query.start;
+    var end = req.query.end;
     var data_obj = 
     {
-        'pgtitle': path,
+        'pgtitle': req.params.book,
         'pgbook' : path,
         'pgchapters': mdctrl.find_dirs(path),
-        'pages': mdctrl.find_mds(path),
+        'pages': mdctrl.find_mds(path, sort_by, size, start, end),
         'path': path
-       };
+    };
+    
     pre.render(res,'viewer',data_obj);
 });
 
@@ -41,12 +46,16 @@ router.get('/:book', function(req,res){
 router.get('/:book/:chapter', function(req,res){
     var path_chapter = decodeURI(req.params.book+'/'+req.params.chapter);
     var path_book = decodeURI(req.params.book);
+    var sort_by = req.query.sort_by;
+    var size = req.query.size;
+    var start = req.query.start;
+    var end = req.query.end;
     var data_obj = 
     {
-        'pgtitle': req.params.chapter,
+        'pgtitle': req.params.book + ' / ' + req.params.chapter,
         'pgbook' : req.params.book,
         'pgchapters': mdctrl.find_dirs(path_book),
-        'pages' : mdctrl.find_mds(path_chapter),
+        'pages' : mdctrl.find_mds(path_chapter, sort_by, size, start, end),
         'path': path_chapter
     };
     pre.render(res,'viewer',data_obj);
@@ -59,7 +68,7 @@ router.get('/:book/:chapter/:page', function(req,res){
     var path_book = decodeURI(req.params.book);
     var data_obj = 
     {
-        'pgtitle': req.params.md,
+        'pgtitle': req.params.book+ ' / ' + req.params.chapter + ' / ' + req.params.page,
         'pgbook' : req.params.book,
         'pgchapters': mdctrl.find_dirs(path_book),
         'pages': [mdctrl.read_md(path_page)],
@@ -69,3 +78,4 @@ router.get('/:book/:chapter/:page', function(req,res){
 });
 
 module.exports = router;
+
