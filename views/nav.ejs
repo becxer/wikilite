@@ -31,7 +31,9 @@
             <% if(books[i].title == pgbook){ %>
             <ul><% for (i in pgchapters) { %>  
                     <li id="<%=pgchapters[i].title%>" class="list">
-                    <a href="/<%=pgchapters[i].path%>" class="waves-effect waves-teal chapter"><%=pgchapters[i].title%></a>
+                    <a href="/<%=pgchapters[i].path%>" class="waves-effect waves-teal chapter">
+                       &nbsp;> <%=pgchapters[i].title%>
+                    </a>
                     </li>
             <% } %>
             </ul>
