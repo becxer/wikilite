@@ -2,7 +2,11 @@
   <!--네비게이션 상단-->
   <nav class="nav teal">
     <div class="nav-wrapper teal">
-      <a class="brand-logo center "><b><%= pgtitle %></b></a>
+      <% pgtitle_here = pgtitle %>
+      <% if( pgtitle.length > 12) { %>
+      <%    pgtitle_here = pgtitle.slice(0,12) + ".." %>
+      <% } %>
+      <a class="brand-logo center "><b><%= pgtitle_here %></b></a>
     </div>
   </nav>
 
@@ -23,7 +27,7 @@
 
       <% for (i in books) { %>
             <li id="<%=books[i].title%>" class="list bold">
-            <a href='/<%=books[i].title%>' class="waves-effect waves-teal"><%=books[i].title%></a>
+              <a href='/<%=books[i].title%>' class="waves-effect waves-teal"><%=books[i].title%></a>
             </li>
             <% if(books[i].title == pgbook){ %>
             <ul><% for (i in pgchapters) { %>  
