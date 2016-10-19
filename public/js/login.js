@@ -1,4 +1,4 @@
 
-$("#login").click(function(){
-    $("#login-modal").openModal();
+$("#signin").click(function(){
+    $("#signin-modal").openModal();
 });

@@ -1,56 +1,6 @@
-  <div id="login-modal" class="modal bottom-sheet">
-    <div class="modal-content">
-      <h4>Login</h4>
-        <div class="row">
-        <div class="input-field col s5">
-          <input id="user_id" name="user_id" type="text" class="validate">
-          <label for="id">ID</label>
-        </div>
-I       <div class="input-field col s5">
-          <input id="user_passwd" name="user_passwd" type="text" class="validate">
-          <label for="passwd">PASSWORD</label>
-        </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Confirm</a>
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-    </div>
-  </div>
-
 </body>
 <script src="/js/jquery-2.1.3.min.js"></script>
 <script src="/js/materialize.min.js"></script>
 <script src='/js/login.js'></script>
 <script src='/js/init.js'></script>
-<!-- 네비게이션바 액티브 스크립트 -->
-<script>
-  var active = "#"+decodeURI(document.location.href.substring(document.location.href.lastIndexOf("/")+1));
-
-  $(document).ready(function() {
-    $(active).addClass("active");
-  });
-  
-  $('.dropdown-button').dropdown({
-      inDuration: 250,
-      outDuration: 250,
-      constrain_width: false, // Does not change width of dropdown to that of the activator
-      hover: false, // Activate on click
-      alignment: 'right', // Aligns dropdown to left or right edge (works with constrain_width)
-      gutter: 0, // Spacing from edge
-      belowOrigin: false // Displays dropdown below the button
-    }
-  );
-
-  function cp_Url(url) {
-    var IE = (document.all) ? true:false;
-    if (IE) {
-      if(confirm("이 피드의 주소를 복사하시겠습니까?"))
-        window.clipboardData.setData("Text", url);
-    } else {
-      temp = prompt("이 피드의 주소입니다. Ctrl+C를 눌러 복사하세요", url);
-    }
-  }
-
-</script>
 </html>

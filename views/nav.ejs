@@ -3,9 +3,6 @@
   <nav class="nav teal">
     <div class="nav-wrapper teal">
       <a class="brand-logo center "><b><%= pgtitle %></b></a>
-      <% if(locals.path){ %>
-      <a href="/edit/add?path=<%= path %>" class="right add"><i class="mdi-action-note-add"></i></a>
-      <% } %>
     </div>
   </nav>
 
@@ -17,7 +14,7 @@
   </div>
 
   <!--슬라이드네비 BOOK 리스트 -->
-    <ul id="nav-mobile" class="side-nav fixed">
+    <ul id="nav-mobile" class="side-nav fixed" style="overflow: auto; transform: translateX(0px);">
       <li class="logo no-padding" >
         <a id="logo-container" href="/" class="brand-logo"> 
          <img src="/img/logo.png" />
@@ -40,11 +37,31 @@
 	    <% } %>
       <% } %>
 
-    <li class="for-set" style="padding-top: 1rem">&nbsp;</li>
-    <div class="set"> 
-    <li class="list bold center"><a href="#login" id="login" style="font-size:1.25rem;">
-    <i class="mdi-action-verified-user"></i> Login</a></li>
-    </div>
-    </ul>
+  <!--로그인 모달-->
+  <li class="for-set" style="padding-top: 1rem">&nbsp;</li>
+  <div class="set"> 
+       <li class="list bold center"><a href="#signin" id="signin" style="font-size:1.25rem;">
+       <i class="mdi-action-verified-user"></i> Sign in </a></li>
+  </div>
+  </ul>
+
+   <div id="signin-modal" class="modal container">
+   <div class="modal-content">
+     <h4>Sign in</h4>
+       <div class="row">
+       <div class="input-field col s12">
+         <input id="user_id" name="user_id" type="text" class="validate">
+         <label for="id">ID</label>
+       </div>
+       <div class="input-field col s12">
+         <input id="user_passwd" name="user_passwd" type="password" class="validate">
+         <label for="passwd">PASSWORD</label>
+       </div>
+       </div>
+   </div>
+   <div class="modal-footer">
+     <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Sign in</a>
+   </div>
+  </div>
 
 </header>
