@@ -1,5 +1,3 @@
-### Now in developing...
-
 
 wikilite
 ======
