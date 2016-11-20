@@ -1,5 +1,5 @@
 
-wikilite
+![alt wikilite](https://github.com/becxer/wikilite/raw/master/public/img/logo.png)
 ======
 
 ##What is wikilite
