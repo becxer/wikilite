@@ -29,11 +29,8 @@
       <div class="blog-header">
         <div class="container">
           <h1 class="blog-title">##DIR1##</h1>
-          <p class="lead blog-description">##README.md##</p>
-          <p>DIR has options for feed max number in one page</p>
-          <p>.wlconfig file include following data</p>
-          <p> * autoincrement-uniq 100102</p>
-          <p> * autoincrement-sort 1</p>
+          <p class="lead blog-description">README.md</p>
+          <p> *<b>_posts</b> directory include blog posts</p>
         </div>
       </div>
     </header>
@@ -42,44 +39,25 @@
       <div class="row">
         <div class="col-sm-8 blog-main">
           <div class="blog-post">
-            <h3 class="blog-post-title">0001_100102_TITLE.md</h3>
-            <p class="blog-post-meta">2017.11.12 17:40 by <a href="#">Username</a></p>
-
+            <h3 class="blog-post-title">2017-11-12-TITLE.md</h3>
+            <p class="blog-post-meta">2017.11.12 17:40 by <a href="#">Author</a></p>
             <p>This section filled with the content of markdown document.</p>
             <p>Demo content will be disappear when loading.</p>
             <p>The first section of document should include following format.</p>
-            <p>###################### (Section for header) </p>
-            <p># DATE : January 1, 2014, 17:40 </p>
-            <p># AUTHOR : Username</p>
-            <p># PRIORITY : 1 </p>
-            <p>###################### (Section for content)</p>
+            <p>--- (Section for header) </p>
+            <p>layout : post </p>
+            <p>title : "Post title" </p>
+            <p>author : "Author name"</p>
+            <p>date : Y-M-D H:M:S</p>
+            <p>order : 0001 </p>
+            <p>published : True </p>
+            <p>--- (Section for content)</p>
             <p>Here will be body of contents. Markdown format document.</p>
-            <p>###################### (Section for replies)</p>
-            <p># Reviewer1 | 2017.11.12 17:45 | blah blah replies.</p>
-            <p># Reviewer2 | 2017.11.12 17:50 | blah blah replies.</p>
-            <p>###################### (End of document)</p>
-          <hr>
-          <code>Reviewer1</code> blah blah replies. [2017.11.12 17:45]<br>
-          <code>Reviewer2</code> blah blah replies. [2017.11.12 17:50]<br>
-          <hr>
-          </div>
-
-          <div class="blog-post">
-            <h3 class="blog-post-title">0002_100103_TITLE.md</h3>
-            <p class="blog-post-meta">2017.11.12 17:40 by <a href="#">Username</a></p>
-
-            <p>This section filled with the content of markdown document.</p>
-            <p>Demo content will be disappear when loading.</p>
-            <p>The first section of document should include following format.</p>
-            <p>###################### (Section for header) </p>
-            <p># DATE : January 1, 2014, 17:40 </p>
-            <p># AUTHOR : Username</p>
-            <p>###################### (Section for content)</p>
-            <p>Here will be body of contents. Markdown format document.</p>
-            <p>###################### (Section for replies)</p>
-            <p># Reviewer1 | 2017.11.12 17:45 | blah blah replies.</p>
-            <p># Reviewer2 | 2017.11.12 17:50 | blah blah replies.</p>
-            <p>###################### (End of document)</p>
+            <p>--- (Section for replies)</p>
+            <p>id : Reviewer1
+            <p>date : Y-M-D H:M:S</p>
+            <p>comment : "blah blah replies"</p>
+            <p>---</p>
           <hr>
           <code>Reviewer1</code> blah blah replies. [2017.11.12 17:45]<br>
           <code>Reviewer2</code> blah blah replies. [2017.11.12 17:50]<br>
@@ -103,15 +81,25 @@
 
           <div class="sidebar-module sidebar-module-inset">
             <h4>[ POST TIP ]</h4>
-            <p>sort_uniq_title.md</p>
-            <p>##### Header </p>
-            <p># DATE : @ </p>
-            <p># AUTHOR : @ </p>
-            <p># PRIORITY : 1 </p>
-            <p>##### Content</p>
-            <p>Body of contents</p>
-            <p>##### Replies</p>
-            <p># ID | Time | Rep</p>
+            <p><b>Y-M-D-title.md</b></p>
+            <p>---</p>
+            <p>layout : post </p>
+            <p>title : "Post title" </p>
+            <p>author : "Name" </p>
+            <p>date : Y-M-D H:M:S</p>
+            <p>order : 0001 </p>
+            <p>published : True </p>
+            <p>---</p>
+            <p>
+            <p>Body of document.</p>
+            <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">
+            Markdown content.</a></p>
+            <p>---</p>
+            <p>id : user-id
+            <p>date : Y-M-D H:M:S</p>
+            <p>comment : "blah"</p>
+            <p>---</p>
+            <p><b>Compatible jekyll</b></p>
           </div>
 
           <div class="sidebar-module">
