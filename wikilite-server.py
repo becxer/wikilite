@@ -17,7 +17,11 @@ source_root = config["source-root"]
 if not os.path.exists(source_root):
     os.makedirs(source_root)
 
-def update_source(reset=True):
+comment_root = config["comment-root"]
+if not os.path.exists(comment_root):
+    os.makedirs(comment_root)
+    
+def update_source():
     source_giturls = config["source-giturls"]
     print("source updating...")
     for giturl in tqdm(source_giturls):
@@ -29,17 +33,11 @@ def update_source(reset=True):
             process = subprocess.Popen(["git", "clone", giturl, tab_path])
             output = process.communicate()[0]
         else:
-            process = subprocess.Popen(["git", "-C", tab_path, "add", "-A"])
+            process = subprocess.Popen(["git", "-C", tab_path, "fetch", "origin"])
             output = process.communicate()[0]
-            print(output)
-            process = subprocess.Popen(["git", "-C", tab_path, "commit", "-m", "wikilite-commit"])
+            process = subprocess.Popen(["git", "-C", tab_path, "reset", "--hard", "origin/master"])
             output = process.communicate()[0]
-            print(output)
-            process = subprocess.Popen(["git", "-C", tab_path, "pull"])
-            output = process.communicate()[0]
-            print(output)
-            
-            
+
 update_source()
 sys.exit()
 
