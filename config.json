@@ -1,7 +1,8 @@
 {
-  "source-root" : "./source",
+  "library-root" : "./library",
   "comment-root" : "./comment",
-  "source-giturls" : [
-      "https://github.com/becxer/wikilite.git"
+  "library-giturls" : [
+      "https://github.com/becxer/wikilite.git",
+      "https://github.com/becxer/pytrain.git"
   ]
 }
