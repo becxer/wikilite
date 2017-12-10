@@ -1,8 +1,10 @@
 {
+  "web-title" : "Wikilite",
   "library-root" : "./library",
   "comment-root" : "./comment",
   "library-giturls" : [
       "https://github.com/becxer/wikilite.git",
       "https://github.com/becxer/pytrain.git"
-  ]
+  ],
+  "bookpage-maxnum" : 3
 }
