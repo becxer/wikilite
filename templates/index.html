@@ -42,7 +42,11 @@
             {% endif %}
             {% for page in book_pages %}
             <div class="blog-post">
-              {{page['content']|safe}}
+              {% if page['published'] == '1' %}
+              <h3 class="blog-post-title">{{ page['title'] }}</h3>
+              <p class="blog-post-meta">{{ page['date'] }} by {{ page['author'] }}</p>
+              {{ page['content']|safe }}
+              {% endif %}
             <hr></div>
             {% endfor %}
           </div>
