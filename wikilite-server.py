@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-import sys, json, os
+from flask import Flask, render_template, redirect, url_for
+import sys, json, os, math
 from tqdm import tqdm
 import subprocess
 import mistune
@@ -27,7 +27,6 @@ def reload_config():
     config = load_json_from_file("config.json")
     library_root = config["library-root"]
     comment_root = config["comment-root"]
-    max_num = config['bookpage-maxnum']
     if not os.path.exists(library_root):
         os.makedirs(library_root)
     if not os.path.exists(comment_root):
@@ -100,22 +99,9 @@ def parse_library(root):
                     page['page_name'] = page_name
                     book['pages'].append(page)
 
-@app.route("/")
-def index():
-    intro_md = parse_readme(config['intro-md'])
-    sidetip_md = parse_readme(config['sidetip-md'])
-    return render_template(
-        "index.html",
-        web_title=web_title,
-        web_dirs=web_dirs,
-        dir_readme=intro_md['content'],
-        side_tip=sidetip_md['content'],
-        is_intro=True
-    )
-
 @app.route("/reload")
-def reload_all():
-    global root, library_root, library_dir, web_title, web_dirs
+def reload_all(startup=False):
+    global root, library_root, library_dir, web_title, web_dirs, config
     reload_config()
     library_dir = {library_root : {}}
     root = library_dir[library_root]
@@ -123,28 +109,48 @@ def reload_all():
     parse_library(root)
     web_title = config["web-title"]
     web_dirs = list(root.keys())
-    return "reloaded"
+    print(config)
+    if startup:
+        return True
+    return redirect(url_for('index'))
 
-@app.route("/book_readme/<string:book_name>/")
-def book(book_name):
-    print(root[book_name])
-    return json.dumps(root[book_name]['readme'])
+def render_book(book_name, book_readme, book_pages, max_page, is_intro):
+    sidetip_md = parse_readme(config['sidetip-md'])
+    readme_maxnum = config['readme-maxnum']
+    return render_template(
+        "index.html",
+        web_title=web_title,
+        web_dirs=web_dirs,
+        book_name=book_name,
+        book_readme=book_readme,
+        readme_maxnum=readme_maxnum,
+        book_pages=book_pages,
+        side_tip=sidetip_md,
+        max_page=max_page,
+        is_intro=is_intro
+    )
 
-@app.route("/book_pages/<string:book_name>/<int:num>/")
-def book_page(book_name, num):
-    page_list = root[book_name]['pages']
-    return json.dumps(page_list[num * max_num : num * max_num + max_num])
+@app.route("/")
+def index():
+    intro_md = parse_readme(config['intro-md'])
+    return render_book("/", intro_md, [], 0, True)
+
+@app.route("/book/<string:book_name>/<int:num>/")
+def book(book_name, num):
+    max_num = config["bookpage-maxnum"]
+    book = root[book_name]
+    page_list = book['pages']
+    now_page_list = page_list[num * max_num : num * max_num + max_num]
+    print(now_page_list)
+    max_page = math.ceil(float(len(page_list)) / float(max_num))
+    return render_book(book_name, book['readme'], now_page_list, max_page, False)
 
 @app.route("/page/<string:book_name>/<string:page_name>/")
 def page(book_name, page_name):
     for page in root[book_name]['pages']:
-        print(page['page_name'])
         if page['page_name'] == page_name:
-            print(page)
-            return json.dumps(page)
+            return page['content']
 
-dummy = reload_all()
-print(config)
-
+dummy = reload_all(startup=True)
 if __name__ == "__main__":
     app.run()

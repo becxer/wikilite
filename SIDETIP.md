@@ -2,4 +2,8 @@
 
 Here is side tip.
 
-See SIDETIP.md
+-To change tips,
+see SIDETIP.md
+
+-To reload data,
+click [reload](/reload)

@@ -1,4 +1,4 @@
-##Intro
+##Introduction
 
 This page is default main page. To fix this page, modify INTRO.md.
 
@@ -19,5 +19,6 @@ And follow the format for posting where described in below.
         Here will be body of contents.
         Markdown format document.
 
-        Compatible with jekyll also.
+
+Format has compatible with [jekyll](https://jekyllrb-ko.github.io).
 

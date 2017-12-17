@@ -16,7 +16,7 @@
           <a href="/"><h1>{{ web_title }}</h1></a>
           <nav class="nav">
             {% for dir in web_dirs %}
-            <a class="nav-link" href="#">{{dir}}</a>
+            <a class="nav-link" href="/book/{{ dir }}/0">{{dir}}</a>
             {% endfor %}
           </nav>
         </div>
@@ -25,7 +25,7 @@
       {% if not is_intro %}
       <div class="blog-header">
         <div class="container">
-          {{dir_readme|safe}}
+          {{"\n".join(book_readme['content'].split("\n")[:readme_maxnum])|safe}}
         </div>
       </div>
       {% endif %}
@@ -35,17 +35,23 @@
       <div class="row">
         <div class="col-sm-8 blog-main">
           <div>
+            {% if is_intro %}
             <div class="blog-post">
-              {% if is_intro %}
-              {{dir_readme|safe}}
-              {% endif %}
-            <hr>
-            </div>
+              {{book_readme['content']|safe}}
+            <hr></div>
+            {% endif %}
+            {% for page in book_pages %}
+            <div class="blog-post">
+              {{page['content']|safe}}
+            <hr></div>
+            {% endfor %}
           </div>
 
           {% if not is_intro %}
           <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="#">0</a>
+            {% for i in range(max_page) %}
+            <a class="btn btn-outline-primary" href="/book/{{ book_name }}/{{ i }}">{{ i+1 }}</a>
+            {% endfor %}
           </nav>
           {% endif %}
 
@@ -53,7 +59,7 @@
 
         <aside class="col-sm-3 ml-sm-auto blog-sidebar">
           <div class="sidebar-module sidebar-module-inset">
-            {{side_tip|safe}}
+            {{side_tip['content']|safe}}
           </div>
         </aside><!-- /.blog-sidebar -->
 
