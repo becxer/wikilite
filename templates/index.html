@@ -1,0 +1,72 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ web_title }}</title>
+    <link rel="icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link href="/static/css/default.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+      <div class="blog-masthead">
+        <div class="container">
+          <a href="/"><h1>{{ web_title }}</h1></a>
+          <nav class="nav">
+            {% for dir in web_dirs %}
+            <a class="nav-link" href="#">{{dir}}</a>
+            {% endfor %}
+          </nav>
+        </div>
+      </div>
+
+      {% if not is_intro %}
+      <div class="blog-header">
+        <div class="container">
+          {{dir_readme|safe}}
+        </div>
+      </div>
+      {% endif %}
+    </header>
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+          <div>
+            <div class="blog-post">
+              {% if is_intro %}
+              {{dir_readme|safe}}
+              {% endif %}
+            <hr>
+            </div>
+          </div>
+
+          {% if not is_intro %}
+          <nav class="blog-pagination">
+            <a class="btn btn-outline-primary" href="#">0</a>
+          </nav>
+          {% endif %}
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-sm-3 ml-sm-auto blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            {{side_tip|safe}}
+          </div>
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+    </main><!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>Powered by <a href="https://github.com/becxer/wikilite">wikilite</a></p>
+    </footer>
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

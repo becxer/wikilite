@@ -1,5 +1,7 @@
 {
   "web-title" : "Wikilite",
+  "intro-md" : "./INTRO.md",
+  "sidetip-md" : "./SIDETIP.md",
   "library-root" : "./library",
   "comment-root" : "./comment",
   "library-giturls" : [

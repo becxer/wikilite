@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import sys, json, os
 from tqdm import tqdm
 import subprocess
@@ -24,7 +24,7 @@ def load_json_from_file(file_path):
     return json_file
 
 def reload_config():
-    global config, userinfo, library_root, comment_root
+    global config, userinfo, library_root, comment_root, intro_md, sidetip_md
     config = load_json_from_file("config.json")
     userinfo = load_json_from_file("userinfo.json")
     library_root = config["library-root"]
@@ -38,7 +38,7 @@ def reload_config():
 def update_library(root):
     global library_root
     global library_dir
-    library_dir = {library_root : {}}    
+    library_dir = {library_root : {}}
     source_giturls = config["library-giturls"]
     print("source updating...")
     for giturl in tqdm(source_giturls):
@@ -77,7 +77,7 @@ def parse_page(path):
                 break
         page_res['content'] = markdown(content)
         return page_res
-    
+
 def parse_readme(readme_path):
     with open(readme_path) as rmd:
         content = rmd.read()
@@ -99,26 +99,37 @@ def parse_library(root):
                 for page_name in book_page_list:
                     page_path = os.path.join(fpath, page_name)
                     page = parse_page(page_path)
-                    page['page_name'] = page_name 
+                    page['page_name'] = page_name
                     book['pages'].append(page)
 
 @app.route("/")
 def index():
-    return "Index!"
+    intro_md = parse_readme(config['intro-md'])
+    sidetip_md = parse_readme(config['sidetip-md'])
+    return render_template(
+        "index.html",
+        web_title=web_title,
+        web_dirs=web_dirs,
+        dir_readme=intro_md['content'],
+        side_tip=sidetip_md['content'],
+        is_intro=True
+    )
 
 @app.route("/reload")
 def reload_all():
+    global root, library_root, library_dir, web_title, web_dirs
     reload_config()
     library_dir = {library_root : {}}
     root = library_dir[library_root]
     update_library(root)
     parse_library(root)
     web_title = config["web-title"]
-    web_dirs = list(root.keys())    
+    web_dirs = list(root.keys())
     return "reloaded"
 
 @app.route("/book_readme/<string:book_name>/")
 def book(book_name):
+    print(root[book_name])
     return json.dumps(root[book_name]['readme'])
 
 @app.route("/book_pages/<string:book_name>/<int:num>/")
@@ -129,9 +140,13 @@ def book_page(book_name, num):
 @app.route("/page/<string:book_name>/<string:page_name>/")
 def page(book_name, page_name):
     for page in root[book_name]['pages']:
+        print(page['page_name'])
         if page['page_name'] == page_name:
+            print(page)
             return json.dumps(page)
 
 dummy = reload_all()
+print(config)
+
 if __name__ == "__main__":
     app.run()
