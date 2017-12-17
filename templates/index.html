@@ -21,25 +21,21 @@
           </nav>
         </div>
       </div>
-
-      {% if not is_intro %}
-      <div class="blog-header">
-        <div class="container">
-          {{book['readme-short']['content']|safe}}
-        </div>
-      </div>
-      {% endif %}
     </header>
 
     <main role="main" class="container">
       <div class="row">
         <div class="col-sm-8 blog-main">
           <div>
-            {% if is_intro %}
+
             <div class="blog-post">
+              {% if is_intro %}
               {{book['readme']['content']|safe}}
+              {% else %}
+              {{book['readme-short']['content']|safe}}
+              {% endif %}
             <hr></div>
-            {% endif %}
+
             {% for page in book_pages %}
             <div class="blog-post">
               {% if page['published'] == '1' %}
