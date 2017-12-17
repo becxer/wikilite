@@ -9,7 +9,6 @@ markdown = mistune.Markdown()
 app = Flask(__name__)
 
 config = {} # Configure
-userinfo = {} # User info
 root = {} # Books root
 library_dir = {} # library_dir {"library_root" : root}
 
@@ -26,7 +25,6 @@ def load_json_from_file(file_path):
 def reload_config():
     global config, userinfo, library_root, comment_root, intro_md, sidetip_md
     config = load_json_from_file("config.json")
-    userinfo = load_json_from_file("userinfo.json")
     library_root = config["library-root"]
     comment_root = config["comment-root"]
     max_num = config['bookpage-maxnum']
