@@ -1,9 +1,12 @@
-![alt text](https://github.com/becxer/wikilite/blob/master/static/img/logo.png?raw=true)
-
 ## What is wikilite
+
  * Markdown viewer
  * Auto following GitURL
  * It's like multi-repo Jekyll
+ * Easy to blog posts
+ * Easy to visualize your github.com
+ * Layout support
+ * Several themes
 
 ## How to install
 

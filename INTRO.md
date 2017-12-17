@@ -1,3 +1,5 @@
+![alt text](https://github.com/becxer/wikilite/blob/master/static/img/logo.png?raw=true)
+
 ##Introduction
 
 This page is default main page. To fix this page, modify INTRO.md.
