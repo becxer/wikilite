@@ -75,9 +75,11 @@ def parse_page(path):
         page_res['content'] = markdown(content)
         return page_res
 
-def parse_readme(readme_path):
+def parse_readme(readme_path, limit_line=-1):
     with open(readme_path) as rmd:
         content = rmd.read()
+        if limit_line > 0:
+            content = "\n".join(content.split("\n")[:limit_line])
         return {'content' : markdown(content)}
 
 def parse_library(root):
@@ -91,6 +93,7 @@ def parse_library(root):
             if fname.lower() == "readme.md" and os.path.isfile(fpath):
                 readme_path = fpath
                 book['readme'] = parse_readme(readme_path)
+                book['readme-short'] =  parse_readme(readme_path, limit_line=10)
             elif fname == "_posts" and os.path.isdir(fpath):
                 book_page_list = os.listdir(fpath)
                 for page_name in book_page_list:
@@ -114,16 +117,14 @@ def reload_all(startup=False):
         return True
     return redirect(url_for('index'))
 
-def render_book(book_name, book_readme, book_pages, max_page, is_intro):
+def render_book(book_name, book, book_pages, max_page, is_intro):
     sidetip_md = parse_readme(config['sidetip-md'])
-    readme_maxnum = config['readme-maxnum']
     return render_template(
         "index.html",
         web_title=web_title,
         web_dirs=web_dirs,
         book_name=book_name,
-        book_readme=book_readme,
-        readme_maxnum=readme_maxnum,
+        book=book,
         book_pages=book_pages,
         side_tip=sidetip_md,
         max_page=max_page,
@@ -133,7 +134,7 @@ def render_book(book_name, book_readme, book_pages, max_page, is_intro):
 @app.route("/")
 def index():
     intro_md = parse_readme(config['intro-md'])
-    return render_book("/", intro_md, [], 0, True)
+    return render_book("/", {'readme' : intro_md}, [], 0, True)
 
 @app.route("/book/<string:book_name>/<int:num>/")
 def book(book_name, num):
@@ -143,7 +144,7 @@ def book(book_name, num):
     now_page_list = page_list[num * max_num : num * max_num + max_num]
     print(now_page_list)
     max_page = math.ceil(float(len(page_list)) / float(max_num))
-    return render_book(book_name, book['readme'], now_page_list, max_page, False)
+    return render_book(book_name, book, now_page_list, max_page, False)
 
 @app.route("/page/<string:book_name>/<string:page_name>/")
 def page(book_name, page_name):
@@ -152,5 +153,9 @@ def page(book_name, page_name):
             return page['content']
 
 dummy = reload_all(startup=True)
+
 if __name__ == "__main__":
-    app.run()
+    port=5000
+    if len(sys.argv) == 2:
+        port = sys.argv[1]
+    app.run(host='0.0.0.0',port=port)

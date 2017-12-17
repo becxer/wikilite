@@ -1,15 +1,15 @@
 ![alt text](https://github.com/becxer/wikilite/blob/master/static/img/logo.png?raw=true)
 
 ## What is wikilite
- * wikilite is using only file system.
- * wikilite is multi repository markdown viewer.
- * wikilite can used like personal wiki.
+ * Markdown viewer
+ * Auto following GitURL
+ * It's like multi-repo Jekyll
 
 ## How to install
 
-```
  1) pre-required
-  $ pip install Flask mistune tqdm
+
+        $ pip install Flask mistune tqdm
 
  2) Install wikilite
 
