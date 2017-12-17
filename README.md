@@ -1,11 +1,11 @@
 ![alt text](https://github.com/becxer/wikilite/blob/master/static/img/logo.png?raw=true)
 
-##What is wikilite
+## What is wikilite
  * wikilite is using only file system.
  * wikilite is multi repository markdown viewer.
  * wikilite can used like personal wiki.
 
-##How to install
+## How to install
 
 ```
  1) pre-required
